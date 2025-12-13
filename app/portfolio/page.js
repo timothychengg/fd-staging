@@ -1,3 +1,12 @@
+export const metadata = {
+  title: "Portfolio – F&D Staging",
+  description:
+    "A selection of staged homes, lofts, and developments designed to photograph beautifully and feel instantly livable.",
+};
+
+// Static generation for better performance
+export const dynamic = "force-static";
+
 export default function PortfolioPage() {
   const projects = [
     {

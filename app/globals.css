@@ -8,10 +8,13 @@
 
 html {
   scroll-behavior: smooth;
+  /* Optimize scrolling performance */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
     "Segoe UI", sans-serif;
   color: #1f1f1f;
   background-color: #f6f4f1;
@@ -34,10 +37,165 @@ body {
   font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: none;
+  /* Performance optimization */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.btn-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-pill:active {
+  transform: translateY(0);
+}
+
+.btn-pill:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 
 .section-shell {
   max-width: 72rem;
   margin-inline: auto;
   padding-inline: 1.5rem;
+}
+
+/* Professional link styling */
+a:not(.btn-pill) {
+  transition: color 0.2s ease;
+  text-decoration: none;
+}
+
+a:not(.btn-pill):hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Form input improvements */
+input,
+textarea,
+select {
+  transition: all 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+/* Professional card hover effects */
+.group:hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Scrolling banner animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 40s linear infinite;
+  display: flex;
+  width: fit-content;
+  will-change: transform;
+}
+
+/* Pause animation on hover for better UX */
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll {
+    animation: none;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+/* Video optimization */
+video {
+  /* Hardware acceleration */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  /* Optimize rendering */
+  will-change: auto;
+  /* Prevent video controls on mobile */
+  pointer-events: none;
+  /* Smooth transitions */
+  transition: opacity 1s ease-in-out;
+}
+
+/* Accessibility improvements */
+*:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Skip to main content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #1f1f1f;
+  color: #f6f4f1;
+  padding: 8px 16px;
+  text-decoration: none;
+  z-index: 100;
+  border-radius: 0 0 4px 0;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Smooth scroll behavior */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

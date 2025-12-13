@@ -3,6 +3,10 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Logo } from './Logo';
+
+// Optimize motion components
+const MotionDiv = motion.div;
 
 const navItems = [
   { href: '/portfolio', label: 'Portfolio' },
@@ -18,15 +22,17 @@ export function Header() {
 
   return (
     <header className='sticky top-0 z-40 border-b border-luxmuted/15 bg-luxbg/80 backdrop-blur'>
+      <a href='#main-content' className='skip-link'>
+        Skip to main content
+      </a>
       <div className='section-shell flex items-center justify-between gap-4 py-4'>
-        <Link href='/' className='flex items-center gap-3'>
-          <motion.div
-            className='flex h-9 w-9 items-center justify-center rounded-full border border-luxaccent text-[0.7rem] tracking-[0.18em]'
-            whileHover={{ scale: 1.04 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+        <Link href='/' className='flex items-center gap-3' aria-label="F&D Staging Home">
+          <MotionDiv
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           >
-            F&amp;D
-          </motion.div>
+            <Logo size="default" />
+          </MotionDiv>
           <div className='flex flex-col'>
             <span className='tagline text-[0.68rem]'>F&amp;D STAGING</span>
             <span className='text-[0.7rem] text-luxmuted'>
@@ -52,7 +58,7 @@ export function Header() {
             href='/contact'
             className='btn-pill hidden bg-luxtxt text-luxbg md:inline-flex'
           >
-            Book With Us 
+            Book With Us
           </Link>
           <button
             type='button'
@@ -67,7 +73,7 @@ export function Header() {
 
       <AnimatePresence>
         {open && (
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
@@ -93,7 +99,7 @@ export function Header() {
                 Book Consult
               </Link>
             </div>
-          </motion.div>
+          </MotionDiv>
         )}
       </AnimatePresence>
     </header>

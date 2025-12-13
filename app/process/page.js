@@ -1,3 +1,12 @@
+export const metadata = {
+  title: "Process – F&D Staging",
+  description:
+    "A clear, streamlined staging process that keeps everyone aligned—agents, sellers, and our team—so the listing launches smoothly and confidently.",
+};
+
+// Static generation for better performance
+export const dynamic = "force-static";
+
 export default function ProcessPage() {
   const steps = [
     {

@@ -1,3 +1,12 @@
+export const metadata = {
+  title: "About Us – F&D Staging",
+  description:
+    "F&D Staging is a design studio focused on creating elevated, livable spaces that help listings stand out in photos and feel instantly welcoming.",
+};
+
+// Static generation for better performance
+export const dynamic = "force-static";
+
 export default function AboutPage() {
   return (
     <main className='min-h-screen bg-luxbg'>

@@ -1,3 +1,12 @@
+export const metadata = {
+  title: "Services – F&D Staging",
+  description:
+    "Full staging, partial staging, and occupied staging services tailored to the property, buyer, and market.",
+};
+
+// Static generation for better performance
+export const dynamic = "force-static";
+
 export default function ServicesPage() {
   return (
     <main className='min-h-screen bg-luxbg'>

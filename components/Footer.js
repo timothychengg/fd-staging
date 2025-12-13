@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Logo } from './Logo';
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -8,9 +9,7 @@ export function Footer() {
       <div className='section-shell grid gap-8 py-10 text-sm md:grid-cols-[2.2fr,1.2fr,1.2fr]'>
         <div className='space-y-3'>
           <div className='flex items-center gap-2'>
-            <div className='flex h-8 w-8 items-center justify-center rounded-full border border-luxaccent text-[0.7rem] tracking-[0.16em]'>
-              F&amp;D
-            </div>
+            <Logo size="small" />
             <div className='flex flex-col'>
               <span className='tagline text-[0.66rem]'>F&amp;D STAGING</span>
               <span className='text-[0.7rem] text-luxmuted'>

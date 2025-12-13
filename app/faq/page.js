@@ -1,3 +1,12 @@
+export const metadata = {
+  title: "FAQ – F&D Staging",
+  description:
+    "Answers to the questions we hear most often about staging services, pricing, and what to expect when working together.",
+};
+
+// Static generation for better performance
+export const dynamic = "force-static";
+
 const faqs = [
   {
     q: 'How much does staging cost?',
