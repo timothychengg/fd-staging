@@ -26,12 +26,16 @@ export function Header() {
         Skip to main content
       </a>
       <div className='section-shell flex items-center justify-between gap-4 py-4'>
-        <Link href='/' className='flex items-center gap-3' aria-label="F&D Staging Home">
+        <Link
+          href='/'
+          className='flex items-center gap-3'
+          aria-label='F&D Staging Home'
+        >
           <MotionDiv
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           >
-            <Logo size="default" />
+            <Logo size='default' />
           </MotionDiv>
           <div className='flex flex-col'>
             <span className='tagline text-[0.68rem]'>F&amp;D STAGING</span>
@@ -56,7 +60,7 @@ export function Header() {
         <div className='flex items-center gap-3'>
           <Link
             href='/contact'
-            className='btn-pill hidden bg-luxtxt text-luxbg md:inline-flex'
+            className='btn-pill hidden bg-luxtxt text-luxbg md:inline-flex items-center whitespace-nowrap px-4 py-2 text-xs'
           >
             Book With Us
           </Link>
