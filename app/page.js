@@ -33,21 +33,27 @@ export default function Home() {
   const featured = [
     {
       name: 'Laurel Canyon Modern',
-      area: 'Hollywood Hills • 4 bd • Modern',
+      address: '5246 Montecito Dr, Concord',
+      area: 'Concord • 5 bd • 4.5 ba • 3,589 sq ft',
       blurb:
-        'Sun-drenched modern with warm woods and sculptural decor that helped attract multiple offers in the first week.',
+        'Remodeled single-family home in gated community with master suite, updated kitchen, and great room. Sold for $1,680,000 in November 2024.',
+      image: '/concord1.webp',
     },
     {
       name: 'Brentwood Soft Minimal',
-      area: 'Brentwood • 5 bd • Transitional',
+      address: '2339 Kinetic Common Unit 202, Fremont',
+      area: 'Fremont • 3 bd • 2 ba • 1,550 sq ft',
       blurb:
-        'Soft neutrals, layered textiles, and refined silhouettes created a calm, elevated backdrop for family living.',
+        'Modern 2019 corner unit by Toll Brothers with high ceilings, spacious patio, and updated KitchenAid appliances. Resort-style community amenities.',
+      image: '/fremont1.webp',
     },
     {
       name: 'Downtown Artist Loft',
-      area: 'DTLA • Loft • Industrial',
+      address: '30 Park St, San Francisco',
+      area: 'San Francisco • 4 bd • 2 ba • 1,427 sq ft',
       blurb:
-        'Industrial shell softened with organic shapes and warm lighting for creative buyers.',
+        '1908 Victorian in Bernal Heights with renovated chef’s kitchen, formal dining, and flexible garage-level space. Sold for $1,588,000 in January 2025.',
+      image: '/sf1.webp',
     },
   ];
 
@@ -106,6 +112,7 @@ export default function Home() {
         if (containerRef.current) {
           observer.unobserve(containerRef.current);
         }
+        observer.disconnect();
       };
     }, []);
 
@@ -361,10 +368,18 @@ export default function Home() {
                 transition={{ duration: 0.45, delay: 0.12 * idx }}
                 whileHover={{ y: -6 }}
               >
-                <div className='relative h-52 bg-[#e9e2d7]'>
-                  <div className='absolute inset-0 flex items-end p-4'>
-                    <span className='text-[0.7rem] uppercase tracking-[0.18em] text-luxmuted'>
-                      {p.name}
+                <div className='relative h-52 overflow-hidden'>
+                  <Image
+                    src={p.image}
+                    alt={p.name}
+                    fill
+                    className='object-cover'
+                    sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                    quality={90}
+                  />
+                  <div className='absolute inset-0 flex items-end p-4 bg-gradient-to-t from-black/40 to-transparent'>
+                    <span className='text-[0.7rem] uppercase tracking-[0.18em] text-white'>
+                      {p.address}
                     </span>
                   </div>
                 </div>
