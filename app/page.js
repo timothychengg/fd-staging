@@ -3,254 +3,280 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, memo } from 'react';
 
-// Optimize motion components
+// Optimize motion components - memoize to prevent recreation
 const MotionDiv = motion.div;
 const MotionArticle = motion.article;
-const MotionSpan = motion.span;
 
-export default function Home() {
-  const stats = [
+// Move static data outside component to prevent recreation on every render
+const STATS = [
+  {
+    label: 'Faster Days on Market',
+    value: '48%',
+  },
+  {
+    label: 'Average Over List Price',
+    value: '15–25%',
+  },
+  {
+    label: 'Homes Styled',
+    value: '300+',
+  },
+  {
+    label: 'Listing Volume',
+    value: '$1.2B+',
+  },
+];
+
+const FEATURED_PROJECTS = [
+  {
+    name: 'Laurel Canyon Modern',
+    address: '5246 Montecito Dr, Concord',
+    area: 'Concord • 5 bd • 4.5 ba • 3,589 sq ft',
+    blurb:
+      'Remodeled single-family home in gated community with master suite, updated kitchen, and great room. Sold for $1,680,000 in November 2024.',
+    image: '/concord1.webp',
+    imageAlt:
+      'Staged living room in Concord home featuring modern furnishings and warm decor',
+  },
+  {
+    name: 'Brentwood Soft Minimal',
+    address: '2339 Kinetic Common Unit 202, Fremont',
+    area: 'Fremont • 3 bd • 2 ba • 1,550 sq ft',
+    blurb:
+      'Modern 2019 corner unit by Toll Brothers with high ceilings, spacious patio, and updated KitchenAid appliances. Resort-style community amenities.',
+    image: '/fremont1.webp',
+    imageAlt:
+      'Staged modern condominium in Fremont with contemporary minimalist design',
+  },
+  {
+    name: 'Downtown Artist Loft',
+    address: '30 Park St, San Francisco',
+    area: 'San Francisco • 4 bd • 2 ba • 1,427 sq ft',
+    blurb:
+      "1908 Victorian in Bernal Heights with renovated chef's kitchen, formal dining, and flexible garage-level space. Sold for $1,588,000 in January 2025.",
+    image: '/sf1.webp',
+    imageAlt:
+      'Staged Victorian home in San Francisco featuring elegant interior design',
+  },
+];
+
+const PARTNER_LOGOS = [
+  { name: 'Compass', image: '/Compass.png', alt: 'Compass Real Estate' },
+  {
+    name: 'Century 21',
+    image: '/century.jpeg',
+    alt: 'Century 21 Real Estate',
+  },
+  {
+    name: "Christie's",
+    image: '/christies.png',
+    alt: "Christie's International Real Estate",
+  },
+  {
+    name: 'Coldwell Banker',
+    image: '/coldwell.jpg',
+    alt: 'Coldwell Banker Real Estate',
+  },
+  { name: 'Intero', image: '/intero.webp', alt: 'Intero Real Estate' },
+  {
+    name: 'Keller Williams',
+    image: '/kw.png',
+    alt: 'Keller Williams Realty',
+  },
+];
+
+const SERVICES = [
+  {
+    title: 'Vacant Home Staging',
+    body: 'Full furnishings, art, and styling for empty homes that need a complete story online and in person.',
+  },
+  {
+    title: 'Occupied Staging & Refresh',
+    body: 'Edit, re-arrange, and layer in key pieces so clients can live comfortably while showing.',
+  },
+  {
+    title: 'Model Homes & Developments',
+    body: 'Model units and amenity spaces designed to support premium positioning and absorption.',
+  },
+];
+
+// Enhanced structured data for SEO
+const STRUCTURED_DATA = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'F&D Staging',
+  description:
+    'Luxury home staging studio in Los Angeles creating aspirational interiors that sell.',
+  url: 'https://fanddstaging.com',
+  telephone: '(408)393-2161',
+  email: 'info@fanddstaging.com',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Los Angeles',
+    addressRegion: 'CA',
+    addressCountry: 'US',
+  },
+  areaServed: [
     {
-      label: 'Faster Days on Market',
-      value: '48%',
+      '@type': 'City',
+      name: 'Los Angeles',
     },
     {
-      label: 'Average Over List Price',
-      value: '15–25%',
+      '@type': 'City',
+      name: 'Concord',
     },
     {
-      label: 'Homes Styled',
-      value: '300+',
+      '@type': 'City',
+      name: 'Fremont',
     },
     {
-      label: 'Listing Volume',
-      value: '$1.2B+',
+      '@type': 'City',
+      name: 'San Francisco',
     },
-  ];
+  ],
+  serviceType: 'Home Staging',
+  priceRange: '$$',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5',
+    reviewCount: '50+',
+  },
+};
 
-  const featured = [
-    {
-      name: 'Laurel Canyon Modern',
-      address: '5246 Montecito Dr, Concord',
-      area: 'Concord • 5 bd • 4.5 ba • 3,589 sq ft',
-      blurb:
-        'Remodeled single-family home in gated community with master suite, updated kitchen, and great room. Sold for $1,680,000 in November 2024.',
-      image: '/concord1.webp',
-    },
-    {
-      name: 'Brentwood Soft Minimal',
-      address: '2339 Kinetic Common Unit 202, Fremont',
-      area: 'Fremont • 3 bd • 2 ba • 1,550 sq ft',
-      blurb:
-        'Modern 2019 corner unit by Toll Brothers with high ceilings, spacious patio, and updated KitchenAid appliances. Resort-style community amenities.',
-      image: '/fremont1.webp',
-    },
-    {
-      name: 'Downtown Artist Loft',
-      address: '30 Park St, San Francisco',
-      area: 'San Francisco • 4 bd • 2 ba • 1,427 sq ft',
-      blurb:
-        '1908 Victorian in Bernal Heights with renovated chef’s kitchen, formal dining, and flexible garage-level space. Sold for $1,588,000 in January 2025.',
-      image: '/sf1.webp',
-    },
-  ];
+// Memoized VideoBanner component for performance
+const VideoBanner = memo(function VideoBanner() {
+  const videoRef = useRef(null);
+  const containerRef = useRef(null);
+  const [videoError, setVideoError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isInView, setIsInView] = useState(false);
 
-  const logos = [
-    { name: 'Compass', image: '/Compass.png', alt: 'Compass Real Estate' },
-    {
-      name: 'Century 21',
-      image: '/century.jpeg',
-      alt: 'Century 21 Real Estate',
-    },
-    {
-      name: "Christie's",
-      image: '/christies.png',
-      alt: "Christie's International Real Estate",
-    },
-    {
-      name: 'Coldwell Banker',
-      image: '/coldwell.jpg',
-      alt: 'Coldwell Banker Real Estate',
-    },
-    { name: 'Intero', image: '/intero.webp', alt: 'Intero Real Estate' },
-    {
-      name: 'Keller Williams',
-      image: '/kw.png',
-      alt: 'Keller Williams Realty',
-    },
-  ];
-
-  // Video banner component with optimized loading
-  const VideoBanner = () => {
-    const videoRef = useRef(null);
-    const containerRef = useRef(null);
-    const [videoError, setVideoError] = useState(false);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-    const [isInView, setIsInView] = useState(false);
-
-    // Intersection Observer for lazy loading
-    useEffect(() => {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setIsInView(true);
-            }
-          });
-        },
-        { rootMargin: '50px' }
-      );
-
-      if (containerRef.current) {
-        observer.observe(containerRef.current);
-      }
-
-      return () => {
-        if (containerRef.current) {
-          observer.unobserve(containerRef.current);
-        }
-        observer.disconnect();
-      };
-    }, []);
-
-    useEffect(() => {
-      const video = videoRef.current;
-      if (!video || !isInView) return;
-
-      // Set video properties for optimal playback
-      video.loop = true;
-      video.muted = true;
-      video.playsInline = true;
-      video.preload = 'metadata'; // Load metadata first, then play
-
-      // Handle video loaded and ready to play
-      const handleCanPlay = () => {
-        setIsLoading(false);
-        setIsLoaded(true);
-        // Ensure video plays
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {
-            // Silently handle autoplay restrictions
-            setVideoError(true);
-          });
-        }
-      };
-
-      // Handle video errors
-      const handleError = () => {
-        setIsLoading(false);
-        setVideoError(true);
-      };
-
-      // Handle when video starts loading
-      const handleLoadStart = () => {
-        setIsLoading(true);
-      };
-
-      // Add event listeners
-      video.addEventListener('canplay', handleCanPlay);
-      video.addEventListener('error', handleError);
-      video.addEventListener('loadstart', handleLoadStart);
-
-      // Try to play immediately if video is already loaded
-      if (video.readyState >= 3) {
-        handleCanPlay();
-      } else {
-        // Load video when in view
-        video.load();
-      }
-
-      return () => {
-        video.removeEventListener('canplay', handleCanPlay);
-        video.removeEventListener('error', handleError);
-        video.removeEventListener('loadstart', handleLoadStart);
-      };
-    }, [isInView]);
-
-    return (
-      <div ref={containerRef} className='absolute inset-0'>
-        {/* Fallback image - always visible as background, hidden when video loads */}
-        <div
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            videoError || !isLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
-        >
-          <Image
-            src='https://images.unsplash.com/photo-1617099404995-0a2b4d90c4f5?q=80&w=1600&auto=format&fit=crop'
-            alt='Luxury home staging'
-            fill
-            priority
-            quality={90}
-            className='object-cover'
-            sizes='100vw'
-          />
-        </div>
-
-        {/* Video background - shown when loaded successfully */}
-        {isInView && (
-          <video
-            ref={videoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
-              isLoaded && !videoError ? 'opacity-100' : 'opacity-0'
-            }`}
-            preload='metadata'
-            aria-label='Luxury home staging video background'
-            onError={(e) => {
-              if (process.env.NODE_ENV === 'development') {
-                console.error('Video error details:', e);
-                const video = e.target;
-                console.error('Video error code:', video.error?.code);
-                console.error('Video error message:', video.error?.message);
-              }
-              setVideoError(true);
-            }}
-          >
-            {/* Prioritize MP4 for best browser support */}
-            <source src='/IMG_3289.mp4' type='video/mp4' />
-            <source src='/hero-banner.mp4' type='video/mp4' />
-            <source src='/hero-banner.webm' type='video/webm' />
-          </video>
-        )}
-      </div>
+  // Intersection Observer for lazy loading
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsInView(true);
+          }
+        });
+      },
+      { rootMargin: '50px' }
     );
-  };
+
+    const currentContainer = containerRef.current;
+    if (currentContainer) {
+      observer.observe(currentContainer);
+    }
+
+    return () => {
+      if (currentContainer) {
+        observer.unobserve(currentContainer);
+      }
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !isInView) return;
+
+    // Set video properties for optimal playback
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.preload = 'metadata';
+
+    // Handle video loaded and ready to play
+    const handleCanPlay = () => {
+      setIsLoaded(true);
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          setVideoError(true);
+        });
+      }
+    };
+
+    // Handle video errors
+    const handleError = () => {
+      setVideoError(true);
+    };
+
+    // Add event listeners
+    video.addEventListener('canplay', handleCanPlay);
+    video.addEventListener('error', handleError);
+
+    // Try to play immediately if video is already loaded
+    if (video.readyState >= 3) {
+      handleCanPlay();
+    } else {
+      video.load();
+    }
+
+    return () => {
+      video.removeEventListener('canplay', handleCanPlay);
+      video.removeEventListener('error', handleError);
+    };
+  }, [isInView]);
 
   return (
+    <div ref={containerRef} className='absolute inset-0'>
+      {/* Fallback image - always visible as background, hidden when video loads */}
+      <div
+        className={`absolute inset-0 transition-opacity duration-1000 ${
+          videoError || !isLoaded ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        <Image
+          src='https://images.unsplash.com/photo-1617099404995-0a2b4d90c4f5?q=80&w=1600&auto=format&fit=crop'
+          alt='Luxury home staging interior with elegant furnishings'
+          fill
+          priority
+          quality={90}
+          className='object-cover'
+          sizes='100vw'
+        />
+      </div>
+
+      {/* Video background - shown when loaded successfully */}
+      {isInView && (
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+            isLoaded && !videoError ? 'opacity-100' : 'opacity-0'
+          }`}
+          preload='metadata'
+          aria-label='Luxury home staging video background showcasing elegant interiors'
+          onError={() => {
+            setVideoError(true);
+          }}
+        >
+          <source src='/IMG_3289.mp4' type='video/mp4' />
+          <source src='/hero-banner.mp4' type='video/mp4' />
+          <source src='/hero-banner.webm' type='video/webm' />
+        </video>
+      )}
+    </div>
+  );
+});
+
+VideoBanner.displayName = 'VideoBanner';
+
+export default function Home() {
+  return (
     <>
-      {/* Structured Data for SEO */}
+      {/* Enhanced Structured Data for SEO */}
       <script
         type='application/ld+json'
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'LocalBusiness',
-            name: 'F&D Staging',
-            description:
-              'Luxury home staging studio in Los Angeles creating aspirational interiors that sell.',
-            url: 'https://fanddstaging.com',
-            telephone: '(408)393-2161',
-            email: 'info@fanddstaging.com',
-            address: {
-              '@type': 'PostalAddress',
-              addressLocality: 'Los Angeles',
-              addressRegion: 'CA',
-              addressCountry: 'US',
-            },
-            areaServed: {
-              '@type': 'City',
-              name: 'Los Angeles',
-            },
-            serviceType: 'Home Staging',
-            priceRange: '$$',
-          }),
+          __html: JSON.stringify(STRUCTURED_DATA),
         }}
       />
       <main className='min-h-screen bg-luxbg'>
@@ -267,6 +293,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.1, ease: 'easeOut' }}
+            aria-hidden='true'
           />
           <div className='section-shell relative flex min-h-[70vh] flex-col justify-center py-20 text-luxbg z-[2]'>
             <MotionDiv
@@ -292,7 +319,7 @@ export default function Home() {
                 <Link
                   href='/contact'
                   prefetch={true}
-                  className='btn-pill bg-luxbg text-luxtxt hover:bg-luxbg/90 focus-visible:outline-luxbg'
+                  className='btn-pill bg-luxbg text-luxtxt hover:bg-luxbg/90 focus-visible:outline-luxbg focus-visible:ring-2 focus-visible:ring-luxbg/50'
                   aria-label='Book a consultation with F&D Staging'
                 >
                   Book a Consultation
@@ -300,7 +327,7 @@ export default function Home() {
                 <Link
                   href='/portfolio'
                   prefetch={true}
-                  className='btn-pill border border-luxbg/70 bg-transparent text-luxbg hover:bg-luxbg/10 focus-visible:outline-luxbg'
+                  className='btn-pill border border-luxbg/70 bg-transparent text-luxbg hover:bg-luxbg/10 focus-visible:outline-luxbg focus-visible:ring-2 focus-visible:ring-luxbg/50'
                   aria-label='View our portfolio of staged homes'
                 >
                   View Portfolio
@@ -315,9 +342,12 @@ export default function Home() {
         </section>
 
         {/* STAT BAR */}
-        <section className='border-b border-luxmuted/15 bg-white'>
+        <section
+          className='border-b border-luxmuted/15 bg-white'
+          aria-label='Performance statistics'
+        >
           <div className='section-shell grid gap-6 py-8 text-sm md:grid-cols-4'>
-            {stats.map((item, idx) => (
+            {STATS.map((item, idx) => (
               <MotionDiv
                 key={item.label}
                 initial={{ opacity: 0, y: 18 }}
@@ -335,7 +365,10 @@ export default function Home() {
         </section>
 
         {/* FEATURED PROJECTS */}
-        <section className='section-shell space-y-6 py-16'>
+        <section
+          className='section-shell space-y-6 py-16'
+          aria-label='Featured staging projects'
+        >
           <div className='flex flex-col items-start justify-between gap-4 md:flex-row md:items-end'>
             <div>
               <p className='tagline mb-2 text-luxmuted'>Featured Projects</p>
@@ -350,7 +383,7 @@ export default function Home() {
             <Link
               href='/portfolio'
               prefetch={true}
-              className='text-[0.78rem] uppercase tracking-[0.18em] text-luxtxt hover:text-luxaccent transition-colors'
+              className='text-[0.78rem] uppercase tracking-[0.18em] text-luxtxt hover:text-luxaccent transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-luxaccent focus-visible:outline-offset-2'
               aria-label='View full portfolio of staged homes'
             >
               View Full Portfolio →
@@ -358,36 +391,39 @@ export default function Home() {
           </div>
 
           <div className='grid gap-6 md:grid-cols-3'>
-            {featured.map((p, idx) => (
+            {FEATURED_PROJECTS.map((project, idx) => (
               <MotionArticle
-                key={p.name}
-                className='group flex flex-col overflow-hidden rounded-2xl bg-white shadow-[0_18px_40px_rgba(15,15,15,0.06)]'
+                key={project.name}
+                className='group flex flex-col overflow-hidden rounded-2xl bg-white shadow-[0_18px_40px_rgba(15,15,15,0.06)] transition-shadow hover:shadow-[0_18px_50px_rgba(15,15,15,0.12)]'
                 initial={{ opacity: 0, y: 26 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.35 }}
                 transition={{ duration: 0.45, delay: 0.12 * idx }}
                 whileHover={{ y: -6 }}
               >
-                <div className='relative h-52 overflow-hidden'>
+                <div className='relative h-52 overflow-hidden bg-[#e9e2d7]'>
                   <Image
-                    src={p.image}
-                    alt={p.name}
+                    src={project.image}
+                    alt={project.imageAlt}
                     fill
-                    className='object-cover'
+                    className='object-cover transition-transform duration-500 group-hover:scale-105'
                     sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                     quality={90}
+                    loading={idx === 0 ? 'eager' : 'lazy'}
                   />
-                  <div className='absolute inset-0 flex items-end p-4 bg-gradient-to-t from-black/40 to-transparent'>
-                    <span className='text-[0.7rem] uppercase tracking-[0.18em] text-white'>
-                      {p.address}
+                  <div className='absolute inset-0 flex items-end p-4 bg-gradient-to-t from-black/50 via-black/20 to-transparent'>
+                    <span className='text-[0.7rem] uppercase tracking-[0.18em] text-white drop-shadow-lg'>
+                      {project.address}
                     </span>
                   </div>
                 </div>
                 <div className='space-y-2 p-5 text-sm'>
                   <p className='text-[0.8rem] font-medium text-luxmuted'>
-                    {p.area}
+                    {project.area}
                   </p>
-                  <p className='text-luxmuted'>{p.blurb}</p>
+                  <p className='text-luxmuted leading-relaxed'>
+                    {project.blurb}
+                  </p>
                 </div>
               </MotionArticle>
             ))}
@@ -395,7 +431,10 @@ export default function Home() {
         </section>
 
         {/* SERVICES STRIP */}
-        <section className='border-y border-luxmuted/15 bg-[#f2ede6]'>
+        <section
+          className='border-y border-luxmuted/15 bg-[#f2ede6]'
+          aria-label='Staging services'
+        >
           <div className='section-shell space-y-6 py-16'>
             <div className='flex flex-col items-start justify-between gap-4 md:flex-row md:items-end'>
               <div>
@@ -411,7 +450,7 @@ export default function Home() {
               <Link
                 href='/services'
                 prefetch={true}
-                className='text-[0.78rem] uppercase tracking-[0.18em] text-luxtxt hover:text-luxaccent transition-colors'
+                className='text-[0.78rem] uppercase tracking-[0.18em] text-luxtxt hover:text-luxaccent transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-luxaccent focus-visible:outline-offset-2'
                 aria-label='Explore our staging services'
               >
                 Explore Services →
@@ -419,30 +458,21 @@ export default function Home() {
             </div>
 
             <div className='grid gap-6 text-sm md:grid-cols-3'>
-              {[
-                {
-                  title: 'Vacant Home Staging',
-                  body: 'Full furnishings, art, and styling for empty homes that need a complete story online and in person.',
-                },
-                {
-                  title: 'Occupied Staging & Refresh',
-                  body: 'Edit, re-arrange, and layer in key pieces so clients can live comfortably while showing.',
-                },
-                {
-                  title: 'Model Homes & Developments',
-                  body: 'Model units and amenity spaces designed to support premium positioning and absorption.',
-                },
-              ].map((card, idx) => (
+              {SERVICES.map((service, idx) => (
                 <MotionDiv
-                  key={card.title}
-                  className='rounded-2xl bg-white p-5'
+                  key={service.title}
+                  className='rounded-2xl bg-white p-5 transition-shadow hover:shadow-lg'
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.4 }}
                   transition={{ duration: 0.4, delay: idx * 0.1 }}
                 >
-                  <h3 className='mb-1 text-sm font-semibold'>{card.title}</h3>
-                  <p className='text-luxmuted'>{card.body}</p>
+                  <h3 className='mb-1 text-sm font-semibold'>
+                    {service.title}
+                  </h3>
+                  <p className='text-luxmuted leading-relaxed'>
+                    {service.body}
+                  </p>
                 </MotionDiv>
               ))}
             </div>
@@ -450,12 +480,15 @@ export default function Home() {
         </section>
 
         {/* TRUST STRIP - Rolling Banner */}
-        <section className='bg-luxbg overflow-hidden'>
+        <section
+          className='bg-luxbg overflow-hidden'
+          aria-label='Trusted real estate partners'
+        >
           <div className='section-shell border-b border-luxmuted/15 py-10'>
             <p className='tagline mb-6 text-center text-luxmuted'>
               Trusted by agents and teams from
             </p>
-            <div className='relative overflow-hidden'>
+            <div className='relative overflow-hidden' aria-hidden='true'>
               {/* Gradient masks for fade effect */}
               <div className='absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-luxbg to-transparent pointer-events-none' />
               <div className='absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-luxbg to-transparent pointer-events-none' />
@@ -463,7 +496,7 @@ export default function Home() {
               {/* Scrolling container */}
               <div className='flex animate-scroll gap-x-12 px-4'>
                 {/* First set of logos */}
-                {logos.map((logo) => (
+                {PARTNER_LOGOS.map((logo) => (
                   <div
                     key={`first-${logo.name}`}
                     className='flex shrink-0 items-center justify-center px-4'
@@ -481,7 +514,7 @@ export default function Home() {
                   </div>
                 ))}
                 {/* Duplicate set for seamless loop */}
-                {logos.map((logo) => (
+                {PARTNER_LOGOS.map((logo) => (
                   <div
                     key={`second-${logo.name}`}
                     className='flex shrink-0 items-center justify-center px-4'
@@ -504,7 +537,10 @@ export default function Home() {
         </section>
 
         {/* TESTIMONIAL BAND */}
-        <section className='bg-luxtxt text-luxbg'>
+        <section
+          className='bg-luxtxt text-luxbg'
+          aria-label='Client testimonial'
+        >
           <div className='section-shell grid gap-10 py-14 md:grid-cols-[1.2fr,1fr]'>
             <MotionDiv
               initial={{ opacity: 0, y: 20 }}
@@ -513,12 +549,12 @@ export default function Home() {
               transition={{ duration: 0.5 }}
             >
               <p className='tagline mb-3 text-luxbg/70'>Client Perspective</p>
-              <p className='heading-serif text-2xl leading-relaxed md:text-3xl'>
-                “They turned an empty shell into a home buyers instantly
-                connected with—online and in person.”
-              </p>
+              <blockquote className='heading-serif text-2xl leading-relaxed md:text-3xl'>
+                "They turned an empty shell into a home buyers instantly
+                connected with—online and in person."
+              </blockquote>
               <p className='mt-3 text-sm text-luxbg/80'>
-                Alex Rivera, Listing Agent
+                — Alex Rivera, Listing Agent
               </p>
             </MotionDiv>
             <MotionDiv
@@ -528,12 +564,12 @@ export default function Home() {
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <p>
+              <p className='leading-relaxed'>
                 We are the quiet partner behind the scenes, making sure every
                 angle tells the right story for photos, showings, and open
                 houses.
               </p>
-              <p>
+              <p className='leading-relaxed'>
                 From first walkthrough to de-staging after close, the process is
                 thoughtful, organized, and built around how you work.
               </p>
@@ -542,7 +578,7 @@ export default function Home() {
         </section>
 
         {/* FINAL CTA */}
-        <section className='bg-luxbg'>
+        <section className='bg-luxbg' aria-label='Contact call to action'>
           <MotionDiv
             className='section-shell flex flex-col items-start justify-between gap-4 py-12 md:flex-row md:items-center'
             initial={{ opacity: 0, y: 24 }}
@@ -554,7 +590,7 @@ export default function Home() {
               <h2 className='heading-serif text-xl'>
                 Have a listing coming to market?
               </h2>
-              <p className='mt-2 max-w-md text-sm text-luxmuted'>
+              <p className='mt-2 max-w-md text-sm text-luxmuted leading-relaxed'>
                 Share the basics—address, timeline, and a few photos—and we will
                 follow up with recommendations and a clear proposal.
               </p>
@@ -562,7 +598,7 @@ export default function Home() {
             <Link
               href='/contact'
               prefetch={true}
-              className='btn-pill bg-luxtxt text-luxbg hover:bg-luxtxt/90 focus-visible:outline-luxtxt'
+              className='btn-pill bg-luxtxt text-luxbg hover:bg-luxtxt/90 focus-visible:outline-luxtxt focus-visible:ring-2 focus-visible:ring-luxtxt/50'
               aria-label='Start a new staging project'
             >
               Start a Project
