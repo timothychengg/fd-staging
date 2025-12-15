@@ -1,11 +1,23 @@
 export const metadata = {
-  title: "FAQ – F&D Staging",
+  title: 'FAQ – F&D Staging',
   description:
-    "Answers to the questions we hear most often about staging services, pricing, and what to expect when working together.",
+    'Answers to the questions we hear most often about staging services, pricing, and what to expect when working together.',
+  openGraph: {
+    title: 'FAQ – F&D Staging',
+    description:
+      'Answers to the questions we hear most often about staging services, pricing, and what to expect when working together.',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'FAQ – F&D Staging',
+    description:
+      'Answers to the questions we hear most often about staging services, pricing, and what to expect when working together.',
+  },
 };
 
 // Static generation for better performance
-export const dynamic = "force-static";
+export const dynamic = 'force-static';
 
 const faqs = [
   {

@@ -1,11 +1,23 @@
 export const metadata = {
-  title: "Services – F&D Staging",
+  title: 'Services – F&D Staging',
   description:
-    "Full staging, partial staging, and occupied staging services tailored to the property, buyer, and market.",
+    'Full staging, partial staging, and occupied staging services tailored to the property, buyer, and market.',
+  openGraph: {
+    title: 'Services – F&D Staging',
+    description:
+      'Full staging, partial staging, and occupied staging services tailored to the property, buyer, and market.',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Services – F&D Staging',
+    description:
+      'Full staging, partial staging, and occupied staging services tailored to the property, buyer, and market.',
+  },
 };
 
 // Static generation for better performance
-export const dynamic = "force-static";
+export const dynamic = 'force-static';
 
 export default function ServicesPage() {
   return (

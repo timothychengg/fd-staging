@@ -1,11 +1,23 @@
 export const metadata = {
-  title: "Process – F&D Staging",
+  title: 'Process – F&D Staging',
   description:
-    "A clear, streamlined staging process that keeps everyone aligned—agents, sellers, and our team—so the listing launches smoothly and confidently.",
+    'A clear, streamlined staging process that keeps everyone aligned—agents, sellers, and our team—so the listing launches smoothly and confidently.',
+  openGraph: {
+    title: 'Process – F&D Staging',
+    description:
+      'A clear, streamlined staging process that keeps everyone aligned—agents, sellers, and our team—so the listing launches smoothly and confidently.',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Process – F&D Staging',
+    description:
+      'A clear, streamlined staging process that keeps everyone aligned—agents, sellers, and our team—so the listing launches smoothly and confidently.',
+  },
 };
 
 // Static generation for better performance
-export const dynamic = "force-static";
+export const dynamic = 'force-static';
 
 export default function ProcessPage() {
   const steps = [

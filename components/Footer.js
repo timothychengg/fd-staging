@@ -1,7 +1,8 @@
 import Link from 'next/link';
+import { memo } from 'react';
 import { Logo } from './Logo';
 
-export function Footer() {
+export const Footer = memo(function Footer() {
   const year = new Date().getFullYear();
 
   return (
@@ -9,7 +10,7 @@ export function Footer() {
       <div className='section-shell grid gap-8 py-10 text-sm md:grid-cols-[2.2fr,1.2fr,1.2fr]'>
         <div className='space-y-3'>
           <div className='flex items-center gap-2'>
-            <Logo size="small" />
+            <Logo size='small' />
             <div className='flex flex-col'>
               <span className='tagline text-[0.66rem]'>F&amp;D STAGING</span>
               <span className='text-[0.7rem] text-luxmuted'>
@@ -42,10 +43,18 @@ export function Footer() {
             (408)393-2161
           </p>
           <div className='mt-2 flex flex-col text-[0.8rem] text-luxmuted'>
-            <Link href='/portfolio' className='hover:text-luxtxt'>
+            <Link
+              href='/portfolio'
+              prefetch={true}
+              className='hover:text-luxtxt'
+            >
               Portfolio
             </Link>
-            <Link href='/services' className='hover:text-luxtxt'>
+            <Link
+              href='/services'
+              prefetch={true}
+              className='hover:text-luxtxt'
+            >
               Services
             </Link>
           </div>
@@ -60,4 +69,4 @@ export function Footer() {
       </div>
     </footer>
   );
-}
+});

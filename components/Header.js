@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Logo } from './Logo';
 
@@ -17,7 +17,7 @@ const navItems = [
   { href: '/faq', label: 'FAQ' },
 ];
 
-export function Header() {
+export const Header = memo(function Header() {
   const [open, setOpen] = useState(false);
 
   return (
@@ -50,6 +50,7 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
+              prefetch={true}
               className='uppercase tracking-[0.18em] hover:text-luxtxt'
             >
               {item.label}
@@ -89,6 +90,7 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  prefetch={true}
                   onClick={() => setOpen(false)}
                   className='uppercase tracking-[0.18em] text-luxmuted'
                 >
@@ -97,6 +99,7 @@ export function Header() {
               ))}
               <Link
                 href='/contact'
+                prefetch={true}
                 onClick={() => setOpen(false)}
                 className='btn-pill bg-luxtxt text-center text-luxbg'
               >
@@ -108,4 +111,4 @@ export function Header() {
       </AnimatePresence>
     </header>
   );
-}
+});

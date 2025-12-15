@@ -1,20 +1,30 @@
 export const metadata = {
-  title: "About Us – F&D Staging",
+  title: 'About Us – F&D Staging',
   description:
-    "F&D Staging is a design studio focused on creating elevated, livable spaces that help listings stand out in photos and feel instantly welcoming.",
+    'F&D Staging is a design studio focused on creating elevated, livable spaces that help listings stand out in photos and feel instantly welcoming.',
+  openGraph: {
+    title: 'About Us – F&D Staging',
+    description:
+      'F&D Staging is a design studio focused on creating elevated, livable spaces that help listings stand out in photos and feel instantly welcoming.',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About Us – F&D Staging',
+    description:
+      'F&D Staging is a design studio focused on creating elevated, livable spaces that help listings stand out in photos and feel instantly welcoming.',
+  },
 };
 
 // Static generation for better performance
-export const dynamic = "force-static";
+export const dynamic = 'force-static';
 
 export default function AboutPage() {
   return (
     <main className='min-h-screen bg-luxbg'>
       <section className='section-shell border-b border-luxmuted/15 py-14'>
         <p className='tagline mb-3 text-luxmuted'>About Us</p>
-        <h1 className='heading-serif text-3xl mb-3'>
-          Fiona and Daniel
-        </h1>
+        <h1 className='heading-serif text-3xl mb-3'>Fiona and Daniel</h1>
         <p className='max-w-xl text-sm text-luxmuted'>
           F&amp;D Staging is a design studio focused on creating elevated,
           livable spaces that help listings stand out in photos and feel
