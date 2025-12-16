@@ -373,8 +373,8 @@ export default function Home() {
                 </Link>
               </div>
               <p className='text-[0.72rem] uppercase tracking-[0.18em] text-luxbg/70'>
-                Serving Greater Los Angeles • Trusted by agents, developers, and
-                homeowners
+                Serving the San Francisco Bay Area • Trusted by agents,
+                developers, and homeowners
               </p>
             </MotionDiv>
           </div>

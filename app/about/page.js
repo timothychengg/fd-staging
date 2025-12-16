@@ -130,31 +130,31 @@ export default function AboutPage() {
             <article className='space-y-3 rounded-2xl border border-luxmuted/15 bg-white p-6 transition-shadow hover:shadow-lg'>
               <div className='flex items-center gap-3'>
                 <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#e9e2d7] text-sm font-medium text-luxtxt'>
-                  JS
+                  TC
                 </div>
                 <div>
                   <h3 className='text-sm font-semibold text-luxtxt'>
-                    Jessica Smith
+                    Timothy Cheng
                   </h3>
                   <p className='text-[0.8rem] text-luxmuted'>
-                    Operations Manager
+                    Operations &amp; Strategy
                   </p>
                 </div>
               </div>
               <p className='text-luxmuted leading-relaxed'>
-                Jessica keeps every project on track—from consultation through
-                de-staging—managing logistics, timelines, and communication with
-                precision.
+                Timothy oversees operations and client strategy, aligning
+                logistics, budgets, and timelines so every project runs smoothly
+                and delivers on the brief.
               </p>
             </article>
             <article className='space-y-3 rounded-2xl border border-luxmuted/15 bg-white p-6 transition-shadow hover:shadow-lg'>
               <div className='flex items-center gap-3'>
                 <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#e9e2d7] text-sm font-medium text-luxtxt'>
-                  MR
+                  TL
                 </div>
                 <div>
                   <h3 className='text-sm font-semibold text-luxtxt'>
-                    Michael Rodriguez
+                    Teresa Lu
                   </h3>
                   <p className='text-[0.8rem] text-luxmuted'>
                     Design Associate
@@ -162,8 +162,9 @@ export default function AboutPage() {
                 </div>
               </div>
               <p className='text-luxmuted leading-relaxed'>
-                Michael pairs contemporary cues with timeless design to craft
-                spaces that feel current, cohesive, and ready to sell.
+                Teresa refines each vignette with a balance of color, texture,
+                and proportion—ensuring every room feels cohesive, elevated, and
+                buyer-ready.
               </p>
             </article>
           </div>

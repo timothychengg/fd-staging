@@ -158,7 +158,7 @@ export default function ContactPage() {
           <div>
             <h2 className='tagline mb-1 text-[0.7rem] text-luxtxt'>Studio</h2>
             <p>
-              Los Angeles, CA
+              San Francisco Bay Area, CA
               <br />
               By appointment only
             </p>

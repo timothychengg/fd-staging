@@ -56,7 +56,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'F&D Staging – Luxury Home Staging & Styling',
     description:
-      'Luxury home staging studio in Los Angeles creating aspirational interiors that sell.',
+      'Luxury home staging studio in the San Francisco Bay Area creating aspirational interiors that sell.',
     creator: '@fanddstaging',
   },
   robots: {
