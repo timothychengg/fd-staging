@@ -39,14 +39,10 @@ export default function AboutPage() {
                 Fiona and Daniel
               </h1>
               <p className='max-w-xl text-sm leading-relaxed text-luxmuted'>
-                Fiona and Daniel, the husband-and-wife team behind F&amp;D
-                Staging, share a passion for interior design and creating
-                beautiful, functional spaces. We founded our company to help
-                clients present their homes at their best—using thoughtful
-                design, quality furnishings, and a curated aesthetic that
-                attracts buyers and increases a property's market value. We love
-                what we do and take pride in staging that elevates every listing
-                and helps our clients achieve stronger, faster results.
+                Fiona and Daniel lead F&amp;D Staging with a shared focus on
+                livable design that sells. They combine interiors expertise,
+                market insight, and disciplined execution to present every
+                listing at its best and deliver stronger, faster results.
               </p>
             </div>
             <div className='space-y-4 text-luxmuted'>
@@ -58,9 +54,9 @@ export default function AboutPage() {
                   and homeowners who care about presentation.
                 </p>
                 <p>
-                  Our team is intentionally lean and detail-focused. That means
-                  clear communication, thoughtful edits, and staging that
-                  respects both the property and your time.
+                  Our team stays lean and detail-focused, with clear
+                  communication, thoughtful edits, and staging that respects
+                  both the property and your time.
                 </p>
               </div>
             </div>
@@ -89,8 +85,8 @@ export default function AboutPage() {
               Founding Team
             </h2>
             <p className='text-sm text-luxmuted max-w-2xl'>
-              Meet the team behind F&amp;D Staging—dedicated professionals
-              committed to transforming properties into homes that sell.
+              The team behind F&amp;D Staging—partners to agents, developers,
+              and homeowners who need polished, market-ready interiors.
             </p>
           </div>
           <div className='grid gap-6 text-sm md:grid-cols-2 lg:grid-cols-4'>
@@ -109,9 +105,9 @@ export default function AboutPage() {
                 </div>
               </div>
               <p className='text-luxmuted leading-relaxed'>
-                Daniel brings a background in design, real estate, and visual
-                storytelling. He is obsessed with natural light, sightlines, and
-                the small details that make a room feel finished.
+                Daniel blends design, real estate, and visual storytelling. He
+                obsesses over light, sightlines, and the details that make a
+                space feel finished.
               </p>
             </article>
             <article className='space-y-3 rounded-2xl border border-luxmuted/15 bg-white p-6 transition-shadow hover:shadow-lg'>
@@ -127,8 +123,8 @@ export default function AboutPage() {
                 </div>
               </div>
               <p className='text-luxmuted leading-relaxed'>
-                Fiona focuses on textiles, layering, and styled moments that
-                draw buyers deeper into the space—both in photos and in person.
+                Fiona elevates spaces through textiles, layering, and styled
+                moments that pull buyers deeper—online and in person.
               </p>
             </article>
             <article className='space-y-3 rounded-2xl border border-luxmuted/15 bg-white p-6 transition-shadow hover:shadow-lg'>
@@ -146,9 +142,9 @@ export default function AboutPage() {
                 </div>
               </div>
               <p className='text-luxmuted leading-relaxed'>
-                Jessica ensures every project runs smoothly from consultation to
-                de-staging. She coordinates logistics, timelines, and client
-                communication with precision and care.
+                Jessica keeps every project on track—from consultation through
+                de-staging—managing logistics, timelines, and communication with
+                precision.
               </p>
             </article>
             <article className='space-y-3 rounded-2xl border border-luxmuted/15 bg-white p-6 transition-shadow hover:shadow-lg'>
@@ -166,9 +162,8 @@ export default function AboutPage() {
                 </div>
               </div>
               <p className='text-luxmuted leading-relaxed'>
-                Michael brings fresh perspectives to each staging project,
-                combining contemporary trends with timeless design principles to
-                create spaces that resonate with today's buyers.
+                Michael pairs contemporary cues with timeless design to craft
+                spaces that feel current, cohesive, and ready to sell.
               </p>
             </article>
           </div>

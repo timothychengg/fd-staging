@@ -28,7 +28,7 @@ export default function PortfolioPage() {
       meta: 'Hollywood Hills · 4 bd · Modern',
       result: 'Sold in 6 days at 18% over list.',
       description:
-        'Light-filled open-plan home staged with warm woods, sculptural decor, and layered textiles to highlight the indoor–outdoor flow.',
+        'Light-filled modern staged with warm woods, sculptural decor, and layered textiles to emphasize indoor–outdoor flow.',
     },
     {
       name: 'Brentwood Soft Minimal',
@@ -42,14 +42,14 @@ export default function PortfolioPage() {
       meta: 'DTLA · Loft · Industrial',
       result: 'All-cash offer within 10 days.',
       description:
-        'Industrial bones softened with organic shapes, vintage-inspired pieces, and warm lighting for creative buyers.',
+        'Industrial shell softened with organic forms, vintage-inspired pieces, and warm lighting tailored to creative buyers.',
     },
     {
       name: 'Silver Lake Bungalow',
       meta: 'Silver Lake · 3 bd · Bungalow',
       result: 'Sold over asking after first open house.',
       description:
-        'Playful yet polished staging with layered art and color that kept the home feeling fresh and approachable.',
+        'Playful, polished staging with layered art and color to keep the bungalow feeling fresh and approachable.',
     },
   ];
 
@@ -64,8 +64,8 @@ export default function PortfolioPage() {
             </h1>
             <p className='max-w-xl text-sm text-luxmuted'>
               A selection of staged homes, lofts, and developments designed to
-              photograph beautifully and feel instantly livable when buyers walk
-              through the door.
+              photograph beautifully and feel immediately livable when buyers
+              walk through.
             </p>
           </div>
           <div className='relative aspect-[4/3] w-full rounded-xl overflow-hidden border border-luxmuted/10 bg-luxbg shadow-[0_4px_12px_rgba(15,15,15,0.08)]'>

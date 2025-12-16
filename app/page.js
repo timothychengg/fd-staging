@@ -20,10 +20,6 @@ const STATS = [
     value: '15–25%',
   },
   {
-    label: 'Listing Volume',
-    value: '300M+',
-  },
-  {
     label: 'Average Sale Time',
     value: '21 Days',
   },
@@ -35,6 +31,10 @@ const STATS = [
     label: 'Years Experience',
     value: '5+',
   },
+  {
+    label: 'Listing Volume',
+    value: '300M+',
+  },
 ];
 
 const FEATURED_PROJECTS = [
@@ -43,7 +43,7 @@ const FEATURED_PROJECTS = [
     address: '5246 Montecito Dr, Concord',
     area: 'Concord • 5 bd • 4.5 ba • 3,589 sq ft',
     blurb:
-      'Remodeled single-family home in gated community with master suite, updated kitchen, and great room. Sold for $1,680,000 in November 2024.',
+      'Open-plan home with warm woods, sculptural decor, and layered textiles to highlight indoor–outdoor flow. Sold for $1,680,000 in 6 days.',
     image: '/concord1.webp',
     imageAlt:
       'Staged living room in Concord home featuring modern furnishings and warm decor',
@@ -53,7 +53,7 @@ const FEATURED_PROJECTS = [
     address: '2339 Kinetic Common Unit 202, Fremont',
     area: 'Fremont • 3 bd • 2 ba • 1,550 sq ft',
     blurb:
-      'Modern 2019 corner unit by Toll Brothers with high ceilings, spacious patio, and updated KitchenAid appliances. Resort-style community amenities.',
+      'Corner unit staged with soft neutrals, plush textures, and tailored silhouettes to create a calm, elevated backdrop.',
     image: '/fremont1.webp',
     imageAlt:
       'Staged modern condominium in Fremont with contemporary minimalist design',
@@ -63,7 +63,7 @@ const FEATURED_PROJECTS = [
     address: '30 Park St, San Francisco',
     area: 'San Francisco • 4 bd • 2 ba • 1,427 sq ft',
     blurb:
-      "1908 Victorian in Bernal Heights with renovated chef's kitchen, formal dining, and flexible garage-level space. Sold for $1,588,000 in January 2025.",
+      'Industrial loft softened with organic shapes, vintage-inspired pieces, and warm lighting to appeal to creative buyers.',
     image: '/sf1.webp',
     imageAlt:
       'Staged Victorian home in San Francisco featuring elegant interior design',
@@ -98,15 +98,15 @@ const PARTNER_LOGOS = [
 const SERVICES = [
   {
     title: 'Vacant Home Staging',
-    body: 'Full furnishings, art, and styling for empty homes that need a complete story online and in person.',
+    body: 'Complete furnishings, art, and styling so empty homes present a clear, cohesive story.',
   },
   {
     title: 'Occupied Staging & Refresh',
-    body: 'Edit, re-arrange, and layer in key pieces so clients can live comfortably while showing.',
+    body: 'Edit, re-arrange, and layer key pieces so clients can live comfortably while showing.',
   },
   {
     title: 'Model Homes & Developments',
-    body: 'Model units and amenity spaces designed to support premium positioning and absorption.',
+    body: 'Model units and amenity spaces designed to support premium positioning and faster absorption.',
   },
 ];
 
@@ -325,9 +325,9 @@ export default function Home() {
                 Elevate the offer.
               </h1>
               <p className='max-w-md text-sm text-luxbg/85'>
-                F&amp;D Staging transforms empty rooms into warm, aspirational
-                homes that photograph beautifully, show effortlessly, and sell
-                faster at higher prices.
+                F&amp;D Staging turns empty properties into inviting,
+                market-ready homes that photograph crisply, show beautifully,
+                and sell faster at stronger prices.
               </p>
               <div className='flex flex-wrap gap-4 pt-1'>
                 <Link
@@ -348,8 +348,8 @@ export default function Home() {
                 </Link>
               </div>
               <p className='text-[0.72rem] uppercase tracking-[0.18em] text-luxbg/70'>
-                Serving Greater Los Angeles • Trusted by agents, developers
-                &amp; homeowners
+                Serving Greater Los Angeles • Trusted by agents, developers, and
+                homeowners
               </p>
             </MotionDiv>
           </div>
@@ -360,24 +360,26 @@ export default function Home() {
           className='border-b border-luxmuted/15 bg-white'
           aria-labelledby='stats-heading'
         >
-          <div className='section-shell grid gap-6 py-8 text-sm md:grid-cols-3 lg:grid-cols-6'>
-            <h2 id='stats-heading' className='sr-only'>
-              Performance statistics
-            </h2>
-            {STATS.map((item, idx) => (
-              <MotionDiv
-                key={item.label}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.45, delay: idx * 0.08 }}
-              >
-                <div className='heading-serif text-2xl'>{item.value}</div>
-                <p className='mt-1 text-[0.72rem] uppercase tracking-[0.18em] text-luxmuted'>
-                  {item.label}
-                </p>
-              </MotionDiv>
-            ))}
+          <div className='section-shell overflow-x-auto'>
+            <div className='grid min-w-max auto-cols-fr grid-flow-col gap-6 py-8 text-sm'>
+              <h2 id='stats-heading' className='sr-only'>
+                Performance statistics
+              </h2>
+              {STATS.map((item, idx) => (
+                <MotionDiv
+                  key={item.label}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: 0.45, delay: idx * 0.08 }}
+                >
+                  <div className='heading-serif text-2xl'>{item.value}</div>
+                  <p className='mt-1 text-[0.72rem] uppercase tracking-[0.18em] text-luxmuted'>
+                    {item.label}
+                  </p>
+                </MotionDiv>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -460,7 +462,7 @@ export default function Home() {
                   Staging that meets the moment.
                 </h2>
                 <p className='mt-2 max-w-md text-sm text-luxmuted'>
-                  Tailored services for vacant homes, occupied listings, and new
+                  Tailored support for vacant homes, occupied listings, and new
                   developments—each with a clear, predictable process.
                 </p>
               </div>
@@ -567,8 +569,8 @@ export default function Home() {
             >
               <p className='tagline mb-3 text-luxbg/70'>Client Perspective</p>
               <blockquote className='heading-serif text-2xl leading-relaxed md:text-3xl'>
-                "They turned an empty shell into a home buyers instantly
-                connected with—online and in person."
+                "They turned an empty shell into a home buyers connected with—
+                online and in person."
               </blockquote>
               <p className='mt-3 text-sm text-luxbg/80'>
                 — Alex Rivera, Listing Agent
@@ -608,8 +610,8 @@ export default function Home() {
                 Have a listing coming to market?
               </h2>
               <p className='mt-2 max-w-md text-sm text-luxmuted leading-relaxed'>
-                Share the basics—address, timeline, and a few photos—and we will
-                follow up with recommendations and a clear proposal.
+                Share the address, timeline, and a few photos—we will follow up
+                with recommendations and a clear, fast proposal.
               </p>
             </div>
             <Link
