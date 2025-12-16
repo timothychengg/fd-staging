@@ -65,7 +65,7 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
-          <div className='relative aspect-[4/3] w-full rounded-xl overflow-hidden border border-luxmuted/10 bg-luxbg shadow-[0_4px_12px_rgba(15,15,15,0.08)]'>
+          <div className='relative aspect-[4/3] w-full rounded-xl overflow-hidden border border-luxmuted/10 bg-luxbg shadow-[0_4px_12px_rgba(15,15,15,0.08)] md:mt-12'>
             <Image
               src='/family-photo.jpg'
               alt='Fiona and Daniel with their family in a sun-dappled forest setting'
