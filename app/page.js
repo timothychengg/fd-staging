@@ -20,16 +20,8 @@ const STATS = [
     value: '15–25%',
   },
   {
-    label: 'Homes Styled',
-    value: '40+',
-  },
-  {
     label: 'Listing Volume',
     value: '300M+',
-  },
-  {
-    label: 'Client Satisfaction',
-    value: '98%',
   },
   {
     label: 'Average Sale Time',
@@ -37,7 +29,7 @@ const STATS = [
   },
   {
     label: 'ROI on Staging',
-    value: '586%',
+    value: '286%',
   },
   {
     label: 'Years Experience',
@@ -301,7 +293,7 @@ export default function Home() {
           __html: JSON.stringify(STRUCTURED_DATA),
         }}
       />
-      <main className='min-h-screen bg-luxbg'>
+      <main id='main-content' className='min-h-screen bg-luxbg'>
         {/* HERO */}
         <section
           className='relative overflow-hidden min-h-[70vh]'
@@ -366,9 +358,12 @@ export default function Home() {
         {/* STAT BAR */}
         <section
           className='border-b border-luxmuted/15 bg-white'
-          aria-label='Performance statistics'
+          aria-labelledby='stats-heading'
         >
-          <div className='section-shell grid gap-6 py-8 text-sm md:grid-cols-4 lg:grid-cols-8'>
+          <div className='section-shell grid gap-6 py-8 text-sm md:grid-cols-3 lg:grid-cols-6'>
+            <h2 id='stats-heading' className='sr-only'>
+              Performance statistics
+            </h2>
             {STATS.map((item, idx) => (
               <MotionDiv
                 key={item.label}
