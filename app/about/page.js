@@ -25,15 +25,10 @@ export default function AboutPage() {
   return (
     <main className='min-h-screen bg-luxbg'>
       <section className='section-shell border-b border-luxmuted/15 py-14'>
-        <div className='grid gap-8 md:grid-cols-2 md:items-center'>
+        <div className='grid gap-6 md:grid-cols-[1.2fr,1fr] md:items-start'>
           <div>
             <p className='tagline mb-3 text-luxmuted'>About Us</p>
             <h1 className='heading-serif text-3xl mb-3'>Fiona and Daniel</h1>
-            <p className='max-w-xl text-sm text-luxmuted'>
-              F&amp;D Staging is a design studio focused on creating elevated,
-              livable spaces that help listings stand out in photos and feel
-              instantly welcoming in person.
-            </p>
             <p className='max-w-xl text-sm text-luxmuted mt-4'>
               Fiona and Daniel, the husband-and-wife team behind F&amp;D
               Staging, share a passion for interior design and creating
@@ -45,13 +40,13 @@ export default function AboutPage() {
               clients achieve stronger, faster results.
             </p>
           </div>
-          <div className='relative h-80 md:h-96 rounded-2xl overflow-hidden shadow-[0_18px_40px_rgba(15,15,15,0.06)]'>
+          <div className='relative aspect-[4/3] w-full rounded-xl overflow-hidden border border-luxmuted/10 bg-luxbg shadow-sm'>
             <Image
               src='/family-photo.jpg'
               alt='Fiona and Daniel with their family in a sun-dappled forest'
               fill
-              className='object-cover'
-              sizes='(max-width: 768px) 100vw, 50vw'
+              className='object-cover object-center'
+              sizes='(max-width: 768px) 100vw, 40vw'
               quality={80}
               priority
             />
