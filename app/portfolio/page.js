@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export const metadata = {
   title: 'Portfolio – F&D Staging',
   description:
@@ -54,15 +56,30 @@ export default function PortfolioPage() {
   return (
     <main className='min-h-screen bg-luxbg'>
       <section className='section-shell border-b border-luxmuted/15 py-14'>
-        <p className='tagline mb-3 text-luxmuted'>Portfolio</p>
-        <h1 className='heading-serif text-3xl mb-3'>
-          Spaces that sold the story.
-        </h1>
-        <p className='max-w-xl text-sm text-luxmuted'>
-          A selection of staged homes, lofts, and developments designed to
-          photograph beautifully and feel instantly livable when buyers walk
-          through the door.
-        </p>
+        <div className='grid gap-6 md:grid-cols-[1.2fr,1fr] md:items-start'>
+          <div>
+            <p className='tagline mb-3 text-luxmuted'>Portfolio</p>
+            <h1 className='heading-serif text-3xl mb-3'>
+              Spaces that sold the story.
+            </h1>
+            <p className='max-w-xl text-sm text-luxmuted'>
+              A selection of staged homes, lofts, and developments designed to
+              photograph beautifully and feel instantly livable when buyers walk
+              through the door.
+            </p>
+          </div>
+          <div className='relative aspect-[4/3] w-full rounded-xl overflow-hidden border border-luxmuted/10 bg-luxbg shadow-[0_4px_12px_rgba(15,15,15,0.08)]'>
+            <Image
+              src='/13.webp'
+              alt='Staged interior showcasing F&D Staging portfolio work'
+              fill
+              className='object-cover object-center'
+              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 400px'
+              quality={85}
+              priority
+            />
+          </div>
+        </div>
       </section>
       <section className='section-shell space-y-4 py-10'>
         {projects.map((p) => (
