@@ -25,7 +25,23 @@ const STATS = [
   },
   {
     label: 'Listing Volume',
-    value: '$1.2B+',
+    value: '300M+',
+  },
+  {
+    label: 'Client Satisfaction',
+    value: '98%',
+  },
+  {
+    label: 'Average Sale Time',
+    value: '21 Days',
+  },
+  {
+    label: 'ROI on Staging',
+    value: '586%',
+  },
+  {
+    label: 'Years Experience',
+    value: '5+',
   },
 ];
 
@@ -352,7 +368,7 @@ export default function Home() {
           className='border-b border-luxmuted/15 bg-white'
           aria-label='Performance statistics'
         >
-          <div className='section-shell grid gap-6 py-8 text-sm md:grid-cols-4'>
+          <div className='section-shell grid gap-6 py-8 text-sm md:grid-cols-4 lg:grid-cols-8'>
             {STATS.map((item, idx) => (
               <MotionDiv
                 key={item.label}
