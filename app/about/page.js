@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export const metadata = {
   title: 'About Us – F&D Staging',
   description:
@@ -23,13 +25,38 @@ export default function AboutPage() {
   return (
     <main className='min-h-screen bg-luxbg'>
       <section className='section-shell border-b border-luxmuted/15 py-14'>
-        <p className='tagline mb-3 text-luxmuted'>About Us</p>
-        <h1 className='heading-serif text-3xl mb-3'>Fiona and Daniel</h1>
-        <p className='max-w-xl text-sm text-luxmuted'>
-          F&amp;D Staging is a design studio focused on creating elevated,
-          livable spaces that help listings stand out in photos and feel
-          instantly welcoming in person.
-        </p>
+        <div className='grid gap-8 md:grid-cols-2 md:items-center'>
+          <div>
+            <p className='tagline mb-3 text-luxmuted'>About Us</p>
+            <h1 className='heading-serif text-3xl mb-3'>Fiona and Daniel</h1>
+            <p className='max-w-xl text-sm text-luxmuted'>
+              F&amp;D Staging is a design studio focused on creating elevated,
+              livable spaces that help listings stand out in photos and feel
+              instantly welcoming in person.
+            </p>
+            <p className='max-w-xl text-sm text-luxmuted mt-4'>
+              Fiona and Daniel, the husband-and-wife team behind F&amp;D
+              Staging, share a passion for interior design and creating
+              beautiful, functional spaces. We founded our company to help
+              clients present their homes at their best—using thoughtful design,
+              quality furnishings, and a curated aesthetic that attracts buyers
+              and increases a property's market value. We love what we do and
+              take pride in staging that elevates every listing and helps our
+              clients achieve stronger, faster results.
+            </p>
+          </div>
+          <div className='relative h-80 md:h-96 rounded-2xl overflow-hidden shadow-[0_18px_40px_rgba(15,15,15,0.06)]'>
+            <Image
+              src='/family-photo.jpg'
+              alt='Fiona and Daniel with their family in a sun-dappled forest'
+              fill
+              className='object-cover'
+              sizes='(max-width: 768px) 100vw, 50vw'
+              quality={80}
+              priority
+            />
+          </div>
+        </div>
       </section>
       <section className='section-shell grid gap-8 py-10 text-sm md:grid-cols-2'>
         <div className='space-y-3 text-luxmuted'>

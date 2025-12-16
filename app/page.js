@@ -21,7 +21,7 @@ const STATS = [
   },
   {
     label: 'Homes Styled',
-    value: '300+',
+    value: '40+',
   },
   {
     label: 'Listing Volume',
@@ -152,6 +152,7 @@ const VideoBanner = memo(function VideoBanner() {
   const [videoError, setVideoError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   // Intersection Observer for lazy loading
   useEffect(() => {
@@ -230,15 +231,20 @@ const VideoBanner = memo(function VideoBanner() {
           videoError || !isLoaded ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        <Image
-          src='https://images.unsplash.com/photo-1617099404995-0a2b4d90c4f5?q=80&w=1600&auto=format&fit=crop'
-          alt='Luxury home staging interior with elegant furnishings'
-          fill
-          priority
-          quality={90}
-          className='object-cover'
-          sizes='100vw'
-        />
+        {!imageError ? (
+          <Image
+            src='https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1600&auto=format&fit=crop'
+            alt='Luxury home staging interior with elegant furnishings'
+            fill
+            priority
+            quality={90}
+            className='object-cover'
+            sizes='100vw'
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <div className='absolute inset-0 bg-gradient-to-br from-[#e9e2d7] via-[#d4c5b0] to-[#c4b5a0]' />
+        )}
       </div>
 
       {/* Video background - shown when loaded successfully */}
