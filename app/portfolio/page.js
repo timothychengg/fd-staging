@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export const metadata = {
   title: 'Portfolio – F&D Staging',
@@ -51,6 +52,34 @@ export default function PortfolioPage() {
       description:
         'Playful, polished staging with layered art and color to keep the bungalow feeling fresh and approachable.',
     },
+    {
+      name: 'Pasadena Craftsman',
+      meta: 'Pasadena · 4 bd · Craftsman',
+      result: 'Received 7 offers in the first weekend.',
+      description:
+        'Warm woods, tailored millwork accents, and softened lines to respect the architecture while modernizing the feel.',
+    },
+    {
+      name: 'West Hollywood Condo',
+      meta: 'West Hollywood · 2 bd · Condo',
+      result: 'Sold over list in 9 days.',
+      description:
+        'Light, textural staging with sculptural lighting to make a compact layout feel open and premium.',
+    },
+    {
+      name: 'Manhattan Beach Modern',
+      meta: 'Manhattan Beach · 5 bd · Coastal Modern',
+      result: 'All-cash offer after first showings.',
+      description:
+        'Coastal palette with clean lines and layered textiles to spotlight natural light and indoor–outdoor flow.',
+    },
+    {
+      name: 'Beverly Hills Spanish',
+      meta: 'Beverly Hills · 6 bd · Spanish Revival',
+      result: 'Closed in 14 days with multiple offers.',
+      description:
+        'Refined staging that pairs vintage-inspired pieces with modern silhouettes to honor character and elevate value.',
+    },
   ];
 
   return (
@@ -100,6 +129,27 @@ export default function PortfolioPage() {
             </div>
           </article>
         ))}
+      </section>
+      <section className='section-shell py-12'>
+        <div className='flex flex-col gap-4 rounded-2xl border border-luxmuted/15 bg-white p-6 md:flex-row md:items-center md:justify-between'>
+          <div className='space-y-2'>
+            <p className='tagline text-luxmuted'>Full Portfolio</p>
+            <h2 className='heading-serif text-xl text-luxtxt'>
+              40+ staged homes across Greater LA
+            </h2>
+            <p className='text-sm text-luxmuted'>
+              Explore the complete portfolio—request access and we will share a
+              curated set tailored to your listings.
+            </p>
+          </div>
+          <Link
+            href='/contact'
+            className='btn-pill bg-luxtxt text-luxbg hover:bg-luxtxt/90 focus-visible:outline-luxtxt focus-visible:ring-2 focus-visible:ring-luxtxt/50'
+            aria-label='Contact us to view the full portfolio'
+          >
+            Contact to View All
+          </Link>
+        </div>
       </section>
     </main>
   );

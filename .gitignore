@@ -10,4 +10,5 @@ yarn-error.log*
 .DS_Store
 .vscode
 .idea
+public/family-photo-source.png
 EOF

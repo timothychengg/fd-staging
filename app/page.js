@@ -116,20 +116,20 @@ const STRUCTURED_DATA = {
   '@type': 'LocalBusiness',
   name: 'F&D Staging',
   description:
-    'Luxury home staging studio in Los Angeles creating aspirational interiors that sell.',
+    'Luxury home staging studio in the San Francisco Bay Area creating aspirational interiors that sell.',
   url: 'https://fanddstaging.com',
   telephone: '(408)393-2161',
   email: 'info@fanddstaging.com',
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Los Angeles',
+    addressLocality: 'San Francisco Bay Area',
     addressRegion: 'CA',
     addressCountry: 'US',
   },
   areaServed: [
     {
       '@type': 'City',
-      name: 'Los Angeles',
+      name: 'San Francisco',
     },
     {
       '@type': 'City',
@@ -152,6 +152,10 @@ const STRUCTURED_DATA = {
     reviewCount: '50+',
   },
 };
+
+const VIDEO_SEGMENT_START = 2; // seconds into clip
+const VIDEO_SEGMENT_END = 18; // seconds into clip
+const VIDEO_PLAYBACK_RATE = 0.85;
 
 // Memoized VideoBanner component for performance
 const VideoBanner = memo(function VideoBanner() {
@@ -193,13 +197,23 @@ const VideoBanner = memo(function VideoBanner() {
     if (!video || !isInView) return;
 
     // Set video properties for optimal playback
-    video.loop = true;
+    video.loop = false; // we manually loop the best segment
     video.muted = true;
     video.playsInline = true;
     video.preload = 'metadata';
 
+    // Once metadata is ready, jump to the desired start segment
+    const handleLoadedMetadata = () => {
+      try {
+        video.currentTime = VIDEO_SEGMENT_START;
+      } catch (e) {
+        // ignore if seeking before ready
+      }
+    };
+
     // Handle video loaded and ready to play
     const handleCanPlay = () => {
+      video.playbackRate = VIDEO_PLAYBACK_RATE;
       setIsLoaded(true);
       const playPromise = video.play();
       if (playPromise !== undefined) {
@@ -214,9 +228,18 @@ const VideoBanner = memo(function VideoBanner() {
       setVideoError(true);
     };
 
+    const handleTimeUpdate = () => {
+      if (video.currentTime >= VIDEO_SEGMENT_END) {
+        video.currentTime = VIDEO_SEGMENT_START;
+        video.play().catch(() => setVideoError(true));
+      }
+    };
+
     // Add event listeners
+    video.addEventListener('loadedmetadata', handleLoadedMetadata);
     video.addEventListener('canplay', handleCanPlay);
     video.addEventListener('error', handleError);
+    video.addEventListener('timeupdate', handleTimeUpdate);
 
     // Try to play immediately if video is already loaded
     if (video.readyState >= 3) {
@@ -228,6 +251,8 @@ const VideoBanner = memo(function VideoBanner() {
     return () => {
       video.removeEventListener('canplay', handleCanPlay);
       video.removeEventListener('error', handleError);
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
     };
   }, [isInView]);
 
@@ -260,9 +285,9 @@ const VideoBanner = memo(function VideoBanner() {
         <video
           ref={videoRef}
           autoPlay
-          loop
           muted
           playsInline
+          poster='/13.webp'
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
             isLoaded && !videoError ? 'opacity-100' : 'opacity-0'
           }`}
@@ -272,7 +297,7 @@ const VideoBanner = memo(function VideoBanner() {
             setVideoError(true);
           }}
         >
-          <source src='/IMG_3289.mp4' type='video/mp4' />
+          <source src='/homepage-video.mp4' type='video/mp4' />
           <source src='/hero-banner.mp4' type='video/mp4' />
           <source src='/hero-banner.webm' type='video/webm' />
         </video>
@@ -317,7 +342,7 @@ export default function Home() {
               transition={{ duration: 0.7, ease: 'easeOut' }}
             >
               <p className='tagline text-luxbg/70'>
-                LUXURY HOME STAGING • LOS ANGELES
+                LUXURY HOME STAGING • SAN FRANCISCO BAY AREA
               </p>
               <h1 className='heading-serif text-4xl leading-tight md:text-5xl'>
                 Stage the home.

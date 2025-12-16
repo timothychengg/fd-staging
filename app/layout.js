@@ -17,12 +17,12 @@ export const metadata = {
     template: '%s | F&D Staging',
   },
   description:
-    'Luxury home staging studio in Los Angeles creating aspirational interiors that sell. Professional staging services for vacant homes, occupied listings, and new developments.',
+    'Luxury home staging studio in the San Francisco Bay Area creating aspirational interiors that sell. Professional staging services for vacant homes, occupied listings, and new developments.',
   keywords: [
     'home staging',
     'luxury staging',
     'real estate staging',
-    'Los Angeles staging',
+    'San Francisco Bay Area staging',
     'interior staging',
     'vacant home staging',
     'occupied staging',
@@ -38,7 +38,7 @@ export const metadata = {
   openGraph: {
     title: 'F&D Staging – Luxury Home Staging & Styling',
     description:
-      'Luxury home staging studio in Los Angeles creating aspirational interiors that sell.',
+      'Luxury home staging studio in the San Francisco Bay Area creating aspirational interiors that sell.',
     url: 'https://fanddstaging.com',
     siteName: 'F&D Staging',
     locale: 'en_US',

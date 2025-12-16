@@ -41,17 +41,17 @@ export default function AboutPage() {
               <p className='max-w-xl text-sm leading-relaxed text-luxmuted'>
                 Fiona and Daniel lead F&amp;D Staging with a shared focus on
                 livable design that sells. They combine interiors expertise,
-                market insight, and disciplined execution to present every
-                listing at its best and deliver stronger, faster results.
+                market insight, and disciplined execution to present Bay Area
+                listings at their best and deliver stronger, faster results.
               </p>
             </div>
             <div className='space-y-4 text-luxmuted'>
               <h2 className='heading-serif text-xl text-luxtxt'>Our Mission</h2>
               <div className='space-y-3 text-sm leading-relaxed'>
                 <p>
-                  Based in Los Angeles, we work across Greater LA and
-                  surrounding markets in partnership with agents, developers,
-                  and homeowners who care about presentation.
+                  Based in the San Francisco Bay Area, we partner with agents,
+                  developers, and homeowners across the region who care about
+                  presentation.
                 </p>
                 <p>
                   Our team stays lean and detail-focused, with clear
