@@ -4,160 +4,82 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export const dynamic = 'force-static';
-
 const PROJECTS = [
   {
-    name: 'Laurel Canyon Modern',
-    meta: 'Hollywood Hills · 4 bd · Modern',
-    result: 'Sold in 6 days at 18% over list.',
+    name: '5246 S Montecito Dr, Concord, CA 94521',
+    meta: 'Concord · 5 bd · 4.5 ba · 3,589 sq ft',
+    result: 'Sold for $1,680,000 in 6 days.',
     description:
-      'Light-filled modern staged with warm woods, sculptural decor, and layered textiles to emphasize indoor–outdoor flow.',
+      'Open-plan home with warm woods, sculptural decor, and layered textiles to highlight indoor–outdoor flow.',
     photos: [
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693415763-3ed5e04ba4cd?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693415763-3ed5e04ba4cd?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
+      '/concord1.webp',
+      '/concord2.webp',
+      '/concord3.webp',
+      '/concord4.webp',
+      '/concord5.webp',
+      '/concord6.webp',
+      '/concord7.webp',
+      '/concord8.webp',
+      '/concord9.webp',
+      '/concord10.webp',
+      '/concord11.webp',
     ],
   },
   {
-    name: 'Brentwood Soft Minimal',
-    meta: 'Brentwood · 5 bd · Transitional',
+    name: '2339 Kinetic Common Unit 202, Fremont, CA 94539',
+    meta: 'Fremont · 3 bd · 2 ba · 1,550 sq ft',
     result: 'Multiple offers in the first weekend.',
     description:
-      'Soft neutrals, plush textures, and refined silhouettes created a calm, elevated backdrop for family living.',
-    photos: [
-      'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693415763-3ed5e04ba4cd?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693415763-3ed5e04ba4cd?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693415763-3ed5e04ba4cd?q=80&w=1600&auto=format&fit=crop',
-    ],
+      'Corner unit staged with soft neutrals, plush textures, and tailored silhouettes to create a calm, elevated backdrop.',
+    photos: ['/fremont1.webp'],
   },
   {
-    name: 'Downtown Artist Loft',
-    meta: 'DTLA · Loft · Industrial',
+    name: '2339 Kinetic Cmn Unit 201, Fremont, CA 94539',
+    meta: 'Fremont · 3 bd · 2.5 ba · 2,034 sq ft',
+    result: 'Sold for $1,270,000 in Feb 2024.',
+    description:
+      'Metro Crossing condo staged with airy neutrals, sculptural lighting, and indoor–outdoor vignettes to play up 10-ft ceilings and balcony doors.',
+    photos: ['/apt1.webp'],
+  },
+  {
+    name: '30 Park St, San Francisco, CA 94110',
+    meta: 'San Francisco · 4 bd · 2 ba · 1,427 sq ft',
     result: 'All-cash offer within 10 days.',
     description:
-      'Industrial shell softened with organic forms, vintage-inspired pieces, and warm lighting tailored to creative buyers.',
-    photos: [
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693415763-3ed5e04ba4cd?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693415763-3ed5e04ba4cd?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?q=80&w=1600&auto=format&fit=crop',
-    ],
+      'Industrial loft softened with organic shapes, vintage-inspired pieces, and warm lighting to appeal to creative buyers.',
+    photos: ['/sf1.webp'],
   },
   {
-    name: 'Silver Lake Bungalow',
-    meta: 'Silver Lake · 3 bd · Bungalow',
-    result: 'Sold over asking after first open house.',
+    name: '1619 Hill Rd, Novato, CA 94947',
+    meta: 'Novato · 4 bd · 2.5 ba · 2,604 sq ft',
+    result: 'Sold for $1,240,000 in Mar 2025.',
     description:
-      'Playful, polished staging with layered art and color to keep the bungalow feeling fresh and approachable.',
-    photos: [
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473186505569-9c61870c11f9?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693415763-3ed5e04ba4cd?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473186505569-9c61870c11f9?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473186505569-9c61870c11f9?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693415763-3ed5e04ba4cd?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473186505569-9c61870c11f9?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
-    ],
+      'Layered woods, stone, and airy textiles to warm a two-level hillside plan and draw buyers to the indoor–outdoor flow.',
+    photos: ['/novato1.webp'],
   },
   {
-    name: 'Pasadena Craftsman',
-    meta: 'Pasadena · 4 bd · Craftsman',
-    result: 'Received 7 offers in the first weekend.',
+    name: '4301 Cesar Chavez, San Francisco, CA 94131',
+    meta: 'San Francisco · 3 bd · 2 ba · 2,307 sq ft',
+    result: 'Sold for $2,399,000 in Jul 2024.',
     description:
-      'Warm woods, tailored millwork accents, and softened lines to respect the architecture while modernizing the feel.',
-    photos: [
-      'https://images.unsplash.com/photo-1473181488821-2d23949a045a?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473186505569-9c61870c11f9?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473181488821-2d23949a045a?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473186505569-9c61870c11f9?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473181488821-2d23949a045a?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473186505569-9c61870c11f9?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473181488821-2d23949a045a?q=80&w=1600&auto=format&fit=crop',
-    ],
+      'Noe Valley home staged with refined neutrals, sculptural lighting, and an open-concept flow to showcase designer upgrades.',
+    photos: ['/cc1.jpg'],
   },
   {
-    name: 'West Hollywood Condo',
-    meta: 'West Hollywood · 2 bd · Condo',
-    result: 'Sold over list in 9 days.',
+    name: '4319 Diavila Ave, Pleasanton, CA 94588',
+    meta: 'Pleasanton · 3 bd · 2.5 ba · 1,858 sq ft',
+    result: 'Sold for $1,650,000 in Oct 2024.',
     description:
-      'Light, textural staging with sculptural lighting to make a compact layout feel open and premium.',
-    photos: [
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473181488821-2d23949a045a?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473186505569-9c61870c11f9?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473181488821-2d23949a045a?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473186505569-9c61870c11f9?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693415763-3ed5e04ba4cd?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473181488821-2d23949a045a?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop',
-    ],
+      'Family-friendly staging with soft contrast, tailored seating, and indoor–outdoor cues to highlight the refreshed kitchen and yard.',
+    photos: ['/pleas1.jpeg'],
   },
   {
-    name: 'Manhattan Beach Modern',
-    meta: 'Manhattan Beach · 5 bd · Coastal Modern',
-    result: 'All-cash offer after first showings.',
+    name: '5308 Swainsons Ct, Concord, CA 94521',
+    meta: 'Concord · 5 bd · 3 ba · 2,923 sq ft',
+    result: 'Sold for $1,500,000 in Apr 2024.',
     description:
-      'Coastal palette with clean lines and layered textiles to spotlight natural light and indoor–outdoor flow.',
-    photos: [
-      'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473181488821-2d23949a045a?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473186505569-9c61870c11f9?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473181488821-2d23949a045a?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473186505569-9c61870c11f9?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473186505569-9c61870c11f9?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop',
-    ],
-  },
-  {
-    name: 'Beverly Hills Spanish',
-    meta: 'Beverly Hills · 6 bd · Spanish Revival',
-    result: 'Closed in 14 days with multiple offers.',
-    description:
-      'Refined staging that pairs vintage-inspired pieces with modern silhouettes to honor character and elevate value.',
-    photos: [
-      'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473181488821-2d23949a045a?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473186505569-9c61870c11f9?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473181488821-2d23949a045a?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473186505569-9c61870c11f9?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505693415763-3ed5e04ba4cd?q=80&w=1600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1473181488821-2d23949a045a?q=80&w=1600&auto=format&fit=crop',
-    ],
+      'Bright, transitional staging with layered neutrals and greenery to emphasize volume, sightlines, and the private lot.',
+    photos: ['/swain.webp'],
   },
 ];
 
@@ -191,6 +113,11 @@ export default function PortfolioPage() {
   };
   const onPhotoError = (project, idx) =>
     setErroredPhotos((prev) => ({ ...prev, [photoKey(project, idx)]: true }));
+  const nameWithoutZip = (name) =>
+    name
+      .replace(/,\s*CA\s+\d{5}$/, '')
+      .replace(/,\s*$/, '')
+      .trim();
 
   const openModal = useCallback((project, startIndex = 0) => {
     setSelectedProject(project);
@@ -292,8 +219,20 @@ export default function PortfolioPage() {
             key={p.name}
             className='grid overflow-hidden rounded-2xl border border-luxmuted/15 bg-white transition-shadow hover:shadow-lg md:grid-cols-[1.2fr,1.4fr]'
           >
-            <div className='flex h-40 items-center justify-center bg-[#e9e2d7] text-[0.7rem] uppercase tracking-[0.16em] text-luxmuted md:h-full'>
-              {p.name}
+            <div className='relative h-40 overflow-hidden bg-[#e9e2d7] md:h-full'>
+              <Image
+                src={photoSrc(p, 0)}
+                alt={`${p.name} lead photo`}
+                fill
+                className='object-cover'
+                sizes='(max-width: 768px) 100vw, 520px'
+                unoptimized
+                loading='lazy'
+                onError={() => onPhotoError(p, 0)}
+              />
+              <span className='absolute bottom-3 left-3 rounded-full bg-black/60 px-3 py-1 text-[0.7rem] uppercase tracking-[0.16em] text-white'>
+                {nameWithoutZip(p.name)}
+              </span>
             </div>
 
             <div className='space-y-3 p-5 text-sm'>
@@ -383,7 +322,9 @@ export default function PortfolioPage() {
                   fill
                   className='object-cover'
                   sizes='(max-width: 768px) 90vw, (max-width: 1200px) 70vw, 960px'
-                  quality={85}
+                  unoptimized
+                  priority={activePhotoIndex === 0}
+                  loading={activePhotoIndex === 0 ? undefined : 'lazy'}
                   onError={() =>
                     onPhotoError(selectedProject, activePhotoIndex)
                   }
@@ -435,7 +376,8 @@ export default function PortfolioPage() {
                       fill
                       className='object-cover'
                       sizes='80px'
-                      quality={60}
+                      unoptimized
+                      loading='lazy'
                       onError={() => onPhotoError(selectedProject, idx)}
                     />
                   </button>
