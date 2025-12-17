@@ -28,10 +28,6 @@ const STATS = [
     value: '286%',
   },
   {
-    label: 'Years Experience',
-    value: '5+',
-  },
-  {
     label: 'Listing Volume',
     value: '300M+',
   },
@@ -385,26 +381,24 @@ export default function Home() {
           className='border-b border-luxmuted/15 bg-white'
           aria-labelledby='stats-heading'
         >
-          <div className='section-shell overflow-x-auto'>
-            <div className='grid min-w-max auto-cols-fr grid-flow-col gap-6 py-8 text-sm'>
-              <h2 id='stats-heading' className='sr-only'>
-                Performance statistics
-              </h2>
-              {STATS.map((item, idx) => (
-                <MotionDiv
-                  key={item.label}
-                  initial={{ opacity: 0, y: 18 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.45, delay: idx * 0.08 }}
-                >
-                  <div className='heading-serif text-2xl'>{item.value}</div>
-                  <p className='mt-1 text-[0.72rem] uppercase tracking-[0.18em] text-luxmuted'>
-                    {item.label}
-                  </p>
-                </MotionDiv>
-              ))}
-            </div>
+          <div className='section-shell grid gap-6 py-8 text-sm md:grid-cols-3 lg:grid-cols-5'>
+            <h2 id='stats-heading' className='sr-only'>
+              Performance statistics
+            </h2>
+            {STATS.map((item, idx) => (
+              <MotionDiv
+                key={item.label}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.45, delay: idx * 0.08 }}
+              >
+                <div className='heading-serif text-2xl'>{item.value}</div>
+                <p className='mt-1 text-[0.72rem] uppercase tracking-[0.18em] text-luxmuted'>
+                  {item.label}
+                </p>
+              </MotionDiv>
+            ))}
           </div>
         </section>
 
@@ -524,58 +518,29 @@ export default function Home() {
         </section>
 
         {/* TRUST STRIP - Rolling Banner */}
-        <section
-          className='bg-luxbg overflow-hidden'
-          aria-label='Trusted real estate partners'
-        >
+        <section className='bg-luxbg' aria-label='Trusted real estate partners'>
           <div className='section-shell border-b border-luxmuted/15 py-10'>
             <p className='tagline mb-6 text-center text-luxmuted'>
               Trusted by agents and teams from
             </p>
-            <div className='relative overflow-hidden' aria-hidden='true'>
-              {/* Gradient masks for fade effect */}
-              <div className='absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-luxbg to-transparent pointer-events-none' />
-              <div className='absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-luxbg to-transparent pointer-events-none' />
-
-              {/* Scrolling container */}
-              <div className='flex animate-scroll gap-x-12 px-4'>
-                {/* First set of logos */}
-                {PARTNER_LOGOS.map((logo) => (
-                  <div
-                    key={`first-${logo.name}`}
-                    className='flex shrink-0 items-center justify-center px-4'
-                  >
-                    <Image
-                      src={logo.image}
-                      alt={logo.alt}
-                      width={140}
-                      height={70}
-                      className='h-auto max-h-14 w-auto object-contain opacity-70 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 hover:scale-105'
-                      quality={85}
-                      loading='lazy'
-                      sizes='(max-width: 768px) 100px, 140px'
-                    />
-                  </div>
-                ))}
-                {/* Duplicate set for seamless loop */}
-                {PARTNER_LOGOS.map((logo) => (
-                  <div
-                    key={`second-${logo.name}`}
-                    className='flex shrink-0 items-center justify-center px-4'
-                  >
-                    <Image
-                      src={logo.image}
-                      alt={logo.alt}
-                      width={140}
-                      height={70}
-                      className='h-auto max-h-14 w-auto object-contain opacity-70 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0 hover:scale-105'
-                      quality={85}
-                      loading='lazy'
-                      sizes='(max-width: 768px) 100px, 140px'
-                    />
-                  </div>
-                ))}
-              </div>
+            <div className='flex flex-wrap items-center justify-center gap-x-12 gap-y-6 px-4'>
+              {PARTNER_LOGOS.map((logo) => (
+                <div
+                  key={logo.name}
+                  className='flex items-center justify-center'
+                >
+                  <Image
+                    src={logo.image}
+                    alt={logo.alt}
+                    width={140}
+                    height={70}
+                    className='h-auto max-h-14 w-auto object-contain'
+                    quality={85}
+                    loading='lazy'
+                    sizes='(max-width: 768px) 100px, 140px'
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -594,8 +559,8 @@ export default function Home() {
             >
               <p className='tagline mb-3 text-luxbg/70'>Client Perspective</p>
               <blockquote className='heading-serif text-2xl leading-relaxed md:text-3xl'>
-                "They turned an empty shell into a home buyers connected with—
-                online and in person."
+                &ldquo;They turned an empty shell into a home buyers connected
+                with—online and in person.&rdquo;
               </blockquote>
               <p className='mt-3 text-sm text-luxbg/80'>
                 — Alex Rivera, Listing Agent

@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export const metadata = {
   title: 'Process – F&D Staging',
   description:
@@ -52,15 +54,29 @@ export default function ProcessPage() {
   return (
     <main className='min-h-screen bg-luxbg'>
       <section className='section-shell border-b border-luxmuted/15 py-14'>
-        <p className='tagline mb-3 text-luxmuted'>Process</p>
-        <h1 className='heading-serif text-3xl mb-3'>
-          Effortless from first call to final showing
-        </h1>
-        <p className='max-w-xl text-sm text-luxmuted'>
-          A clear, streamlined process that keeps everyone aligned—agents,
-          sellers, and our team—so the listing launches smoothly and
-          confidently.
-        </p>
+        <div className='grid gap-8 md:grid-cols-[1.2fr,1fr] md:items-center'>
+          <div>
+            <p className='tagline mb-3 text-luxmuted'>Process</p>
+            <h1 className='heading-serif text-3xl mb-3'>
+              Effortless from first call to final showing
+            </h1>
+            <p className='max-w-xl text-sm text-luxmuted'>
+              A clear, streamlined process that keeps everyone aligned—agents,
+              sellers, and our team—so the listing launches smoothly and
+              confidently.
+            </p>
+          </div>
+          <div className='relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-luxmuted/15 bg-white shadow-[0_12px_30px_rgba(15,15,15,0.08)]'>
+            <Image
+              src='/process-steps.png'
+              alt='Four-step staging process visual'
+              fill
+              className='object-contain object-center p-4'
+              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 45vw, 520px'
+              priority
+            />
+          </div>
+        </div>
       </section>
       <section className='section-shell grid gap-4 py-10 text-sm md:grid-cols-2'>
         {steps.map((step, index) => (

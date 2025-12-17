@@ -28,8 +28,8 @@ export default function ContactPage() {
           Tell us about the property.
         </h1>
         <p className='max-w-xl text-sm text-luxmuted'>
-          Share a few details—address, timing, and what you're hoping staging
-          will accomplish—and we'll follow up with next steps within one
+          Share a few details—address, timing, and what you are hoping staging
+          will accomplish—and we will follow up with next steps within one
           business day.
         </p>
       </section>
@@ -151,7 +151,7 @@ export default function ContactPage() {
             Submit Inquiry
           </button>
           <p className='text-[0.8rem] text-luxmuted'>
-            We'll respond within one business day.
+            We will respond within one business day.
           </p>
         </form>
         <aside className='space-y-4 text-sm text-luxmuted'>

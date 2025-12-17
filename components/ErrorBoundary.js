@@ -25,7 +25,7 @@ export class ErrorBoundary extends Component {
           <div className='max-w-md space-y-4 text-center'>
             <h1 className='heading-serif text-2xl'>Something went wrong</h1>
             <p className='text-luxmuted'>
-              We're sorry, but something unexpected happened. Please try
+              We are sorry, but something unexpected happened. Please try
               refreshing the page.
             </p>
             <button

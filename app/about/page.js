@@ -76,15 +76,15 @@ export default function AboutPage() {
         </div>
       </section>
       <section className='section-shell py-14' aria-labelledby='team-heading'>
-        <div className='space-y-6'>
-          <div>
+        <div className='space-y-6 text-center'>
+          <div className='flex flex-col items-center'>
             <h2
               id='team-heading'
               className='heading-serif text-2xl mb-2 text-luxtxt'
             >
               Founding Team
             </h2>
-            <p className='text-sm text-luxmuted max-w-2xl'>
+            <p className='text-sm text-luxmuted max-w-2xl mx-auto'>
               The team behind F&amp;D Staging—partners to agents, developers,
               and homeowners who need polished, market-ready interiors.
             </p>

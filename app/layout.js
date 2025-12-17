@@ -99,6 +99,12 @@ export default function RootLayout({ children }) {
       <body className='bg-luxbg text-luxtxt antialiased'>
         <ErrorBoundaryWrapper>
           <div className='flex min-h-screen flex-col'>
+            <a
+              href='#main-content'
+              className='sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[999] focus:rounded-full focus:bg-luxtxt focus:px-4 focus:py-2 focus:text-sm focus:text-luxbg'
+            >
+              Skip to main content
+            </a>
             <Header />
             <main className='flex-1' id='main-content'>
               {children}
