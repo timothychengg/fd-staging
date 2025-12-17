@@ -39,10 +39,14 @@ export default function AboutPage() {
                 Fiona and Daniel
               </h1>
               <p className='max-w-xl text-sm leading-relaxed text-luxmuted'>
-                Fiona and Daniel lead F&amp;D Staging with a shared focus on
-                livable design that sells. They combine interiors expertise,
-                market insight, and disciplined execution to present Bay Area
-                listings at their best and deliver stronger, faster results.
+                Fiona and Daniel, the husband-and-wife team behind F&amp;D
+                Staging, share a passion for interior design and creating
+                beautiful, functional spaces. We founded our company to help
+                clients present their homes at their best—using thoughtful
+                design, quality furnishings, and a curated aesthetic that
+                attracts buyers and increases a property's market value. We love
+                what we do and take pride in staging that elevates every listing
+                and helps our clients achieve stronger, faster results.
               </p>
             </div>
             <div className='space-y-4 text-luxmuted'>

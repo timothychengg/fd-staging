@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, useMemo, memo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -31,7 +31,19 @@ const PROJECTS = [
     result: 'Multiple offers in the first weekend.',
     description:
       'Corner unit staged with soft neutrals, plush textures, and tailored silhouettes to create a calm, elevated backdrop.',
-    photos: ['/fremont1.webp'],
+    photos: [
+      '/fremont1.webp',
+      '/fremont2.webp',
+      '/fremont3.webp',
+      '/fremont4.webp',
+      '/fremont5.webp',
+      '/fremont6.webp',
+      '/fremont7.webp',
+      '/fremont8.webp',
+      '/fremont9.webp',
+      '/fremont10.webp',
+      '/fremont11.webp',
+    ],
   },
   {
     name: '2339 Kinetic Cmn Unit 201, Fremont, CA 94539',
@@ -39,7 +51,19 @@ const PROJECTS = [
     result: 'Sold for $1,270,000 in Feb 2024.',
     description:
       'Metro Crossing condo staged with airy neutrals, sculptural lighting, and indoor–outdoor vignettes to play up 10-ft ceilings and balcony doors.',
-    photos: ['/apt1.webp'],
+    photos: [
+      '/apt1.webp',
+      '/apt2.webp',
+      '/apt3.webp',
+      '/apt4.webp',
+      '/apt5.webp',
+      '/apt6.webp',
+      '/apt7.webp',
+      '/apt8.webp',
+      '/apt9.webp',
+      '/apt10.webp',
+      '/apt11.webp',
+    ],
   },
   {
     name: '30 Park St, San Francisco, CA 94110',
@@ -47,7 +71,19 @@ const PROJECTS = [
     result: 'All-cash offer within 10 days.',
     description:
       'Industrial loft softened with organic shapes, vintage-inspired pieces, and warm lighting to appeal to creative buyers.',
-    photos: ['/sf1.webp'],
+    photos: [
+      '/sf1.webp',
+      '/sf2.webp',
+      '/sf3.webp',
+      '/sf4.webp',
+      '/sf5.webp',
+      '/sf6.webp',
+      '/sf7.webp',
+      '/sf8.webp',
+      '/sf9.webp',
+      '/sf10.webp',
+      '/sf11.webp',
+    ],
   },
   {
     name: '1619 Hill Rd, Novato, CA 94947',
@@ -55,7 +91,19 @@ const PROJECTS = [
     result: 'Sold for $1,240,000 in Mar 2025.',
     description:
       'Layered woods, stone, and airy textiles to warm a two-level hillside plan and draw buyers to the indoor–outdoor flow.',
-    photos: ['/novato1.webp'],
+    photos: [
+      '/novato1.webp',
+      '/novato2.webp',
+      '/novato3.webp',
+      '/novato4.webp',
+      '/novato5.webp',
+      '/novato6.webp',
+      '/novato7.webp',
+      '/novato8.webp',
+      '/novato9.webp',
+      '/novato10.webp',
+      '/novato11.webp',
+    ],
   },
   {
     name: '4301 Cesar Chavez, San Francisco, CA 94131',
@@ -63,7 +111,19 @@ const PROJECTS = [
     result: 'Sold for $2,399,000 in Jul 2024.',
     description:
       'Noe Valley home staged with refined neutrals, sculptural lighting, and an open-concept flow to showcase designer upgrades.',
-    photos: ['/cc1.jpg'],
+    photos: [
+      '/cc1.jpg',
+      '/cc2.jpg',
+      '/cc3.jpg',
+      '/cc4.jpg',
+      '/cc5.jpg',
+      '/cc6.jpg',
+      '/cc7.jpg',
+      '/cc8.jpg',
+      '/cc9.jpg',
+      '/cc10.jpg',
+      '/cc11.jpg',
+    ],
   },
   {
     name: '4319 Diavila Ave, Pleasanton, CA 94588',
@@ -71,7 +131,18 @@ const PROJECTS = [
     result: 'Sold for $1,650,000 in Oct 2024.',
     description:
       'Family-friendly staging with soft contrast, tailored seating, and indoor–outdoor cues to highlight the refreshed kitchen and yard.',
-    photos: ['/pleas1.jpeg'],
+    photos: [
+      '/pleas1.jpeg',
+      '/pleas2.webp',
+      '/pleas3.webp',
+      '/pleas4.webp',
+      '/pleas5.webp',
+      '/pleas6.webp',
+      '/pleas7.webp',
+      '/pleas8.webp',
+      '/pleas10.webp',
+      '/pleas11.webp',
+    ],
   },
   {
     name: '5308 Swainsons Ct, Concord, CA 94521',
@@ -79,7 +150,19 @@ const PROJECTS = [
     result: 'Sold for $1,500,000 in Apr 2024.',
     description:
       'Bright, transitional staging with layered neutrals and greenery to emphasize volume, sightlines, and the private lot.',
-    photos: ['/swain.webp'],
+    photos: [
+      '/swain1.webp',
+      '/swain2.webp',
+      '/swain3.webp',
+      '/swain4.webp',
+      '/swain5.webp',
+      '/swain6.webp',
+      '/swain7.webp',
+      '/swain8.webp',
+      '/swain9.webp',
+      '/swain10.webp',
+      '/swain11.webp',
+    ],
   },
 ];
 
@@ -91,6 +174,64 @@ const PLACEHOLDER_PHOTOS = [
 ];
 const TOTAL_PLACEHOLDER_PHOTOS = PLACEHOLDER_PHOTOS.length;
 
+// Memoize helper functions outside component
+const photoKey = (project, idx) => `${project.name}-${idx}`;
+const photoCount = (project) =>
+  project?.photos?.length || TOTAL_PLACEHOLDER_PHOTOS;
+const nameWithoutZip = (name) =>
+  name
+    .replace(/,\s*CA\s+\d{5}$/, '')
+    .replace(/,\s*$/, '')
+    .trim();
+
+// Memoized project card component
+const ProjectCard = memo(function ProjectCard({ project, onOpenModal }) {
+  const leadPhoto = useMemo(() => {
+    const photos =
+      project?.photos?.length && project.photos.length > 0
+        ? project.photos
+        : PLACEHOLDER_PHOTOS;
+    return photos[0] || PLACEHOLDER_PHOTOS[0];
+  }, [project]);
+
+  return (
+    <article className='grid overflow-hidden rounded-2xl border border-luxmuted/15 bg-white transition-shadow hover:shadow-lg md:grid-cols-[1.2fr,1.4fr]'>
+      <div className='relative h-40 overflow-hidden bg-[#e9e2d7] md:h-full'>
+        <Image
+          src={leadPhoto}
+          alt={`${project.name} lead photo`}
+          fill
+          className='object-cover'
+          sizes='(max-width: 768px) 100vw, 520px'
+          unoptimized
+          loading='lazy'
+        />
+        <span className='absolute bottom-3 left-3 rounded-full bg-black/60 px-3 py-1 text-[0.7rem] uppercase tracking-[0.16em] text-white'>
+          {nameWithoutZip(project.name)}
+        </span>
+      </div>
+
+      <div className='space-y-3 p-5 text-sm'>
+        <h2 className='text-base font-semibold'>{project.name}</h2>
+        <p className='text-[0.8rem] text-luxmuted'>{project.meta}</p>
+        <p className='text-luxmuted'>{project.description}</p>
+        <p className='text-[0.8rem] font-medium text-luxmuted'>
+          {project.result}
+        </p>
+
+        <button
+          type='button'
+          onClick={() => onOpenModal(project, 0)}
+          className='text-[0.8rem] font-medium text-luxtxt underline underline-offset-4 hover:text-luxaccent'
+          aria-label={`View photos for ${project.name}`}
+        >
+          View photos
+        </button>
+      </div>
+    </article>
+  );
+});
+
 export default function PortfolioPage() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
@@ -98,26 +239,26 @@ export default function PortfolioPage() {
   const closeButtonRef = useRef(null);
   const modalRef = useRef(null);
 
-  const photoKey = (project, idx) => `${project.name}-${idx}`;
-  const photoCount = (project) =>
-    project?.photos?.length || TOTAL_PLACEHOLDER_PHOTOS;
-  const photoSrc = (project, idx) => {
-    const photos =
-      project?.photos?.length && project.photos.length > 0
-        ? project.photos
-        : PLACEHOLDER_PHOTOS;
-    const fallback = PLACEHOLDER_PHOTOS[idx % TOTAL_PLACEHOLDER_PHOTOS];
-    const key = photoKey(project, idx);
-    if (erroredPhotos[key]) return fallback;
-    return photos[idx % photos.length] || fallback;
-  };
-  const onPhotoError = (project, idx) =>
-    setErroredPhotos((prev) => ({ ...prev, [photoKey(project, idx)]: true }));
-  const nameWithoutZip = (name) =>
-    name
-      .replace(/,\s*CA\s+\d{5}$/, '')
-      .replace(/,\s*$/, '')
-      .trim();
+  const photoSrc = useCallback(
+    (project, idx) => {
+      const photos =
+        project?.photos?.length && project.photos.length > 0
+          ? project.photos
+          : PLACEHOLDER_PHOTOS;
+      const fallback = PLACEHOLDER_PHOTOS[idx % TOTAL_PLACEHOLDER_PHOTOS];
+      const key = photoKey(project, idx);
+      if (erroredPhotos[key]) return fallback;
+      return photos[idx % photos.length] || fallback;
+    },
+    [erroredPhotos]
+  );
+
+  const onPhotoError = useCallback((project, idx) => {
+    setErroredPhotos((prev) => ({
+      ...prev,
+      [photoKey(project, idx)]: true,
+    }));
+  }, []);
 
   const openModal = useCallback((project, startIndex = 0) => {
     setSelectedProject(project);
@@ -182,6 +323,15 @@ export default function PortfolioPage() {
     };
   }, [selectedProject, closeModal, showNextPhoto, showPrevPhoto]);
 
+  // Memoize thumbnail list for performance
+  const thumbnailList = useMemo(() => {
+    if (!selectedProject) return [];
+    const photos = selectedProject?.photos?.length
+      ? selectedProject.photos
+      : PLACEHOLDER_PHOTOS;
+    return photos;
+  }, [selectedProject]);
+
   return (
     <main className='min-h-screen bg-luxbg'>
       <section className='section-shell border-b border-luxmuted/15 py-14'>
@@ -215,44 +365,7 @@ export default function PortfolioPage() {
 
       <section className='section-shell space-y-4 py-10'>
         {PROJECTS.map((p) => (
-          <article
-            key={p.name}
-            className='grid overflow-hidden rounded-2xl border border-luxmuted/15 bg-white transition-shadow hover:shadow-lg md:grid-cols-[1.2fr,1.4fr]'
-          >
-            <div className='relative h-40 overflow-hidden bg-[#e9e2d7] md:h-full'>
-              <Image
-                src={photoSrc(p, 0)}
-                alt={`${p.name} lead photo`}
-                fill
-                className='object-cover'
-                sizes='(max-width: 768px) 100vw, 520px'
-                unoptimized
-                loading='lazy'
-                onError={() => onPhotoError(p, 0)}
-              />
-              <span className='absolute bottom-3 left-3 rounded-full bg-black/60 px-3 py-1 text-[0.7rem] uppercase tracking-[0.16em] text-white'>
-                {nameWithoutZip(p.name)}
-              </span>
-            </div>
-
-            <div className='space-y-3 p-5 text-sm'>
-              <h2 className='text-base font-semibold'>{p.name}</h2>
-              <p className='text-[0.8rem] text-luxmuted'>{p.meta}</p>
-              <p className='text-luxmuted'>{p.description}</p>
-              <p className='text-[0.8rem] font-medium text-luxmuted'>
-                {p.result}
-              </p>
-
-              <button
-                type='button'
-                onClick={() => openModal(p, 0)}
-                className='text-[0.8rem] font-medium text-luxtxt underline underline-offset-4 hover:text-luxaccent'
-                aria-label={`View photos for ${p.name}`}
-              >
-                View photos
-              </button>
-            </div>
-          </article>
+          <ProjectCard key={p.name} project={p} onOpenModal={openModal} />
         ))}
       </section>
 
@@ -354,10 +467,7 @@ export default function PortfolioPage() {
               </div>
 
               <div className='flex gap-2 overflow-x-auto pb-1'>
-                {(selectedProject?.photos?.length
-                  ? selectedProject.photos
-                  : PLACEHOLDER_PHOTOS
-                ).map((src, idx) => (
+                {thumbnailList.map((src, idx) => (
                   <button
                     key={`${selectedProject.name}-thumb-${idx}`}
                     type='button'

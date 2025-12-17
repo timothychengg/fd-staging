@@ -390,8 +390,8 @@ export default function Home() {
                 key={item.label}
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.4, delay: idx * 0.06 }}
               >
                 <div className='heading-serif text-2xl'>{item.value}</div>
                 <p className='mt-1 text-[0.72rem] uppercase tracking-[0.18em] text-luxmuted'>
@@ -446,7 +446,8 @@ export default function Home() {
                     fill
                     className='object-cover transition-transform duration-500 group-hover:scale-105'
                     sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-                    quality={90}
+                    quality={85}
+                    unoptimized
                     loading={idx === 0 ? 'eager' : 'lazy'}
                   />
                   <div className='absolute inset-0 flex items-end p-4 bg-gradient-to-t from-black/50 via-black/20 to-transparent'>
@@ -523,19 +524,22 @@ export default function Home() {
             <p className='tagline mb-6 text-center text-luxmuted'>
               Trusted by agents and teams from
             </p>
-            <div className='flex flex-wrap items-center justify-center gap-x-12 gap-y-6 px-4'>
+            <div className='flex items-center justify-center gap-x-8 gap-y-6 px-4 overflow-x-auto'>
               {PARTNER_LOGOS.map((logo) => (
                 <div
                   key={logo.name}
-                  className='flex items-center justify-center'
+                  className='flex items-center justify-center shrink-0'
                 >
                   <Image
                     src={logo.image}
                     alt={logo.alt}
                     width={140}
                     height={70}
-                    className='h-auto max-h-14 w-auto object-contain'
-                    quality={85}
+                    className={`h-auto max-h-14 w-auto object-contain ${
+                      logo.name === 'Compass' ? 'max-w-[120px]' : ''
+                    }`}
+                    quality={75}
+                    unoptimized
                     loading='lazy'
                     sizes='(max-width: 768px) 100px, 140px'
                   />

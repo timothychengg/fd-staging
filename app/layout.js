@@ -95,6 +95,8 @@ export default function RootLayout({ children }) {
           href='https://fonts.gstatic.com'
           crossOrigin='anonymous'
         />
+        <link rel='dns-prefetch' href='https://fonts.googleapis.com' />
+        <link rel='dns-prefetch' href='https://fonts.gstatic.com' />
       </head>
       <body className='bg-luxbg text-luxtxt antialiased'>
         <ErrorBoundaryWrapper>
