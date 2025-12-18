@@ -174,6 +174,10 @@ const PLACEHOLDER_PHOTOS = [
 ];
 const TOTAL_PLACEHOLDER_PHOTOS = PLACEHOLDER_PHOTOS.length;
 
+const photoKey = (project, idx) => `${project.name}-${idx}`;
+const photoCount = (project) =>
+  project?.photos?.length || TOTAL_PLACEHOLDER_PHOTOS;
+
 export default function PortfolioPage() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
@@ -181,9 +185,6 @@ export default function PortfolioPage() {
   const closeButtonRef = useRef(null);
   const modalRef = useRef(null);
 
-  const photoKey = (project, idx) => `${project.name}-${idx}`;
-  const photoCount = (project) =>
-    project?.photos?.length || TOTAL_PLACEHOLDER_PHOTOS;
   const photoSrc = (project, idx) => {
     const photos =
       project?.photos?.length && project.photos.length > 0
@@ -194,13 +195,13 @@ export default function PortfolioPage() {
     if (erroredPhotos[key]) return fallback;
     return photos[idx % photos.length] || fallback;
   };
-  const onPhotoError = (project, idx) =>
-    setErroredPhotos((prev) => ({ ...prev, [photoKey(project, idx)]: true }));
-  const nameWithoutZip = (name) =>
-    name
-      .replace(/,\s*CA\s+\d{5}$/, '')
-      .replace(/,\s*$/, '')
-      .trim();
+
+  const onPhotoError = (project, idx) => {
+    setErroredPhotos((prev) => ({
+      ...prev,
+      [photoKey(project, idx)]: true,
+    }));
+  };
 
   const openModal = useCallback((project, startIndex = 0) => {
     setSelectedProject(project);
@@ -313,9 +314,6 @@ export default function PortfolioPage() {
                 loading='lazy'
                 onError={() => onPhotoError(p, 0)}
               />
-              <span className='absolute bottom-3 left-3 rounded-full bg-black/60 px-3 py-1 text-[0.7rem] uppercase tracking-[0.16em] text-white'>
-                {nameWithoutZip(p.name)}
-              </span>
             </div>
 
             <div className='space-y-3 p-5 text-sm'>
