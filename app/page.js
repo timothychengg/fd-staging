@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState, memo } from 'react';
+import { FeaturedReviews } from '../components/FeaturedReviews';
 
 // Optimize motion components - memoize to prevent recreation
 const MotionDiv = motion.div;
@@ -517,6 +518,35 @@ export default function Home() {
           </div>
         </section>
 
+        {/* FEATURED REVIEWS */}
+        <section
+          className='section-shell space-y-6 py-16'
+          aria-label='Featured client reviews'
+        >
+          <div className='flex flex-col items-start justify-between gap-4 md:flex-row md:items-end'>
+            <div>
+              <p className='tagline mb-2 text-luxmuted'>Client Reviews</p>
+              <h2 className='heading-serif text-2xl'>
+                What our clients are saying.
+              </h2>
+              <p className='mt-2 max-w-md text-sm text-luxmuted'>
+                Real feedback from real estate agents, homeowners, and
+                developers across the San Francisco Bay Area.
+              </p>
+            </div>
+            <Link
+              href='/reviews'
+              prefetch={true}
+              className='text-[0.78rem] uppercase tracking-[0.18em] text-luxtxt hover:text-luxaccent transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-luxaccent focus-visible:outline-offset-2'
+              aria-label='View all client reviews and testimonials'
+            >
+              View All Reviews →
+            </Link>
+          </div>
+
+          <FeaturedReviews />
+        </section>
+
         {/* TRUST STRIP - Rolling Banner */}
         <section className='bg-luxbg' aria-label='Trusted real estate partners'>
           <div className='section-shell border-b border-luxmuted/15 py-10'>
@@ -542,47 +572,6 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* TESTIMONIAL BAND */}
-        <section
-          className='bg-luxtxt text-luxbg'
-          aria-label='Client testimonial'
-        >
-          <div className='section-shell grid gap-10 py-14 md:grid-cols-[1.2fr,1fr]'>
-            <MotionDiv
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.5 }}
-            >
-              <p className='tagline mb-3 text-luxbg/70'>Client Perspective</p>
-              <blockquote className='heading-serif text-2xl leading-relaxed md:text-3xl'>
-                &ldquo;They turned an empty shell into a home buyers connected
-                with—online and in person.&rdquo;
-              </blockquote>
-              <p className='mt-3 text-sm text-luxbg/80'>
-                — Alex Rivera, Listing Agent
-              </p>
-            </MotionDiv>
-            <MotionDiv
-              className='space-y-4 text-sm text-luxbg/80'
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <p className='leading-relaxed'>
-                We are the quiet partner behind the scenes, making sure every
-                angle tells the right story for photos, showings, and open
-                houses.
-              </p>
-              <p className='leading-relaxed'>
-                From first walkthrough to de-staging after close, the process is
-                thoughtful, organized, and built around how you work.
-              </p>
-            </MotionDiv>
           </div>
         </section>
 
