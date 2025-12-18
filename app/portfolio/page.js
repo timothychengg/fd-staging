@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState, useMemo, memo } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -174,64 +174,6 @@ const PLACEHOLDER_PHOTOS = [
 ];
 const TOTAL_PLACEHOLDER_PHOTOS = PLACEHOLDER_PHOTOS.length;
 
-// Memoize helper functions outside component
-const photoKey = (project, idx) => `${project.name}-${idx}`;
-const photoCount = (project) =>
-  project?.photos?.length || TOTAL_PLACEHOLDER_PHOTOS;
-const nameWithoutZip = (name) =>
-  name
-    .replace(/,\s*CA\s+\d{5}$/, '')
-    .replace(/,\s*$/, '')
-    .trim();
-
-// Memoized project card component
-const ProjectCard = memo(function ProjectCard({ project, onOpenModal }) {
-  const leadPhoto = useMemo(() => {
-    const photos =
-      project?.photos?.length && project.photos.length > 0
-        ? project.photos
-        : PLACEHOLDER_PHOTOS;
-    return photos[0] || PLACEHOLDER_PHOTOS[0];
-  }, [project]);
-
-  return (
-    <article className='grid overflow-hidden rounded-2xl border border-luxmuted/15 bg-white transition-shadow hover:shadow-lg md:grid-cols-[1.2fr,1.4fr]'>
-      <div className='relative h-40 overflow-hidden bg-[#e9e2d7] md:h-full'>
-        <Image
-          src={leadPhoto}
-          alt={`${project.name} lead photo`}
-          fill
-          className='object-cover'
-          sizes='(max-width: 768px) 100vw, 520px'
-          unoptimized
-          loading='lazy'
-        />
-        <span className='absolute bottom-3 left-3 rounded-full bg-black/60 px-3 py-1 text-[0.7rem] uppercase tracking-[0.16em] text-white'>
-          {nameWithoutZip(project.name)}
-        </span>
-      </div>
-
-      <div className='space-y-3 p-5 text-sm'>
-        <h2 className='text-base font-semibold'>{project.name}</h2>
-        <p className='text-[0.8rem] text-luxmuted'>{project.meta}</p>
-        <p className='text-luxmuted'>{project.description}</p>
-        <p className='text-[0.8rem] font-medium text-luxmuted'>
-          {project.result}
-        </p>
-
-        <button
-          type='button'
-          onClick={() => onOpenModal(project, 0)}
-          className='text-[0.8rem] font-medium text-luxtxt underline underline-offset-4 hover:text-luxaccent'
-          aria-label={`View photos for ${project.name}`}
-        >
-          View photos
-        </button>
-      </div>
-    </article>
-  );
-});
-
 export default function PortfolioPage() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
@@ -239,26 +181,26 @@ export default function PortfolioPage() {
   const closeButtonRef = useRef(null);
   const modalRef = useRef(null);
 
-  const photoSrc = useCallback(
-    (project, idx) => {
-      const photos =
-        project?.photos?.length && project.photos.length > 0
-          ? project.photos
-          : PLACEHOLDER_PHOTOS;
-      const fallback = PLACEHOLDER_PHOTOS[idx % TOTAL_PLACEHOLDER_PHOTOS];
-      const key = photoKey(project, idx);
-      if (erroredPhotos[key]) return fallback;
-      return photos[idx % photos.length] || fallback;
-    },
-    [erroredPhotos]
-  );
-
-  const onPhotoError = useCallback((project, idx) => {
-    setErroredPhotos((prev) => ({
-      ...prev,
-      [photoKey(project, idx)]: true,
-    }));
-  }, []);
+  const photoKey = (project, idx) => `${project.name}-${idx}`;
+  const photoCount = (project) =>
+    project?.photos?.length || TOTAL_PLACEHOLDER_PHOTOS;
+  const photoSrc = (project, idx) => {
+    const photos =
+      project?.photos?.length && project.photos.length > 0
+        ? project.photos
+        : PLACEHOLDER_PHOTOS;
+    const fallback = PLACEHOLDER_PHOTOS[idx % TOTAL_PLACEHOLDER_PHOTOS];
+    const key = photoKey(project, idx);
+    if (erroredPhotos[key]) return fallback;
+    return photos[idx % photos.length] || fallback;
+  };
+  const onPhotoError = (project, idx) =>
+    setErroredPhotos((prev) => ({ ...prev, [photoKey(project, idx)]: true }));
+  const nameWithoutZip = (name) =>
+    name
+      .replace(/,\s*CA\s+\d{5}$/, '')
+      .replace(/,\s*$/, '')
+      .trim();
 
   const openModal = useCallback((project, startIndex = 0) => {
     setSelectedProject(project);
@@ -323,15 +265,6 @@ export default function PortfolioPage() {
     };
   }, [selectedProject, closeModal, showNextPhoto, showPrevPhoto]);
 
-  // Memoize thumbnail list for performance
-  const thumbnailList = useMemo(() => {
-    if (!selectedProject) return [];
-    const photos = selectedProject?.photos?.length
-      ? selectedProject.photos
-      : PLACEHOLDER_PHOTOS;
-    return photos;
-  }, [selectedProject]);
-
   return (
     <main className='min-h-screen bg-luxbg'>
       <section className='section-shell border-b border-luxmuted/15 py-14'>
@@ -365,7 +298,44 @@ export default function PortfolioPage() {
 
       <section className='section-shell space-y-4 py-10'>
         {PROJECTS.map((p) => (
-          <ProjectCard key={p.name} project={p} onOpenModal={openModal} />
+          <article
+            key={p.name}
+            className='grid overflow-hidden rounded-2xl border border-luxmuted/15 bg-white transition-shadow hover:shadow-lg md:grid-cols-[1.2fr,1.4fr]'
+          >
+            <div className='relative h-40 overflow-hidden bg-[#e9e2d7] md:h-full'>
+              <Image
+                src={photoSrc(p, 0)}
+                alt={`${p.name} lead photo`}
+                fill
+                className='object-cover'
+                sizes='(max-width: 768px) 100vw, 520px'
+                unoptimized
+                loading='lazy'
+                onError={() => onPhotoError(p, 0)}
+              />
+              <span className='absolute bottom-3 left-3 rounded-full bg-black/60 px-3 py-1 text-[0.7rem] uppercase tracking-[0.16em] text-white'>
+                {nameWithoutZip(p.name)}
+              </span>
+            </div>
+
+            <div className='space-y-3 p-5 text-sm'>
+              <h2 className='text-base font-semibold'>{p.name}</h2>
+              <p className='text-[0.8rem] text-luxmuted'>{p.meta}</p>
+              <p className='text-luxmuted'>{p.description}</p>
+              <p className='text-[0.8rem] font-medium text-luxmuted'>
+                {p.result}
+              </p>
+
+              <button
+                type='button'
+                onClick={() => openModal(p, 0)}
+                className='text-[0.8rem] font-medium text-luxtxt underline underline-offset-4 hover:text-luxaccent'
+                aria-label={`View photos for ${p.name}`}
+              >
+                View photos
+              </button>
+            </div>
+          </article>
         ))}
       </section>
 
@@ -467,7 +437,10 @@ export default function PortfolioPage() {
               </div>
 
               <div className='flex gap-2 overflow-x-auto pb-1'>
-                {thumbnailList.map((src, idx) => (
+                {(selectedProject?.photos?.length
+                  ? selectedProject.photos
+                  : PLACEHOLDER_PHOTOS
+                ).map((src, idx) => (
                   <button
                     key={`${selectedProject.name}-thumb-${idx}`}
                     type='button'
