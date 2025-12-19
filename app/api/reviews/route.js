@@ -140,18 +140,10 @@ export async function GET() {
       }
     );
   } catch (error) {
-    // Log error in development, but don't expose details in production
-    if (process.env.NODE_ENV === 'development') {
-      console.error('Error fetching Google reviews:', error);
-    }
+    console.error('Error fetching Google reviews:', error);
     return Response.json(
-      { reviews: [], error: 'Unable to fetch reviews at this time' },
-      {
-        status: 200, // Return 200 so page still renders with fallback
-        headers: {
-          'Cache-Control': 'no-store', // Don't cache errors
-        },
-      }
+      { reviews: [], error: error.message },
+      { status: 200 } // Return 200 so page still renders with fallback
     );
   }
 }

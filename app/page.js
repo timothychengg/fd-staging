@@ -94,16 +94,16 @@ const PARTNER_LOGOS = [
 
 const SERVICES = [
   {
-    title: 'Vacant Home Staging',
-    body: 'Complete furnishings, art, and styling so empty homes present a clear, cohesive story.',
+    title: 'Full Staging',
+    body: 'Ideal for empty homes, investor flips, and new construction. We furnish every room to tell a cohesive story and photograph beautifully.',
   },
   {
-    title: 'Occupied Staging & Refresh',
-    body: 'Edit, re-arrange, and layer key pieces so clients can live comfortably while showing.',
+    title: 'Occupied Staging',
+    body: 'Perfect for clients living in the home during the listing period. We work with what is there, then add what is needed.',
   },
   {
-    title: 'Model Homes & Developments',
-    body: 'Model units and amenity spaces designed to support premium positioning and faster absorption.',
+    title: 'Partial Staging',
+    body: 'For builders and developers seeking cohesive, aspirational model homes and amenity spaces that support premium positioning.',
   },
 ];
 

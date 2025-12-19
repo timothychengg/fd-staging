@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState, memo } from 'react';
-import Link from 'next/link';
 
 // Fallback reviews to display if API is not configured or fails
 const FALLBACK_REVIEWS = [
@@ -63,9 +62,15 @@ const StarRating = memo(function StarRating({ rating }) {
 });
 
 export const FeaturedReviews = memo(function FeaturedReviews() {
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
-
+  // Initialize with fallback reviews to prevent hydration mismatch
+  // Always use the same initial state for SSR and client
+  const [reviews, setReviews] = useState(() => {
+    // Sort fallback reviews by length and take top 2
+    const sorted = [...FALLBACK_REVIEWS]
+      .sort((a, b) => b.text.length - a.text.length)
+      .slice(0, 2);
+    return sorted;
+  });
   useEffect(() => {
     let isMounted = true;
 
@@ -96,17 +101,7 @@ export const FeaturedReviews = memo(function FeaturedReviews() {
       } catch (err) {
         if (!isMounted) return;
         console.error('Error fetching reviews:', err);
-        // Use fallback reviews on error, sorted by length, limit to 2
-        const sortedFallbacks = [...FALLBACK_REVIEWS]
-          .sort((a, b) => {
-            return b.text.length - a.text.length;
-          })
-          .slice(0, 2);
-        setReviews(sortedFallbacks);
-      } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+        // Keep fallback reviews on error (already set as initial state)
       }
     }
 
@@ -117,29 +112,7 @@ export const FeaturedReviews = memo(function FeaturedReviews() {
     };
   }, []);
 
-  if (loading) {
-    return (
-      <div className='grid gap-6 md:grid-cols-2'>
-        {[...Array(2)].map((_, i) => (
-          <div
-            key={i}
-            className='rounded-2xl border border-luxmuted/15 bg-white p-6 animate-pulse'
-          >
-            <div className='h-5 w-24 bg-gray-200 rounded mb-4'></div>
-            <div className='space-y-2 mb-4'>
-              <div className='h-4 bg-gray-200 rounded'></div>
-              <div className='h-4 bg-gray-200 rounded w-5/6'></div>
-              <div className='h-4 bg-gray-200 rounded w-4/6'></div>
-            </div>
-            <div className='pt-3 border-t border-luxmuted/10'>
-              <div className='h-4 w-32 bg-gray-200 rounded mb-2'></div>
-              <div className='h-3 w-24 bg-gray-200 rounded'></div>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  }
+  // No loading state needed - we always have fallback reviews to show
 
   return (
     <div className='grid gap-6 md:grid-cols-2'>
