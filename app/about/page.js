@@ -96,79 +96,115 @@ export default function AboutPage() {
           <div className='grid gap-6 text-sm md:grid-cols-2 lg:grid-cols-4'>
             <article className='space-y-3 rounded-2xl border border-luxmuted/15 bg-white p-6 transition-shadow hover:shadow-lg'>
               <div className='flex items-center gap-3'>
-                <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#e9e2d7] text-sm font-medium text-luxtxt'>
-                  DH
+                <div className='relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#e9e2d7]'>
+                  <Image
+                    src='/daniel.png'
+                    alt='Daniel Hwang'
+                    fill
+                    className='object-cover object-center rounded-full'
+                    style={{ transform: 'scale(1.1)' }}
+                    sizes='48px'
+                  />
                 </div>
                 <div>
                   <h3 className='text-sm font-semibold text-luxtxt'>
                     Daniel Hwang
                   </h3>
-                  <p className='text-[0.8rem] text-luxmuted'>
-                    Founder &amp; Creative Director
-                  </p>
+                  <p className='text-[0.8rem] text-luxmuted'>Founder</p>
                 </div>
               </div>
               <p className='text-luxmuted leading-relaxed'>
-                Daniel blends design, real estate, and visual storytelling. He
-                obsesses over light, sightlines, and the details that make a
-                space feel finished.
+                Daniel brings together design expertise, real estate knowledge,
+                and visual storytelling to create compelling staged
+                environments. He focuses on lighting, spatial composition, and
+                meticulous attention to detail that transforms properties into
+                market-ready spaces.
               </p>
             </article>
             <article className='space-y-3 rounded-2xl border border-luxmuted/15 bg-white p-6 transition-shadow hover:shadow-lg'>
               <div className='flex items-center gap-3'>
-                <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#e9e2d7] text-sm font-medium text-luxtxt'>
-                  FL
+                <div className='relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#e9e2d7]'>
+                  <Image
+                    src='/fiona.png'
+                    alt='Fiona Lu'
+                    fill
+                    className='object-cover object-center rounded-full'
+                    style={{ transform: 'scale(1.1)' }}
+                    sizes='48px'
+                  />
                 </div>
                 <div>
                   <h3 className='text-sm font-semibold text-luxtxt'>
                     Fiona Lu
                   </h3>
-                  <p className='text-[0.8rem] text-luxmuted'>Lead Stylist</p>
-                </div>
-              </div>
-              <p className='text-luxmuted leading-relaxed'>
-                Fiona elevates spaces through textiles, layering, and styled
-                moments that pull buyers deeper—online and in person.
-              </p>
-            </article>
-            <article className='space-y-3 rounded-2xl border border-luxmuted/15 bg-white p-6 transition-shadow hover:shadow-lg'>
-              <div className='flex items-center gap-3'>
-                <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#e9e2d7] text-sm font-medium text-luxtxt'>
-                  TC
-                </div>
-                <div>
-                  <h3 className='text-sm font-semibold text-luxtxt'>
-                    Timothy Cheng
-                  </h3>
                   <p className='text-[0.8rem] text-luxmuted'>
-                    Operations &amp; Strategy
+                    Co-Founder &amp; Creative Director
                   </p>
                 </div>
               </div>
               <p className='text-luxmuted leading-relaxed'>
-                Timothy oversees operations and client strategy, aligning
-                logistics, budgets, and timelines so every project runs smoothly
-                and delivers on the brief.
+                Fiona creates warm modern staging designs by combining
+                clean-lined furniture with soft textures, natural materials, and
+                a neutral color palette accented by subtle earth tones. Her
+                thoughtful use of lighting, balanced layouts, and curated décor
+                adds warmth and approachability while maintaining a polished,
+                contemporary feel.
               </p>
             </article>
             <article className='space-y-3 rounded-2xl border border-luxmuted/15 bg-white p-6 transition-shadow hover:shadow-lg'>
               <div className='flex items-center gap-3'>
-                <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#e9e2d7] text-sm font-medium text-luxtxt'>
-                  TL
+                <div className='relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#e9e2d7]'>
+                  <Image
+                    src='/teresa.PNG'
+                    alt='Teresa Lu'
+                    fill
+                    className='object-cover object-center rounded-full'
+                    style={{ transform: 'scale(1.1)' }}
+                    sizes='48px'
+                  />
                 </div>
                 <div>
                   <h3 className='text-sm font-semibold text-luxtxt'>
                     Teresa Lu
                   </h3>
                   <p className='text-[0.8rem] text-luxmuted'>
-                    Design Associate
+                    Interior Design Associate
                   </p>
                 </div>
               </div>
               <p className='text-luxmuted leading-relaxed'>
-                Teresa refines each vignette with a balance of color, texture,
-                and proportion—ensuring every room feels cohesive, elevated, and
-                buyer-ready.
+                Teresa applies design principles to refine each space through
+                strategic color palettes, texture combinations, and proportional
+                arrangements that create cohesive, elevated environments
+                optimized for market appeal.
+              </p>
+            </article>
+            <article className='space-y-3 rounded-2xl border border-luxmuted/15 bg-white p-6 transition-shadow hover:shadow-lg'>
+              <div className='flex items-center gap-3'>
+                <div className='relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#e9e2d7]'>
+                  <Image
+                    src='/timothy.png'
+                    alt='Timothy Cheng'
+                    fill
+                    className='object-cover object-center rounded-full'
+                    style={{ transform: 'scale(1.1)' }}
+                    sizes='48px'
+                  />
+                </div>
+                <div>
+                  <h3 className='text-sm font-semibold text-luxtxt'>
+                    Timothy Cheng
+                  </h3>
+                  <p className='text-[0.8rem] text-luxmuted'>
+                    Marketing Technology Lead
+                  </p>
+                </div>
+              </div>
+              <p className='text-luxmuted leading-relaxed'>
+                Timothy drives marketing initiatives and technology solutions
+                that enhance client engagement and operational efficiency. He
+                integrates digital marketing strategies with technical systems
+                to optimize business performance and client outcomes.
               </p>
             </article>
           </div>

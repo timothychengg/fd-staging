@@ -284,7 +284,7 @@ export default function PortfolioPage() {
 
           <div className='relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-luxmuted/15 bg-[#e9e2d7] shadow-[0_12px_30px_rgba(15,15,15,0.08)]'>
             <Image
-              src='/13.webp'
+              src='/portfolio.png'
               alt='Staged interior showcasing F&D Staging portfolio work'
               fill
               className='object-cover object-[72%_45%] scale-[1.08]'

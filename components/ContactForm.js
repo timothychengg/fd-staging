@@ -177,7 +177,7 @@ export function ContactForm() {
                 ? 'border-red-300 bg-red-50'
                 : 'border-luxmuted/25 bg-[#f5efe7]'
             } px-3 py-2 text-sm outline-none transition-colors focus:border-luxaccent focus:bg-white focus:ring-2 focus:ring-luxaccent/20`}
-            placeholder='(000) 000-0000'
+            placeholder='(408) 393-2161'
             aria-invalid={errors.phone ? 'true' : 'false'}
             aria-describedby={errors.phone ? 'phone-error' : undefined}
           />
@@ -202,7 +202,6 @@ export function ContactForm() {
         >
           <option>Real estate agent</option>
           <option>Homeowner / seller</option>
-          <option>Developer / builder</option>
           <option>Other</option>
         </select>
       </div>
@@ -288,7 +287,7 @@ export function ContactForm() {
           role='alert'
         >
           Something went wrong. Please try again or contact us directly at
-          hello@fanddstaging.com.
+          info@fanddstaging.com.
         </div>
       )}
 
