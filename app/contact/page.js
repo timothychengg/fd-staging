@@ -40,14 +40,6 @@ export default function ContactPage() {
         <ContactForm />
         <aside className='space-y-4 text-sm text-luxmuted'>
           <div>
-            <h2 className='tagline mb-1 text-[0.7rem] text-luxtxt'>Studio</h2>
-            <p>
-              San Francisco Bay Area, CA
-              <br />
-              By appointment only
-            </p>
-          </div>
-          <div>
             <h2 className='tagline mb-1 text-[0.7rem] text-luxtxt'>Direct</h2>
             <p>
               info@fanddstaging.com

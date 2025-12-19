@@ -98,33 +98,6 @@ export default function AboutPage() {
               <div className='flex items-center gap-3'>
                 <div className='relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#e9e2d7]'>
                   <Image
-                    src='/daniel.png'
-                    alt='Daniel Hwang'
-                    fill
-                    className='object-cover object-center rounded-full'
-                    style={{ transform: 'scale(1.1)' }}
-                    sizes='48px'
-                  />
-                </div>
-                <div>
-                  <h3 className='text-sm font-semibold text-luxtxt'>
-                    Daniel Hwang
-                  </h3>
-                  <p className='text-[0.8rem] text-luxmuted'>Founder</p>
-                </div>
-              </div>
-              <p className='text-luxmuted leading-relaxed'>
-                Daniel brings together design expertise, real estate knowledge,
-                and visual storytelling to create compelling staged
-                environments. He focuses on lighting, spatial composition, and
-                meticulous attention to detail that transforms properties into
-                market-ready spaces.
-              </p>
-            </article>
-            <article className='space-y-3 rounded-2xl border border-luxmuted/15 bg-white p-6 transition-shadow hover:shadow-lg'>
-              <div className='flex items-center gap-3'>
-                <div className='relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#e9e2d7]'>
-                  <Image
                     src='/fiona.png'
                     alt='Fiona Lu'
                     fill
@@ -138,7 +111,7 @@ export default function AboutPage() {
                     Fiona Lu
                   </h3>
                   <p className='text-[0.8rem] text-luxmuted'>
-                    Co-Founder &amp; Creative Director
+                    Founder &amp; Creative Director
                   </p>
                 </div>
               </div>
@@ -149,6 +122,35 @@ export default function AboutPage() {
                 thoughtful use of lighting, balanced layouts, and curated décor
                 adds warmth and approachability while maintaining a polished,
                 contemporary feel.
+              </p>
+            </article>
+            <article className='space-y-3 rounded-2xl border border-luxmuted/15 bg-white p-6 transition-shadow hover:shadow-lg'>
+              <div className='flex items-center gap-3'>
+                <div className='relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#e9e2d7]'>
+                  <Image
+                    src='/daniel.png'
+                    alt='Daniel Hwang'
+                    fill
+                    className='object-cover object-center rounded-full'
+                    style={{ transform: 'scale(1.1)' }}
+                    sizes='48px'
+                  />
+                </div>
+                <div>
+                  <h3 className='text-sm font-semibold text-luxtxt'>
+                    Daniel Hwang
+                  </h3>
+                  <p className='text-[0.8rem] text-luxmuted'>
+                    Co-Founder &amp; Operations Manager
+                  </p>
+                </div>
+              </div>
+              <p className='text-luxmuted leading-relaxed'>
+                Daniel brings together design expertise, real estate knowledge,
+                and visual storytelling to create compelling staged
+                environments. He focuses on lighting, spatial composition, and
+                meticulous attention to detail that transforms properties into
+                market-ready spaces.
               </p>
             </article>
             <article className='space-y-3 rounded-2xl border border-luxmuted/15 bg-white p-6 transition-shadow hover:shadow-lg'>
