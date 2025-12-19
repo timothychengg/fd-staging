@@ -30,10 +30,35 @@ export async function GET() {
     placeId = placeId.split('?')[0].split('&')[0].trim();
   }
 
+  // Retry function for transient errors
+  const fetchWithRetry = async (url, options, maxRetries = 2) => {
+    for (let attempt = 0; attempt <= maxRetries; attempt++) {
+      try {
+        const response = await fetch(url, options);
+        if (response.ok || attempt === maxRetries) {
+          return response;
+        }
+        // Retry on 5xx errors (server errors) or network errors
+        if (response.status >= 500) {
+          await new Promise((resolve) =>
+            setTimeout(resolve, 1000 * (attempt + 1))
+          ); // Exponential backoff
+          continue;
+        }
+        return response;
+      } catch (error) {
+        if (attempt === maxRetries) throw error;
+        await new Promise((resolve) =>
+          setTimeout(resolve, 1000 * (attempt + 1))
+        );
+      }
+    }
+  };
+
   try {
     // Use the new Places API (New) endpoint
     // Note: The new API requires different field names and endpoint
-    const response = await fetch(
+    const response = await fetchWithRetry(
       `https://places.googleapis.com/v1/places/${placeId}?fields=id,displayName,rating,userRatingCount,reviews`,
       {
         method: 'GET',
@@ -57,7 +82,7 @@ export async function GET() {
       });
 
       // If new API fails, try legacy API as fallback
-      const legacyResponse = await fetch(
+      const legacyResponse = await fetchWithRetry(
         `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,rating,reviews,user_ratings_total&key=${apiKey}`,
         {
           next: { revalidate: 3600 },

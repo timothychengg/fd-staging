@@ -39,8 +39,35 @@ export const metadata = {
 export const dynamic = 'force-dynamic';
 
 export default function ReviewsPage() {
+  // Structured data for reviews (JSON-LD)
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'F&D Staging',
+    description:
+      'Luxury home staging studio in the San Francisco Bay Area creating aspirational interiors that sell.',
+    url: 'https://fanddstaging.com',
+    telephone: '(408)393-2161',
+    email: 'hello@fanddstaging.com',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'San Francisco Bay Area',
+      addressRegion: 'CA',
+      addressCountry: 'US',
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '5.0',
+      reviewCount: '25',
+    },
+  };
+
   return (
     <main className='min-h-screen bg-luxbg'>
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <section
         className='section-shell border-b border-luxmuted/15 py-14'
         aria-labelledby='reviews-heading'

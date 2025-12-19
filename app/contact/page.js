@@ -1,3 +1,6 @@
+import { SocialLinks } from '../../components/SocialLinks';
+import { ContactForm } from '../../components/ContactForm';
+
 export const metadata = {
   title: 'Contact – F&D Staging',
   description:
@@ -16,8 +19,8 @@ export const metadata = {
   },
 };
 
-// Static generation for better performance
-export const dynamic = 'force-static';
+// Dynamic because ContactForm is a client component
+export const dynamic = 'force-dynamic';
 
 export default function ContactPage() {
   return (
@@ -176,6 +179,12 @@ export default function ContactPage() {
               Typical response
             </h2>
             <p>Within one business day for new project inquiries.</p>
+          </div>
+          <div>
+            <h2 className='tagline mb-2 text-[0.7rem] text-luxtxt'>
+              Connect with us
+            </h2>
+            <SocialLinks />
           </div>
         </aside>
       </section>

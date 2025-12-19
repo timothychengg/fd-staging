@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { memo } from 'react';
 import { Logo } from './Logo';
+import { SocialLinks } from './SocialLinks';
 
 export const Footer = memo(function Footer() {
   const year = new Date().getFullYear();
@@ -22,6 +23,7 @@ export const Footer = memo(function Footer() {
             Boutique staging studio helping listings across the San Francisco
             Bay Area sell faster and photograph at their absolute best.
           </p>
+          <SocialLinks className='pt-2' />
         </div>
 
         <div className='space-y-2'>
