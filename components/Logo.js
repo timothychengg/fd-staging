@@ -2,9 +2,9 @@ import { memo } from 'react';
 
 export const Logo = memo(function Logo({ className = '', size = 'default' }) {
   const sizes = {
-    small: 'h-8 w-8',
-    default: 'h-9 w-9',
-    large: 'h-12 w-12',
+    small: 'h-10 w-10',
+    default: 'h-11 w-11',
+    large: 'h-14 w-14',
   };
 
   const sizeClass = sizes[size] || sizes.default;

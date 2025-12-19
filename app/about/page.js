@@ -195,9 +195,7 @@ export default function AboutPage() {
                   <h3 className='text-sm font-semibold text-luxtxt'>
                     Timothy Cheng
                   </h3>
-                  <p className='text-[0.8rem] text-luxmuted'>
-                    Marketing Technology Lead
-                  </p>
+                  <p className='text-[0.8rem] text-luxmuted'>Growth Engineer</p>
                 </div>
               </div>
               <p className='text-luxmuted leading-relaxed'>
