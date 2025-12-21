@@ -220,7 +220,7 @@ const STRUCTURED_DATA = {
     },
   ],
   sameAs: [
-    'https://www.instagram.com/fanddstaging',
+    'https://www.instagram.com/fd_staging_408/',
     'https://www.facebook.com/fanddstaging',
     'https://www.linkedin.com/company/fanddstaging',
   ],

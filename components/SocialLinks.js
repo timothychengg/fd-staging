@@ -5,7 +5,7 @@ import { memo } from 'react';
 export const SocialLinks = memo(function SocialLinks({ className = '' }) {
   const socialLinks = [
     {
-      href: 'https://www.instagram.com/fanddstaging',
+      href: 'https://www.instagram.com/fd_staging_408/',
       label: 'Follow us on Instagram',
       color: '#E4405F',
       hoverColor: '#C13584',
