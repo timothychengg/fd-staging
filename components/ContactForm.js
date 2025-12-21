@@ -1,102 +1,156 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback, useMemo } from 'react';
+
+// Field length limits (matching backend)
+const FIELD_LIMITS = {
+  name: 100,
+  email: 255,
+  phone: 20,
+  address: 200,
+  sqft: 10,
+  message: 2000,
+};
+
+const INITIAL_FORM_DATA = {
+  name: '',
+  email: '',
+  phone: '',
+  role: 'Real estate agent',
+  address: '',
+  sqft: '',
+  timeline: 'As soon as possible',
+  message: '',
+};
 
 export function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    role: 'Real estate agent',
-    address: '',
-    sqft: '',
-    timeline: 'As soon as possible',
-    message: '',
-  });
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
-  const validateEmail = (email) => {
+  // Memoize validation functions for better performance
+  const validateEmail = useCallback((email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
+  }, []);
 
-  const validatePhone = (phone) => {
+  const validatePhone = useCallback((phone) => {
     if (!phone) return true; // Optional field
     const cleaned = phone.replace(/\D/g, '');
     return cleaned.length === 10 || cleaned.length === 11;
-  };
+  }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: '' }));
-    }
-  };
+  const handleChange = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      const maxLength = FIELD_LIMITS[name];
+      const trimmedValue = maxLength && value.length > maxLength 
+        ? value.substring(0, maxLength) 
+        : value;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const newErrors = {};
+      setFormData((prev) => ({ ...prev, [name]: trimmedValue }));
+      
+      // Clear error when user starts typing
+      if (errors[name]) {
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors[name];
+          return newErrors;
+        });
+      }
+    },
+    [errors]
+  );
 
-    // Validate required fields
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    }
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      const newErrors = {};
 
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!validateEmail(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
-    }
+      // Validate required fields
+      const trimmedName = formData.name.trim();
+      if (!trimmedName) {
+        newErrors.name = 'Name is required';
+      } else if (trimmedName.length > FIELD_LIMITS.name) {
+        newErrors.name = `Name must be less than ${FIELD_LIMITS.name} characters`;
+      }
 
-    if (formData.phone && !validatePhone(formData.phone)) {
-      newErrors.phone = 'Please enter a valid phone number';
-    }
+      const trimmedEmail = formData.email.trim();
+      if (!trimmedEmail) {
+        newErrors.email = 'Email is required';
+      } else if (!validateEmail(trimmedEmail)) {
+        newErrors.email = 'Please enter a valid email address';
+      } else if (trimmedEmail.length > FIELD_LIMITS.email) {
+        newErrors.email = `Email must be less than ${FIELD_LIMITS.email} characters`;
+      }
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
+      if (formData.phone) {
+        if (!validatePhone(formData.phone)) {
+          newErrors.phone = 'Please enter a valid phone number';
+        } else if (formData.phone.length > FIELD_LIMITS.phone) {
+          newErrors.phone = `Phone must be less than ${FIELD_LIMITS.phone} characters`;
+        }
+      }
 
-    setIsSubmitting(true);
-    setSubmitStatus(null);
+      if (formData.message && formData.message.length > FIELD_LIMITS.message) {
+        newErrors.message = `Message must be less than ${FIELD_LIMITS.message} characters`;
+      }
 
-    try {
-      // TODO: Replace with your actual form submission endpoint
-      // For now, this will just show a success message
-      // You can integrate with services like Formspree, SendGrid, or your own API
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        // Scroll to first error
+        const firstErrorField = Object.keys(newErrors)[0];
+        const errorElement = document.getElementById(firstErrorField);
+        if (errorElement) {
+          errorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          errorElement.focus();
+        }
+        return;
+      }
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setIsSubmitting(true);
+      setSubmitStatus(null);
+      setErrors({}); // Clear any previous errors
 
-      // Example: Uncomment when you have an API endpoint
-      // const response = await fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData),
-      // });
-      // if (!response.ok) throw new Error('Submission failed');
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
 
-      setSubmitStatus('success');
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        role: 'Real estate agent',
-        address: '',
-        sqft: '',
-        timeline: 'As soon as possible',
-        message: '',
-      });
-    } catch (error) {
-      setSubmitStatus('error');
-      console.error('Form submission error:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+        const result = await response.json();
+
+        if (!response.ok) {
+          // Handle rate limiting
+          if (response.status === 429) {
+            throw new Error(
+              result.error || `Too many requests. Please try again in ${result.retryAfter || 'a few'} minutes.`
+            );
+          }
+          throw new Error(result.error || 'Submission failed. Please try again.');
+        }
+
+        setSubmitStatus('success');
+        setFormData({ ...INITIAL_FORM_DATA });
+        
+        // Reset form scroll position
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (error) {
+        setSubmitStatus('error');
+        console.error('Form submission error:', error);
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [formData, validateEmail, validatePhone]
+  );
+
+  // Character count for message field
+  const messageCharCount = useMemo(
+    () => formData.message.length,
+    [formData.message]
+  );
 
   return (
     <form
@@ -105,6 +159,20 @@ export function ContactForm() {
       aria-label='Contact form'
       noValidate
     >
+      {/* Honeypot field for spam protection (hidden from users) */}
+      <input
+        type='text'
+        name='website'
+        tabIndex={-1}
+        autoComplete='off'
+        style={{
+          position: 'absolute',
+          left: '-9999px',
+          opacity: 0,
+          pointerEvents: 'none',
+        }}
+        aria-hidden='true'
+      />
       <div className='space-y-1'>
         <label className='text-[0.8rem] font-medium' htmlFor='name'>
           Name <span className='text-luxmuted/60'>*</span>
@@ -257,18 +325,40 @@ export function ContactForm() {
       </div>
 
       <div className='space-y-1'>
-        <label className='text-[0.8rem]' htmlFor='message'>
-          Anything else we should know?
-        </label>
+        <div className='flex items-center justify-between'>
+          <label className='text-[0.8rem]' htmlFor='message'>
+            Anything else we should know?
+          </label>
+          {formData.message && (
+            <span
+              className={`text-xs ${
+                messageCharCount > FIELD_LIMITS.message
+                  ? 'text-red-600'
+                  : messageCharCount > FIELD_LIMITS.message * 0.9
+                  ? 'text-amber-600'
+                  : 'text-luxmuted'
+              }`}
+            >
+              {messageCharCount} / {FIELD_LIMITS.message}
+            </span>
+          )}
+        </div>
         <textarea
           id='message'
           name='message'
           rows={4}
           value={formData.message}
           onChange={handleChange}
+          maxLength={FIELD_LIMITS.message}
           className='w-full rounded-2xl border border-luxmuted/25 bg-[#f5efe7] px-3 py-2 text-sm outline-none transition-colors focus:border-luxaccent focus:bg-white focus:ring-2 focus:ring-luxaccent/20'
           placeholder='Share listing link, photos, unique features, or specific goals for the sale.'
+          aria-describedby={errors.message ? 'message-error' : undefined}
         />
+        {errors.message && (
+          <p id='message-error' className='text-xs text-red-600 mt-0.5'>
+            {errors.message}
+          </p>
+        )}
       </div>
 
       {submitStatus === 'success' && (
@@ -286,8 +376,17 @@ export function ContactForm() {
           className='rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-800'
           role='alert'
         >
-          Something went wrong. Please try again or contact us directly at
-          info@fanddstaging.com.
+          <p className='font-medium mb-1'>Submission failed</p>
+          <p>
+            Something went wrong. Please try again or contact us directly at{' '}
+            <a
+              href='mailto:info@fanddstaging.com'
+              className='underline hover:no-underline'
+            >
+              info@fanddstaging.com
+            </a>
+            .
+          </p>
         </div>
       )}
 

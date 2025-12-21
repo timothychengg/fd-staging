@@ -8,6 +8,8 @@ const PROJECTS = [
   {
     name: '5246 S Montecito Dr, Concord, CA 94521',
     meta: 'Concord · 5 bd · 4.5 ba · 3,589 sq ft',
+    location: 'Concord',
+    propertyType: 'Single Family Home',
     result: 'Sold for $1,680,000 in 6 days.',
     description:
       'Open-plan home with warm woods, sculptural decor, and layered textiles to highlight indoor–outdoor flow.',
@@ -182,8 +184,27 @@ export default function PortfolioPage() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [erroredPhotos, setErroredPhotos] = useState({});
+  const [locationFilter, setLocationFilter] = useState('All');
+  const [propertyTypeFilter, setPropertyTypeFilter] = useState('All');
   const closeButtonRef = useRef(null);
   const modalRef = useRef(null);
+
+  // Get unique locations and property types
+  const locations = ['All', ...new Set(PROJECTS.map((p) => p.location))];
+  const propertyTypes = [
+    'All',
+    ...new Set(PROJECTS.map((p) => p.propertyType)),
+  ];
+
+  // Filter projects
+  const filteredProjects = PROJECTS.filter((project) => {
+    const locationMatch =
+      locationFilter === 'All' || project.location === locationFilter;
+    const typeMatch =
+      propertyTypeFilter === 'All' ||
+      project.propertyType === propertyTypeFilter;
+    return locationMatch && typeMatch;
+  });
 
   const photoSrc = (project, idx) => {
     const photos =
@@ -290,7 +311,6 @@ export default function PortfolioPage() {
               className='object-cover object-[72%_45%] scale-[1.08]'
               sizes='(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 400px'
               quality={85}
-              unoptimized
               priority
             />
           </div>
@@ -310,7 +330,7 @@ export default function PortfolioPage() {
                 fill
                 className='object-cover'
                 sizes='(max-width: 768px) 100vw, 520px'
-                unoptimized
+                quality={85}
                 loading='lazy'
                 onError={() => onPhotoError(p, 0)}
               />
@@ -403,7 +423,7 @@ export default function PortfolioPage() {
                   fill
                   className='object-cover'
                   sizes='(max-width: 768px) 90vw, (max-width: 1200px) 70vw, 960px'
-                  unoptimized
+                  quality={90}
                   priority={activePhotoIndex === 0}
                   loading={activePhotoIndex === 0 ? undefined : 'lazy'}
                   onError={() =>
@@ -457,7 +477,7 @@ export default function PortfolioPage() {
                       fill
                       className='object-cover'
                       sizes='80px'
-                      unoptimized
+                      quality={75}
                       loading='lazy'
                       onError={() => onPhotoError(selectedProject, idx)}
                     />

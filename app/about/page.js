@@ -128,12 +128,14 @@ export default function AboutPage() {
               <div className='flex items-center gap-3'>
                 <div className='relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#e9e2d7]'>
                   <Image
-                    src='/daniel.png'
+                    src='/daniel1.png'
                     alt='Daniel Hwang'
                     fill
                     className='object-cover object-center rounded-full'
                     style={{ transform: 'scale(1.1)' }}
-                    sizes='48px'
+                    sizes='96px'
+                    quality={100}
+                    priority
                   />
                 </div>
                 <div>

@@ -4,7 +4,31 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState, memo } from 'react';
-import { FeaturedReviews } from '../components/FeaturedReviews';
+import dynamic from 'next/dynamic';
+
+// Dynamically import FeaturedReviews to reduce initial bundle size
+const FeaturedReviews = dynamic(() => import('../components/FeaturedReviews').then(mod => ({ default: mod.FeaturedReviews })), {
+  loading: () => (
+    <div className='grid gap-6 md:grid-cols-2'>
+      {[...Array(2)].map((_, i) => (
+        <div
+          key={i}
+          className='rounded-2xl border border-luxmuted/15 bg-white p-6 animate-pulse'
+        >
+          <div className='h-5 w-24 bg-gray-200 rounded mb-4'></div>
+          <div className='space-y-2 mb-4'>
+            <div className='h-4 bg-gray-200 rounded'></div>
+            <div className='h-4 bg-gray-200 rounded w-5/6'></div>
+          </div>
+          <div className='pt-3 border-t border-luxmuted/10'>
+            <div className='h-4 w-32 bg-gray-200 rounded'></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  ),
+  ssr: true,
+});
 
 // Optimize motion components - memoize to prevent recreation
 const MotionDiv = motion.div;
@@ -111,35 +135,36 @@ const SERVICES = [
 const STRUCTURED_DATA = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
+  '@id': 'https://fanddstaging.com/#organization',
   name: 'F&D Staging',
+  alternateName: 'F&D Staging - Luxury Home Staging',
   description:
-    'Luxury home staging studio in the San Francisco Bay Area creating aspirational interiors that sell.',
+    'Luxury home staging studio in the San Francisco Bay Area creating aspirational interiors that sell. Professional staging services for vacant homes, occupied listings, and new developments.',
   url: 'https://fanddstaging.com',
   telephone: '(408)393-2161',
   email: 'info@fanddstaging.com',
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'San Francisco Bay Area',
+    streetAddress: 'Concord, CA',
+    addressLocality: 'Concord',
     addressRegion: 'CA',
+    postalCode: '94520',
     addressCountry: 'US',
   },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: '37.9775',
+    longitude: '-122.0311',
+  },
   areaServed: [
-    {
-      '@type': 'City',
-      name: 'San Francisco',
-    },
-    {
-      '@type': 'City',
-      name: 'Concord',
-    },
-    {
-      '@type': 'City',
-      name: 'Fremont',
-    },
-    {
-      '@type': 'City',
-      name: 'San Francisco',
-    },
+    { '@type': 'City', name: 'San Francisco' },
+    { '@type': 'City', name: 'Concord' },
+    { '@type': 'City', name: 'Fremont' },
+    { '@type': 'City', name: 'Oakland' },
+    { '@type': 'City', name: 'Palo Alto' },
+    { '@type': 'City', name: 'San Jose' },
+    { '@type': 'City', name: 'Berkeley' },
+    { '@type': 'City', name: 'Walnut Creek' },
   ],
   serviceType: 'Home Staging',
   priceRange: '$$',
@@ -147,6 +172,90 @@ const STRUCTURED_DATA = {
     '@type': 'AggregateRating',
     ratingValue: '5',
     reviewCount: '50+',
+    bestRating: '5',
+    worstRating: '1',
+  },
+  review: [
+    {
+      '@type': 'Review',
+      author: {
+        '@type': 'Person',
+        name: 'Sarah Chen',
+      },
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: '5',
+        bestRating: '5',
+      },
+      reviewBody:
+        'F&D Staging transformed our listing completely. The attention to detail and design sensibility helped us sell the property in just two weeks. Highly professional and easy to work with.',
+    },
+    {
+      '@type': 'Review',
+      author: {
+        '@type': 'Person',
+        name: 'Michael Rodriguez',
+      },
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: '5',
+        bestRating: '5',
+      },
+      reviewBody:
+        'Working with Fiona and Daniel was a pleasure. They understood our vision and executed flawlessly. The staging made our home feel warm, inviting, and ready for buyers.',
+    },
+    {
+      '@type': 'Review',
+      author: {
+        '@type': 'Person',
+        name: 'Jennifer Park',
+      },
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: '5',
+        bestRating: '5',
+      },
+      reviewBody:
+        'The team at F&D Staging has an incredible eye for design. They helped us stage multiple units in our development, and each one looked magazine-ready. Buyers were impressed from day one.',
+    },
+  ],
+  sameAs: [
+    'https://www.instagram.com/fanddstaging',
+    'https://www.facebook.com/fanddstaging',
+    'https://www.linkedin.com/company/fanddstaging',
+  ],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Home Staging Services',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Full Staging',
+          description:
+            'Complete staging for empty homes, investor flips, and new construction',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Occupied Staging',
+          description:
+            'Staging services for homes where clients are living during listing period',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Partial Staging',
+          description:
+            'Model home and amenity space staging for builders and developers',
+        },
+      },
+    ],
   },
 };
 
@@ -360,6 +469,13 @@ export default function Home() {
                 >
                   Book a Consultation
                 </Link>
+                <a
+                  href='tel:+14083932161'
+                  className='btn-pill border border-luxbg/70 bg-transparent text-luxbg hover:bg-luxbg/10 focus-visible:outline-luxbg focus-visible:ring-2 focus-visible:ring-luxbg/50'
+                  aria-label='Call F&D Staging at (408) 393-2161'
+                >
+                  Call (408) 393-2161
+                </a>
                 <Link
                   href='/portfolio'
                   prefetch={true}
@@ -369,10 +485,22 @@ export default function Home() {
                   View Portfolio
                 </Link>
               </div>
-              <p className='text-[0.72rem] uppercase tracking-[0.18em] text-luxbg/70'>
-                Serving the San Francisco Bay Area • Trusted by agents,
-                developers, and homeowners
-              </p>
+              <div className='flex flex-col gap-2 pt-2'>
+                <p className='text-[0.72rem] uppercase tracking-[0.18em] text-luxbg/70'>
+                  Serving the San Francisco Bay Area • Trusted by agents,
+                  developers, and homeowners
+                </p>
+                <div className='flex items-center gap-2 text-[0.7rem] text-luxbg/80'>
+                  <span className='flex items-center gap-1'>
+                    <span className='text-yellow-400'>★★★★★</span>
+                    <span>5.0 Rating</span>
+                  </span>
+                  <span>•</span>
+                  <span>50+ Reviews</span>
+                  <span>•</span>
+                  <span>286% ROI</span>
+                </div>
+              </div>
             </MotionDiv>
           </div>
         </section>
@@ -447,8 +575,9 @@ export default function Home() {
                     fill
                     className='object-cover transition-transform duration-500 group-hover:scale-105'
                     sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-                    quality={90}
+                    quality={85}
                     loading={idx === 0 ? 'eager' : 'lazy'}
+                    fetchPriority={idx === 0 ? 'high' : 'low'}
                   />
                   <div className='absolute inset-0 flex items-end p-4 bg-gradient-to-t from-black/50 via-black/20 to-transparent'>
                     <span className='text-[0.7rem] uppercase tracking-[0.18em] text-white drop-shadow-lg'>
@@ -565,13 +694,67 @@ export default function Home() {
                     width={140}
                     height={70}
                     className='h-auto max-h-14 w-auto object-contain'
-                    quality={85}
+                    quality={75}
                     loading='lazy'
                     sizes='(max-width: 768px) 100px, 140px'
+                    fetchPriority='low'
                   />
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* CTA SECTION */}
+        <section
+          className='section-shell border-b border-luxmuted/15 bg-white py-16'
+          aria-label='Get started with F&D Staging'
+        >
+          <div className='mx-auto max-w-3xl text-center'>
+            <MotionDiv
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className='heading-serif text-3xl mb-4 text-luxtxt md:text-4xl'>
+                Ready to stage your property?
+              </h2>
+              <p className='mb-8 text-sm leading-relaxed text-luxmuted md:text-base'>
+                Get a free consultation and see how professional staging can
+                help your property sell faster and for a higher price. We
+                respond within one business day.
+              </p>
+              <div className='flex flex-wrap justify-center gap-4'>
+                <Link
+                  href='/contact'
+                  prefetch={true}
+                  className='btn-pill bg-luxtxt text-luxbg hover:bg-luxtxt/90 focus-visible:outline-luxtxt focus-visible:ring-2 focus-visible:ring-luxtxt/50'
+                  aria-label='Get a free staging consultation'
+                >
+                  Get Free Consultation
+                </Link>
+                <a
+                  href='tel:+14083932161'
+                  className='btn-pill border-2 border-luxtxt bg-transparent text-luxtxt hover:bg-luxtxt hover:text-luxbg focus-visible:outline-luxtxt focus-visible:ring-2 focus-visible:ring-luxtxt/50'
+                  aria-label='Call F&D Staging at (408) 393-2161'
+                >
+                  Call (408) 393-2161
+                </a>
+                <Link
+                  href='/portfolio'
+                  prefetch={true}
+                  className='btn-pill border border-luxtxt bg-transparent text-luxtxt hover:bg-luxtxt/10 focus-visible:outline-luxtxt focus-visible:ring-2 focus-visible:ring-luxtxt/50'
+                  aria-label='View our portfolio of staged homes'
+                >
+                  View Portfolio
+                </Link>
+              </div>
+              <p className='mt-6 text-[0.8rem] text-luxmuted'>
+                Serving San Francisco, Concord, Fremont, Oakland, Palo Alto, San
+                Jose, and the entire Bay Area
+              </p>
+            </MotionDiv>
           </div>
         </section>
 
