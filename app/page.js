@@ -222,7 +222,6 @@ const STRUCTURED_DATA = {
   sameAs: [
     'https://www.instagram.com/fd_staging_408/',
     'https://www.facebook.com/fanddstaging',
-    'https://www.linkedin.com/company/fanddstaging',
   ],
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
@@ -497,8 +496,6 @@ export default function Home() {
                   </span>
                   <span>•</span>
                   <span>50+ Reviews</span>
-                  <span>•</span>
-                  <span>286% ROI</span>
                 </div>
               </div>
             </MotionDiv>
