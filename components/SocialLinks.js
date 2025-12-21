@@ -37,7 +37,7 @@ export const SocialLinks = memo(function SocialLinks({ className = '' }) {
       ),
     },
     {
-      href: 'https://www.thumbtack.com/profile/fanddstaging',
+      href: 'https://www.thumbtack.com/ca/pleasant-hill/home-staging/fd-staging/service/491115335951941639',
       label: 'View us on Thumbtack',
       color: '#009FD9',
       hoverColor: '#007BA8',
@@ -53,7 +53,7 @@ export const SocialLinks = memo(function SocialLinks({ className = '' }) {
       ),
     },
     {
-      href: 'https://www.yelp.com/biz/fanddstaging',
+      href: 'https://www.yelp.com/biz/f-and-d-staging-pleasant-hill',
       label: 'View us on Yelp',
       color: '#FF1A1A',
       hoverColor: '#D32323',
