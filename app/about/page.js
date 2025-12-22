@@ -36,7 +36,7 @@ export default function AboutPage() {
                 id='about-heading'
                 className='heading-serif text-3xl md:text-4xl mb-4 text-luxtxt'
               >
-                Fiona and Daniel
+                Fiona & Daniel
               </h1>
               <p className='max-w-xl text-sm leading-relaxed text-luxmuted'>
                 The husband-and-wife team behind F&amp;D Staging, share a
@@ -53,8 +53,7 @@ export default function AboutPage() {
               <h2 className='heading-serif text-xl text-luxtxt'>Our Mission</h2>
               <div className='space-y-3 text-sm leading-relaxed'>
                 <p>
-                  Based in the San Francisco Bay Area, we partner with agents,
-                  developers, and homeowners across the region who care about
+                  Based in the San Francisco Bay Area, we partner with agents and homeowners across the region who care about
                   presentation.
                 </p>
                 <p>
@@ -68,7 +67,7 @@ export default function AboutPage() {
           <div className='relative aspect-[4/3] w-full rounded-xl overflow-hidden border border-luxmuted/10 bg-luxbg shadow-[0_4px_12px_rgba(15,15,15,0.08)] md:mt-12'>
             <Image
               src='/family-photo.jpg'
-              alt='Fiona and Daniel with their family in a sun-dappled forest setting'
+              alt='Fiona & Daniel with their family in a sun-dappled forest setting'
               fill
               className='object-cover object-center'
               sizes='(max-width: 768px) 100vw, (max-width: 1200px) 40vw, 400px'
@@ -89,8 +88,7 @@ export default function AboutPage() {
               Founding Team
             </h2>
             <p className='text-sm text-luxmuted max-w-2xl mx-auto'>
-              The team behind F&amp;D Staging—partners to agents, developers,
-              and homeowners who need polished, market-ready interiors.
+              The team behind F&amp;D Staging—partners to agents and homeowners who need polished, market-ready interiors.
             </p>
           </div>
           <div className='grid gap-6 text-sm md:grid-cols-2 lg:grid-cols-4'>

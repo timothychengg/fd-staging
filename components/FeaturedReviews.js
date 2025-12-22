@@ -16,7 +16,7 @@ const FALLBACK_REVIEWS = [
     id: 'fallback-2',
     author: 'Michael Rodriguez',
     rating: 5,
-    text: 'Working with Fiona and Daniel was a pleasure. They understood our vision and executed flawlessly. The staging made our home feel warm, inviting, and ready for buyers.',
+    text: 'Working with Fiona & Daniel was a pleasure. They understood our vision and executed flawlessly. The staging made our home feel warm, inviting, and ready for buyers.',
     relativeTime: '3 months ago',
     role: 'Homeowner',
   },

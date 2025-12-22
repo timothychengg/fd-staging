@@ -20,18 +20,18 @@ import { GoogleReviewsCard } from '../../components/GoogleReviewsCard';
 export const metadata = {
   title: 'Reviews – F&D Staging',
   description:
-    'Read what our clients say about F&D Staging. Real testimonials from real estate agents, homeowners, and developers across the San Francisco Bay Area.',
+    'Read what our clients say about F&D Staging. Real testimonials from real estate agents and homeowners across the San Francisco Bay Area.',
   openGraph: {
     title: 'Reviews – F&D Staging',
     description:
-      'Read what our clients say about F&D Staging. Real testimonials from real estate agents, homeowners, and developers across the San Francisco Bay Area.',
+      'Read what our clients say about F&D Staging. Real testimonials from real estate agents and homeowners across the San Francisco Bay Area.',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Reviews – F&D Staging',
     description:
-      'Read what our clients say about F&D Staging. Real testimonials from real estate agents, homeowners, and developers across the San Francisco Bay Area.',
+      'Read what our clients say about F&D Staging. Real testimonials from real estate agents and homeowners across the San Francisco Bay Area.',
   },
 };
 
@@ -84,7 +84,7 @@ export default function ReviewsPage() {
               </h1>
               <p className='max-w-xl text-sm leading-relaxed text-luxmuted'>
                 We&apos;re grateful for the trust our clients place in us.
-                Here&apos;s what real estate agents, homeowners, and developers
+                Here&apos;s what real estate agents and homeowners
                 across the San Francisco Bay Area have shared about working with
                 F&D Staging.
               </p>
@@ -110,7 +110,7 @@ export default function ReviewsPage() {
               Trusted by Real Estate Professionals
             </h2>
             <p className='text-sm text-luxmuted max-w-2xl mx-auto'>
-              Discover what agents, homeowners, and developers across the Bay
+              Discover what agents and homeowners across the Bay
               Area are saying about their experience with F&D Staging.
             </p>
           </div>

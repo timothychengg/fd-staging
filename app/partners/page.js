@@ -2,7 +2,7 @@ export default function PartnersPage() {
   return (
     <main className="min-h-screen bg-luxbg">
       <section className="section-shell border-b border-luxmuted/15 py-14">
-        <p className="tagline mb-3 text-luxmuted">For Agents &amp; Developers</p>
+        <p className="tagline mb-3 text-luxmuted">For Agents &amp; Homeowners</p>
         <h1 className="heading-serif text-3xl mb-3">
           A staging partner that thinks like the deal team.
         </h1>
@@ -25,7 +25,7 @@ export default function PartnersPage() {
             Volume &amp; Portfolio Pricing
           </h2>
           <p className="text-luxmuted">
-            For agents and developers with multiple listings per year, we structure
+            For agents and homeowners with multiple listings per year, we structure
             pricing to support long-term collaboration.
           </p>
         </article>

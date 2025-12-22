@@ -127,7 +127,7 @@ const SERVICES = [
   },
   {
     title: 'Partial Staging',
-    body: 'For builders and developers seeking cohesive, aspirational model homes and amenity spaces that support premium positioning.',
+    body: 'For agents and homeowners seeking cohesive, aspirational model homes and amenity spaces that support premium positioning.',
   },
 ];
 
@@ -202,7 +202,7 @@ const STRUCTURED_DATA = {
         bestRating: '5',
       },
       reviewBody:
-        'Working with Fiona and Daniel was a pleasure. They understood our vision and executed flawlessly. The staging made our home feel warm, inviting, and ready for buyers.',
+        'Working with Fiona & Daniel was a pleasure. They understood our vision and executed flawlessly. The staging made our home feel warm, inviting, and ready for buyers.',
     },
     {
       '@type': 'Review',
@@ -251,7 +251,7 @@ const STRUCTURED_DATA = {
           '@type': 'Service',
           name: 'Partial Staging',
           description:
-            'Model home and amenity space staging for builders and developers',
+            'Model home and amenity space staging for agents and homeowners',
         },
       },
     ],
@@ -486,8 +486,7 @@ export default function Home() {
               </div>
               <div className='flex flex-col gap-2 pt-2'>
                 <p className='text-[0.72rem] uppercase tracking-[0.18em] text-luxbg/70'>
-                  Serving the San Francisco Bay Area • Trusted by agents,
-                  developers, and homeowners
+                  Serving the San Francisco Bay Area • Trusted by agents and homeowners
                 </p>
                 <div className='flex items-center gap-2 text-[0.7rem] text-luxbg/80'>
                   <span className='flex items-center gap-1'>
@@ -656,8 +655,7 @@ export default function Home() {
                 What our clients are saying.
               </h2>
               <p className='mt-2 max-w-md text-sm text-luxmuted'>
-                Real feedback from real estate agents, homeowners, and
-                developers across the San Francisco Bay Area.
+                Real feedback from real estate agents and homeowners across the San Francisco Bay Area.
               </p>
             </div>
             <Link

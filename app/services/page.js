@@ -78,7 +78,7 @@ export default function ServicesPage() {
         <article className='space-y-2 rounded-2xl border border-luxmuted/15 bg-white p-5'>
           <h2 className='text-base font-semibold'>Partial Staging</h2>
           <p className='text-luxmuted'>
-            For builders and developers seeking cohesive, aspirational model
+            For agents and homeowners seeking cohesive, aspirational model
             homes and amenity spaces that support premium positioning.
           </p>
           <ul className='ml-5 list-disc space-y-1 text-luxmuted'>
