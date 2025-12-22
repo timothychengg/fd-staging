@@ -7,7 +7,7 @@ const CITY_DATA = {
     name: 'San Francisco',
     displayName: 'San Francisco',
     description:
-      'Professional home staging services in San Francisco. We help luxury listings in neighborhoods like Noe Valley, Pacific Heights, and Mission Bay sell faster and for higher prices.',
+      'Professional home staging services in San Francisco. We help premium listings in neighborhoods like Noe Valley, Pacific Heights, and Mission Bay sell faster and for higher prices.',
     keyNeighborhoods: [
       'Noe Valley',
       'Pacific Heights',
@@ -26,7 +26,7 @@ const CITY_DATA = {
     name: 'Concord',
     displayName: 'Concord',
     description:
-      'Expert home staging in Concord, CA. Our team specializes in staging luxury homes in Concord and surrounding East Bay communities to maximize sale price and reduce time on market.',
+      'Expert home staging in Concord, CA. Our team specializes in staging premium homes in Concord and surrounding East Bay communities to maximize sale price and reduce time on market.',
     keyNeighborhoods: [
       'Downtown Concord',
       'Clayton Valley',
@@ -60,7 +60,7 @@ const CITY_DATA = {
     name: 'Oakland',
     displayName: 'Oakland',
     description:
-      'Luxury home staging in Oakland, CA. From Victorian homes to modern condos, we stage properties across Oakland to attract buyers and accelerate sales.',
+      'Premium home staging in Oakland, CA. From Victorian homes to modern condos, we stage properties across Oakland to attract buyers and accelerate sales.',
     keyNeighborhoods: [
       'Rockridge',
       'Montclair',
@@ -78,7 +78,7 @@ const CITY_DATA = {
     name: 'Palo Alto',
     displayName: 'Palo Alto',
     description:
-      'High-end staging services for Palo Alto luxury homes. We understand the Palo Alto market and create staging that appeals to discerning buyers in this premium market.',
+      'High-end staging services for Palo Alto premium homes. We understand the Palo Alto market and create staging that appeals to discerning buyers in this premium market.',
     keyNeighborhoods: [
       'Old Palo Alto',
       'Professorville',

@@ -20,7 +20,7 @@ export const Footer = memo(function Footer() {
             </div>
           </div>
           <p className='max-w-xs text-luxmuted'>
-            Boutique staging studio helping listings across the San Francisco
+            Premier staging studio helping listings across the San Francisco
             Bay Area sell faster and photograph at their absolute best.
           </p>
           <SocialLinks className='pt-2' />

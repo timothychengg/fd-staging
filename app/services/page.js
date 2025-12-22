@@ -78,13 +78,12 @@ export default function ServicesPage() {
         <article className='space-y-2 rounded-2xl border border-luxmuted/15 bg-white p-5'>
           <h2 className='text-base font-semibold'>Partial Staging</h2>
           <p className='text-luxmuted'>
-            For agents and homeowners seeking cohesive, aspirational model
-            homes and amenity spaces that support premium positioning.
+            Furnish key spaces like living, dining, and master bedroom only. A cost-effective solution that highlights important areas without staging the entire home.
           </p>
           <ul className='ml-5 list-disc space-y-1 text-luxmuted'>
-            <li>Model unit and sales office design</li>
-            <li>Amenity and common-area styling</li>
-            <li>Multi-unit and phased roll-out options</li>
+            <li>Furnish living, dining, and master bedroom only</li>
+            <li>Highlights key spaces without staging entire home</li>
+            <li>Cost-effective solution for occupied or partially vacant homes</li>
           </ul>
         </article>
         <article className='space-y-2 rounded-2xl border border-luxmuted/15 bg-white p-5'>

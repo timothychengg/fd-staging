@@ -45,7 +45,7 @@ export default function ReviewsPage() {
     '@type': 'LocalBusiness',
     name: 'F&D Staging',
     description:
-      'Luxury home staging studio in the San Francisco Bay Area creating aspirational interiors that sell.',
+      'Premium home staging studio in the San Francisco Bay Area creating aspirational interiors that sell.',
     url: 'https://fanddstaging.com',
     telephone: '(408)393-2161',
     email: 'hello@fanddstaging.com',

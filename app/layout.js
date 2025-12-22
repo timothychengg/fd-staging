@@ -13,14 +13,14 @@ const inter = Inter({
 
 export const metadata = {
   title: {
-    default: 'F&D Staging – Luxury Home Staging & Styling',
+    default: 'F&D Staging – Premium Home Staging & Styling',
     template: '%s | F&D Staging',
   },
   description:
-    'Luxury home staging studio in the San Francisco Bay Area creating aspirational interiors that sell. Professional staging services for vacant homes, occupied listings, and new developments.',
+    'Premium home staging studio in the San Francisco Bay Area creating aspirational interiors that sell. Professional staging services for vacant homes, occupied listings, and new developments.',
   keywords: [
     'home staging',
-    'luxury staging',
+    'premium staging',
     'real estate staging',
     'San Francisco Bay Area staging',
     'interior staging',
@@ -36,9 +36,9 @@ export const metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'F&D Staging – Luxury Home Staging & Styling',
+    title: 'F&D Staging – Premium Home Staging & Styling',
     description:
-      'Luxury home staging studio in the San Francisco Bay Area creating aspirational interiors that sell.',
+      'Premium home staging studio in the San Francisco Bay Area creating aspirational interiors that sell.',
     url: 'https://fanddstaging.com',
     siteName: 'F&D Staging',
     locale: 'en_US',
@@ -48,15 +48,15 @@ export const metadata = {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'F&D Staging - Luxury Home Staging',
+        alt: 'F&D Staging - Premium Home Staging',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'F&D Staging – Luxury Home Staging & Styling',
+    title: 'F&D Staging – Premium Home Staging & Styling',
     description:
-      'Luxury home staging studio in the San Francisco Bay Area creating aspirational interiors that sell.',
+      'Premium home staging studio in the San Francisco Bay Area creating aspirational interiors that sell.',
     creator: '@fanddstaging',
   },
   robots: {

@@ -127,7 +127,7 @@ const SERVICES = [
   },
   {
     title: 'Partial Staging',
-    body: 'For agents and homeowners seeking cohesive, aspirational model homes and amenity spaces that support premium positioning.',
+    body: 'Furnish key spaces like living, dining, and master bedroom only. A cost-effective solution that highlights important areas without staging the entire home.',
   },
 ];
 
@@ -137,9 +137,9 @@ const STRUCTURED_DATA = {
   '@type': 'LocalBusiness',
   '@id': 'https://fanddstaging.com/#organization',
   name: 'F&D Staging',
-  alternateName: 'F&D Staging - Luxury Home Staging',
+  alternateName: 'F&D Staging - Premium Home Staging',
   description:
-    'Luxury home staging studio in the San Francisco Bay Area creating aspirational interiors that sell. Professional staging services for vacant homes, occupied listings, and new developments.',
+    'Premium home staging studio in the San Francisco Bay Area creating aspirational interiors that sell. Professional staging services for vacant homes, occupied listings, and new developments.',
   url: 'https://fanddstaging.com',
   telephone: '(408)393-2161',
   email: 'info@fanddstaging.com',
@@ -251,7 +251,7 @@ const STRUCTURED_DATA = {
           '@type': 'Service',
           name: 'Partial Staging',
           description:
-            'Model home and amenity space staging for agents and homeowners',
+            'Furnish living, dining, and master bedroom only. Cost-effective solution for occupied or partially vacant homes.',
         },
       },
     ],
@@ -372,7 +372,7 @@ const VideoBanner = memo(function VideoBanner() {
         {!imageError ? (
           <Image
             src='https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1600&auto=format&fit=crop'
-            alt='Luxury home staging interior with elegant furnishings'
+            alt='Premium home staging interior with elegant furnishings'
             fill
             priority
             quality={90}
@@ -397,7 +397,7 @@ const VideoBanner = memo(function VideoBanner() {
             isLoaded && !videoError ? 'opacity-100' : 'opacity-0'
           }`}
           preload='metadata'
-          aria-label='Luxury home staging video background showcasing elegant interiors'
+          aria-label='Premium home staging video background showcasing elegant interiors'
           onError={() => {
             setVideoError(true);
           }}
@@ -447,7 +447,7 @@ export default function Home() {
               transition={{ duration: 0.7, ease: 'easeOut' }}
             >
               <p className='tagline text-luxbg/70'>
-                LUXURY HOME STAGING • SAN FRANCISCO BAY AREA
+                PREMIUM HOME STAGING • SAN FRANCISCO BAY AREA
               </p>
               <h1 className='heading-serif text-4xl leading-tight md:text-5xl'>
                 Stage the home.
