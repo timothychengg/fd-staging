@@ -254,7 +254,7 @@ export async function POST(request) {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     // Prepare email content
-    const recipientEmail = process.env.CONTACT_EMAIL || 'info@fanddstaging.com';
+    const recipientEmail = process.env.CONTACT_EMAIL || 'dhwang1129@gmail.com';
     const emailSubject = `New Contact Form Submission from ${sanitized.name}`;
     const emailHtml = generateEmailHtml(sanitized);
     const emailText = generateEmailText(sanitized);
