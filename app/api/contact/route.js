@@ -240,7 +240,10 @@ export async function POST(request) {
     // If Resend API key is not configured, log the submission and return success
     // This allows the form to work in development without email setup
     if (!process.env.RESEND_API_KEY) {
-      console.log('Contact form submission (email not configured):', sanitized);
+      console.error('⚠️ RESEND_API_KEY is not configured. Form submission received but email not sent:', {
+        recipient: process.env.CONTACT_EMAIL || 'dhwang1129@gmail.com',
+        submission: sanitized
+      });
       return Response.json(
         {
           success: true,
@@ -265,6 +268,14 @@ export async function POST(request) {
     const fromEmail =
       process.env.RESEND_FROM_EMAIL || 'F&D Staging <onboarding@resend.dev>';
 
+    // Log email attempt for debugging
+    console.log('📧 Attempting to send email:', {
+      from: fromEmail,
+      to: recipientEmail,
+      subject: emailSubject,
+      hasApiKey: !!process.env.RESEND_API_KEY
+    });
+
     const { data, error } = await resend.emails.send({
       from: fromEmail,
       to: recipientEmail,
@@ -275,11 +286,13 @@ export async function POST(request) {
     });
 
     if (error) {
-      console.error('Resend API error:', error);
-      // Log more details in development for debugging
-      if (process.env.NODE_ENV === 'development') {
-        console.error('Resend error details:', JSON.stringify(error, null, 2));
-      }
+      console.error('❌ Resend API error:', JSON.stringify(error, null, 2));
+      console.error('Email details:', {
+        from: fromEmail,
+        to: recipientEmail,
+        errorCode: error.name,
+        errorMessage: error.message
+      });
       return Response.json(
         { 
           error: 'Failed to send email notification',
@@ -288,6 +301,13 @@ export async function POST(request) {
         { status: 500 }
       );
     }
+
+    // Log successful email send
+    console.log('✅ Email sent successfully:', {
+      emailId: data?.id,
+      to: recipientEmail,
+      subject: emailSubject
+    });
 
     return Response.json(
       {
