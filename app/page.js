@@ -142,7 +142,7 @@ const STRUCTURED_DATA = {
     'Premium home staging studio in the San Francisco Bay Area creating aspirational interiors that sell. Professional staging services for vacant homes, occupied listings, and new developments.',
   url: 'https://fanddstaging.com',
   telephone: '(408)393-2161',
-  email: 'info@fanddstaging.com',
+  email: 'dhwang1129@gmail.com',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Concord, CA',

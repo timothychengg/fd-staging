@@ -42,7 +42,7 @@ export default function ContactPage() {
           <div>
             <h2 className='tagline mb-1 text-[0.7rem] text-luxtxt'>Direct</h2>
             <p>
-              info@fanddstaging.com
+              dhwang1129@gmail.com
               <br />
               (408) 393-2161
             </p>

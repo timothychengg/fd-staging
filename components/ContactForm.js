@@ -380,10 +380,10 @@ export function ContactForm() {
           <p>
             Something went wrong. Please try again or contact us directly at{' '}
             <a
-              href='mailto:info@fanddstaging.com'
+              href='mailto:dhwang1129@gmail.com'
               className='underline hover:no-underline'
             >
-              info@fanddstaging.com
+              dhwang1129@gmail.com
             </a>
             .
           </p>

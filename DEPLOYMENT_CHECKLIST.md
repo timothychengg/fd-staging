@@ -29,8 +29,8 @@ Use this checklist alongside `GODADDY_INTEGRATION.md` to complete your setup.
 Add these in your hosting provider's dashboard:
 
 - [ ] `RESEND_API_KEY` - Get from [resend.com/api-keys](https://resend.com/api-keys)
-- [ ] `RESEND_FROM_EMAIL` - Set to `F&D Staging <info@fanddstaging.com>`
-- [ ] `CONTACT_EMAIL` - Set to `info@fanddstaging.com`
+- [ ] `RESEND_FROM_EMAIL` - Set to `F&D Staging <dhwang1129@gmail.com>`
+- [ ] `CONTACT_EMAIL` - Set to `dhwang1129@gmail.com`
 
 ## Step 3: Initial Deployment
 

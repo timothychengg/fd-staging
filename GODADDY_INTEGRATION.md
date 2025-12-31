@@ -132,7 +132,7 @@ If you have GoDaddy email hosting:
 
 2. **Configure Email in Your App:**
    - Update `RESEND_FROM_EMAIL` in your `.env` to use your GoDaddy email
-   - Example: `F&D Staging <info@fanddstaging.com>`
+   - Example: `F&D Staging <dhwang1129@gmail.com>`
    - Make sure to verify this email in Resend
 
 ### Option 2: Use Resend with GoDaddy Domain
@@ -157,7 +157,7 @@ If you have GoDaddy email hosting:
 
 4. **Update Environment Variables:**
    ```env
-   RESEND_FROM_EMAIL=F&D Staging <info@fanddstaging.com>
+   RESEND_FROM_EMAIL=F&D Staging <dhwang1129@gmail.com>
    ```
 
 ### Option 3: Use GoDaddy Workspace Email
@@ -169,7 +169,7 @@ If you have GoDaddy Workspace (formerly Office 365):
    - SMTP Server: `smtp.office365.com`
    - Port: 587
    - Security: TLS
-   - Username: `info@fanddstaging.com`
+   - Username: `dhwang1129@gmail.com`
    - Password: Your email password
 
 2. **Update Contact Form:**

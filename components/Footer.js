@@ -40,7 +40,7 @@ export const Footer = memo(function Footer() {
         <div className='space-y-2'>
           <h4 className='tagline mb-1 text-[0.7rem]'>Contact</h4>
           <p className='text-luxmuted'>
-            info@fanddstaging.com
+            dhwang1129@gmail.com
             <br />
             (408)393-2161
           </p>

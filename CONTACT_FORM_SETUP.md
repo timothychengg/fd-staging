@@ -20,11 +20,11 @@ RESEND_API_KEY=re_your_api_key_here
 
 # Optional: Custom from email (must be a verified domain in Resend)
 # Default: F&D Staging <onboarding@resend.dev>
-RESEND_FROM_EMAIL=F&D Staging <info@fanddstaging.com>
+RESEND_FROM_EMAIL=F&D Staging <dhwang1129@gmail.com>
 
 # Optional: Recipient email for contact form submissions
-# Default: info@fanddstaging.com
-CONTACT_EMAIL=info@fanddstaging.com
+# Default: dhwang1129@gmail.com
+CONTACT_EMAIL=dhwang1129@gmail.com
 ```
 
 ### 3. Verify Your Domain (Recommended for Production)
@@ -36,7 +36,7 @@ For production use, you should verify your domain in Resend:
 3. Add the DNS records provided by Resend to your domain's DNS settings
 4. Once verified, update `RESEND_FROM_EMAIL` to use your domain:
    ```bash
-   RESEND_FROM_EMAIL=F&D Staging <info@fanddstaging.com>
+   RESEND_FROM_EMAIL=F&D Staging <dhwang1129@gmail.com>
    ```
 
 ### 4. Test the Form

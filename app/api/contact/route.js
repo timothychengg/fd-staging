@@ -261,7 +261,7 @@ export async function POST(request) {
 
     // Send email using Resend
     // Note: The 'from' email must be a verified domain in Resend
-    // For production, use: 'F&D Staging <info@fanddstaging.com>' or your verified domain
+    // For production, use: 'F&D Staging <dhwang1129@gmail.com>' or your verified domain
     const fromEmail =
       process.env.RESEND_FROM_EMAIL || 'F&D Staging <onboarding@resend.dev>';
 
