@@ -3,8 +3,10 @@
 // Requires: RESEND_API_KEY environment variable
 
 import { Resend } from 'resend';
+import { getClientIP, createErrorResponse, createSuccessResponse, escapeHtml, trimAndLimit, isValidEmail } from '../../../lib/utils';
 
 export const dynamic = 'force-dynamic';
+export const maxDuration = 30; // Maximum execution time in seconds
 
 // Rate limiting: Simple in-memory store (for production, consider Redis or Upstash)
 const rateLimitStore = new Map();
@@ -25,19 +27,7 @@ const FIELD_LIMITS = {
   message: 2000,
 };
 
-// Simple HTML escape function to prevent XSS (optimized)
-const HTML_ESCAPE_MAP = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;',
-  };
-
-function escapeHtml(text) {
-  if (!text) return '';
-  return String(text).replace(/[&<>"']/g, (m) => HTML_ESCAPE_MAP[m]);
-}
+// Note: escapeHtml is now imported from lib/utils
 
 // Rate limiting check (works in serverless environments)
 function checkRateLimit(ip) {
@@ -165,62 +155,62 @@ function generateEmailText(data) {
 export async function POST(request) {
   try {
     // Get client IP for rate limiting
-    const forwarded = request.headers.get('x-forwarded-for');
-    const ip = forwarded ? forwarded.split(',')[0] : request.headers.get('x-real-ip') || 'unknown';
+    const ip = getClientIP(request);
 
     // Rate limiting check
     const rateLimitResult = checkRateLimit(ip);
     if (!rateLimitResult.allowed) {
-      return Response.json(
+      return createErrorResponse(
+        `Too many requests. Please try again in ${rateLimitResult.remaining} minute${rateLimitResult.remaining !== 1 ? 's' : ''}.`,
+        429,
         {
-          error: 'Too many requests. Please try again later.',
           retryAfter: rateLimitResult.remaining,
-        },
-        {
-          status: 429,
-          headers: {
-            'Retry-After': String(rateLimitResult.remaining * 60),
-          },
         }
       );
     }
 
-    // Parse and validate request body
+    // Parse and validate request body with timeout protection
     let formData;
     try {
-      formData = await request.json();
+      const body = await request.text();
+      if (!body || body.trim().length === 0) {
+        return createErrorResponse('Request body is required', 400);
+      }
+      
+      // Limit body size to prevent abuse (max 50KB)
+      if (body.length > 50 * 1024) {
+        return createErrorResponse('Request body too large', 413);
+      }
+      
+      formData = JSON.parse(body);
     } catch (error) {
-      return Response.json({ error: 'Invalid JSON in request body' }, { status: 400 });
+      if (error instanceof SyntaxError) {
+        return createErrorResponse('Invalid JSON in request body', 400);
+      }
+      throw error;
     }
 
     // Honeypot field check (spam protection)
-    if (formData.website || formData.url) {
-      // Silently ignore spam submissions
-      return Response.json({ success: true }, { status: 200 });
+    if (formData.website || formData.url || formData.honeypot) {
+      // Silently ignore spam submissions (return success to avoid revealing honeypot)
+      return createSuccessResponse({ success: true });
     }
 
     // Validate required fields
     if (!formData.name || typeof formData.name !== 'string') {
-      return Response.json({ error: 'Name is required' }, { status: 400 });
+      return createErrorResponse('Name is required', 400);
     }
 
     if (!formData.email || typeof formData.email !== 'string') {
-      return Response.json({ error: 'Email is required' }, { status: 400 });
+      return createErrorResponse('Email is required', 400);
     }
 
-    // Validate email format (RFC 5322 compliant regex)
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email.trim())) {
-      return Response.json({ error: 'Invalid email address' }, { status: 400 });
+    // Validate email format
+    if (!isValidEmail(formData.email)) {
+      return createErrorResponse('Invalid email address', 400);
     }
 
     // Validate and sanitize form data
-    const trimAndLimit = (value, maxLength) => {
-      if (!value) return '';
-      const trimmed = String(value).trim();
-      return trimmed.length > maxLength ? trimmed.substring(0, maxLength) : trimmed;
-    };
-
     const sanitized = {
       name: escapeHtml(trimAndLimit(formData.name, FIELD_LIMITS.name)),
       email: escapeHtml(trimAndLimit(formData.email, FIELD_LIMITS.email)),
@@ -233,8 +223,8 @@ export async function POST(request) {
     };
 
     // Validate email format again after sanitization
-    if (!emailRegex.test(sanitized.email)) {
-      return Response.json({ error: 'Invalid email address format' }, { status: 400 });
+    if (!isValidEmail(sanitized.email)) {
+      return createErrorResponse('Invalid email address format', 400);
     }
 
     // If Resend API key is not configured, log the submission and return success
@@ -244,13 +234,10 @@ export async function POST(request) {
         recipient: process.env.CONTACT_EMAIL || 'dhwang1129@gmail.com',
         submission: sanitized
       });
-      return Response.json(
-        {
-          success: true,
-          message: 'Form submitted successfully (email not configured)',
-        },
-        { status: 200 }
-      );
+      return createSuccessResponse({
+        success: true,
+        message: 'Form submitted successfully (email not configured)',
+      });
     }
 
     // Initialize Resend only when API key is available
@@ -293,12 +280,13 @@ export async function POST(request) {
         errorCode: error.name,
         errorMessage: error.message
       });
-      return Response.json(
-        { 
-          error: 'Failed to send email notification',
-          details: process.env.NODE_ENV === 'development' ? error.message : undefined
-        },
-        { status: 500 }
+      return createErrorResponse(
+        'Failed to send email notification',
+        500,
+        {
+          details: process.env.NODE_ENV === 'development' ? error.message : undefined,
+          errorCode: error.name,
+        }
       );
     }
 
@@ -309,14 +297,11 @@ export async function POST(request) {
       subject: emailSubject
     });
 
-    return Response.json(
-      {
-        success: true,
-        message: 'Form submitted successfully',
-        emailId: data?.id,
-      },
-      { status: 200 }
-    );
+    return createSuccessResponse({
+      success: true,
+      message: 'Form submitted successfully',
+      emailId: data?.id,
+    });
   } catch (error) {
     console.error('Contact form API error:', error);
     
@@ -326,6 +311,8 @@ export async function POST(request) {
         ? error.message
         : 'Internal server error';
 
-    return Response.json({ error: errorMessage }, { status: 500 });
+    return createErrorResponse(errorMessage, 500, {
+      type: error instanceof Error ? error.constructor.name : 'UnknownError',
+    });
   }
 }

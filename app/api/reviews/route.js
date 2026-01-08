@@ -2,8 +2,11 @@
 // This route fetches reviews from Google Places API
 // Requires: GOOGLE_PLACES_API_KEY and GOOGLE_PLACE_ID environment variables
 
+import { fetchWithTimeout, createErrorResponse, createSuccessResponse } from '../../../lib/utils';
+
 export const dynamic = 'force-dynamic';
 export const revalidate = 3600; // Revalidate every hour
+export const maxDuration = 30; // Maximum execution time in seconds
 
 export async function GET() {
   const apiKey = process.env.GOOGLE_PLACES_API_KEY;
@@ -11,10 +14,10 @@ export async function GET() {
 
   // If API key or Place ID is not configured, return empty array
   if (!apiKey || !placeId) {
-    return Response.json(
-      { reviews: [], error: 'Google Places API not configured' },
-      { status: 200 }
-    );
+    return createSuccessResponse({
+      reviews: [],
+      error: 'Google Places API not configured',
+    });
   }
 
   // Clean and decode Place ID
@@ -30,11 +33,12 @@ export async function GET() {
     placeId = placeId.split('?')[0].split('&')[0].trim();
   }
 
-  // Retry function for transient errors
+  // Retry function for transient errors with timeout
   const fetchWithRetry = async (url, options, maxRetries = 2) => {
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
       try {
-        const response = await fetch(url, options);
+        // Use fetchWithTimeout with 8 second timeout per attempt
+        const response = await fetchWithTimeout(url, options, 8000);
         if (response.ok || attempt === maxRetries) {
           return response;
         }
@@ -116,13 +120,14 @@ export async function GET() {
         profilePhotoUrl: review.profile_photo_url,
       }));
 
-      return Response.json(
+      return createSuccessResponse(
         {
           reviews,
           totalRating: legacyData.result?.rating || 0,
           totalReviews: legacyData.result?.user_ratings_total || 0,
           placeId: placeId, // Include place ID for Google Maps link
         },
+        200,
         {
           headers: {
             'Cache-Control':
@@ -150,13 +155,14 @@ export async function GET() {
       profilePhotoUrl: review.authorAttribution?.photoUri || null,
     }));
 
-    return Response.json(
+    return createSuccessResponse(
       {
         reviews,
         totalRating: data.rating || 0,
         totalReviews: data.userRatingCount || 0,
         placeId: placeId, // Include place ID for Google Maps link
       },
+      200,
       {
         headers: {
           'Cache-Control':
@@ -166,9 +172,10 @@ export async function GET() {
     );
   } catch (error) {
     console.error('Error fetching Google reviews:', error);
-    return Response.json(
-      { reviews: [], error: error.message },
-      { status: 200 } // Return 200 so page still renders with fallback
-    );
+    // Return 200 so page still renders with fallback reviews
+    return createSuccessResponse({
+      reviews: [],
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
+    });
   }
 }

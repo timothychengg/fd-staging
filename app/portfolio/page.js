@@ -6,6 +6,28 @@ import Link from 'next/link';
 
 const PROJECTS = [
   {
+    name: '5519 Holly Bay Ave, Dublin, CA 94568',
+    meta: 'Dublin · 4 bd · 4 ba · 2,450 sq ft',
+    location: 'Dublin',
+    propertyType: 'Townhouse',
+    result: 'Listed for $1,299,000.',
+    description:
+      'Modern townhouse staged with contemporary design, luxurious finishes, and thoughtful layouts to showcase the open-concept living, spa-style primary suite, and versatile third-floor loft space.',
+    photos: [
+      '/hollydublin1.webp',
+      '/hollydublin.webp',
+      '/hollydublin3.webp',
+      '/hollydublin4.webp',
+      '/hollydublin5.webp',
+      '/hollydublin6.webp',
+      '/hollydublin7.webp',
+      '/hollydublin8.webp',
+      '/hollydublin9.webp',
+      '/hollydubin10.webp',
+      '/hollydublin11.webp',
+    ],
+  },
+  {
     name: '5246 S Montecito Dr, Concord, CA 94521',
     meta: 'Concord · 5 bd · 4.5 ba · 3,589 sq ft',
     location: 'Concord',
@@ -184,62 +206,63 @@ export default function PortfolioPage() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [erroredPhotos, setErroredPhotos] = useState({});
-  const [locationFilter, setLocationFilter] = useState('All');
-  const [propertyTypeFilter, setPropertyTypeFilter] = useState('All');
   const closeButtonRef = useRef(null);
   const modalRef = useRef(null);
 
-  // Get unique locations and property types
-  const locations = ['All', ...new Set(PROJECTS.map((p) => p.location))];
-  const propertyTypes = [
-    'All',
-    ...new Set(PROJECTS.map((p) => p.propertyType)),
-  ];
 
-  // Filter projects
-  const filteredProjects = PROJECTS.filter((project) => {
-    const locationMatch =
-      locationFilter === 'All' || project.location === locationFilter;
-    const typeMatch =
-      propertyTypeFilter === 'All' ||
-      project.propertyType === propertyTypeFilter;
-    return locationMatch && typeMatch;
-  });
+  const photoSrc = useCallback(
+    (project, idx) => {
+      if (!project) return PLACEHOLDER_PHOTOS[0];
 
-  const photoSrc = (project, idx) => {
-    const photos =
-      project?.photos?.length && project.photos.length > 0
-        ? project.photos
-        : PLACEHOLDER_PHOTOS;
-    const fallback = PLACEHOLDER_PHOTOS[idx % TOTAL_PLACEHOLDER_PHOTOS];
+      const photos =
+        project?.photos?.length && project.photos.length > 0
+          ? project.photos
+          : PLACEHOLDER_PHOTOS;
+      const fallback = PLACEHOLDER_PHOTOS[idx % TOTAL_PLACEHOLDER_PHOTOS];
+      const key = photoKey(project, idx);
+      if (erroredPhotos[key]) return fallback;
+      return photos[idx % photos.length] || fallback;
+    },
+    [erroredPhotos]
+  );
+
+  const onPhotoError = useCallback((project, idx) => {
+    if (!project) return;
     const key = photoKey(project, idx);
-    if (erroredPhotos[key]) return fallback;
-    return photos[idx % photos.length] || fallback;
-  };
-
-  const onPhotoError = (project, idx) => {
-    setErroredPhotos((prev) => ({
-      ...prev,
-      [photoKey(project, idx)]: true,
-    }));
-  };
-
-  const openModal = useCallback((project, startIndex = 0) => {
-    setSelectedProject(project);
-    setActivePhotoIndex(startIndex);
+    setErroredPhotos((prev) => {
+      // Only update if not already marked as error
+      if (prev[key]) return prev;
+      return {
+        ...prev,
+        [key]: true,
+      };
+    });
   }, []);
 
-  const closeModal = useCallback(() => setSelectedProject(null), []);
+  const openModal = useCallback((project, startIndex = 0) => {
+    if (!project) return;
+    setSelectedProject(project);
+    // Ensure startIndex is within bounds
+    const maxIndex = photoCount(project) - 1;
+    setActivePhotoIndex(Math.max(0, Math.min(startIndex, maxIndex)));
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setSelectedProject(null);
+    setActivePhotoIndex(0);
+  }, []);
 
   const showNextPhoto = useCallback(() => {
     if (!selectedProject) return;
     const count = photoCount(selectedProject);
+    if (count === 0) return;
     setActivePhotoIndex((prev) => (prev + 1) % count);
   }, [selectedProject]);
 
   const showPrevPhoto = useCallback(() => {
     if (!selectedProject) return;
     const count = photoCount(selectedProject);
+    if (count === 0) return;
     setActivePhotoIndex((prev) => (prev - 1 + count) % count);
   }, [selectedProject]);
 
@@ -328,11 +351,13 @@ export default function PortfolioPage() {
                 src={photoSrc(p, 0)}
                 alt={`${p.name} lead photo`}
                 fill
-                className='object-cover'
+                className='object-cover transition-opacity duration-300'
                 sizes='(max-width: 768px) 100vw, 520px'
                 quality={85}
                 loading='lazy'
                 onError={() => onPhotoError(p, 0)}
+                placeholder='blur'
+                blurDataURL='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQADAD8AkjRnm4nU0SqB5HIpO2Yx+7HkKM52LYeN5XmJdH2P/9k='
               />
             </div>
 
@@ -419,7 +444,9 @@ export default function PortfolioPage() {
               <div className='relative flex-1 min-h-[50vh] w-full overflow-hidden rounded-xl border border-luxmuted/15 bg-luxbg'>
                 <Image
                   src={photoSrc(selectedProject, activePhotoIndex)}
-                  alt={`${selectedProject.name} photo ${activePhotoIndex + 1}`}
+                  alt={`${selectedProject?.name || 'Project'} photo ${
+                    activePhotoIndex + 1
+                  }`}
                   fill
                   className='object-cover'
                   sizes='(max-width: 768px) 90vw, (max-width: 1200px) 70vw, 960px'
@@ -429,6 +456,9 @@ export default function PortfolioPage() {
                   onError={() =>
                     onPhotoError(selectedProject, activePhotoIndex)
                   }
+                  onLoadingComplete={() => {
+                    // Image loaded successfully
+                  }}
                 />
 
                 <button

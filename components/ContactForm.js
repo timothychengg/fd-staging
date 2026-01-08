@@ -113,13 +113,33 @@ export function ContactForm() {
       setErrors({}); // Clear any previous errors
 
       try {
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
+        // Create AbortController for timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
 
-        const result = await response.json();
+        let response;
+        try {
+          response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData),
+            signal: controller.signal,
+          });
+        } catch (fetchError) {
+          clearTimeout(timeoutId);
+          if (fetchError.name === 'AbortError') {
+            throw new Error('Request timed out. Please check your connection and try again.');
+          }
+          throw new Error('Network error. Please check your connection and try again.');
+        }
+        clearTimeout(timeoutId);
+
+        let result;
+        try {
+          result = await response.json();
+        } catch (jsonError) {
+          throw new Error('Invalid response from server. Please try again.');
+        }
 
         if (!response.ok) {
           // Handle rate limiting
@@ -128,7 +148,12 @@ export function ContactForm() {
               result.error || `Too many requests. Please try again in ${result.retryAfter || 'a few'} minutes.`
             );
           }
-          throw new Error(result.error || 'Submission failed. Please try again.');
+          // Handle client errors (4xx)
+          if (response.status >= 400 && response.status < 500) {
+            throw new Error(result.error || 'Please check your form and try again.');
+          }
+          // Handle server errors (5xx)
+          throw new Error(result.error || 'Server error. Please try again later.');
         }
 
         setSubmitStatus('success');
@@ -138,7 +163,13 @@ export function ContactForm() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } catch (error) {
         setSubmitStatus('error');
+        const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred. Please try again.';
         console.error('Form submission error:', error);
+        
+        // Set a general error message for user
+        setErrors({ 
+          _general: errorMessage 
+        });
       } finally {
         setIsSubmitting(false);
       }
@@ -375,17 +406,22 @@ export function ContactForm() {
         <div
           className='rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-800'
           role='alert'
+          aria-live='polite'
         >
           <p className='font-medium mb-1'>Submission failed</p>
           <p>
-            Something went wrong. Please try again or contact us directly at{' '}
-            <a
-              href='mailto:dhwang1129@gmail.com'
-              className='underline hover:no-underline'
-            >
-              dhwang1129@gmail.com
-            </a>
-            .
+            {errors._general || 'Something went wrong. Please try again or contact us directly at '}
+            {!errors._general && (
+              <>
+                <a
+                  href='mailto:dhwang1129@gmail.com'
+                  className='underline hover:no-underline'
+                >
+                  dhwang1129@gmail.com
+                </a>
+                .
+              </>
+            )}
           </p>
         </div>
       )}

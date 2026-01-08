@@ -108,10 +108,23 @@ export const GoogleReviews = memo(function GoogleReviews() {
 
   useEffect(() => {
     let isMounted = true;
+    let controller = new AbortController();
 
     async function fetchReviews() {
       try {
-        const response = await fetch('/api/reviews');
+        // Set timeout for fetch
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+        
+        const response = await fetch('/api/reviews', {
+          signal: controller.signal,
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch reviews: ${response.status}`);
+        }
+        
         const data = await response.json();
 
         if (!isMounted) return;
@@ -133,18 +146,29 @@ export const GoogleReviews = memo(function GoogleReviews() {
           })
           .slice(0, 3); // Only show first 3 reviews
 
-        setReviews(sortedReviews);
+        if (isMounted) {
+          setReviews(sortedReviews);
+        }
       } catch (err) {
         if (!isMounted) return;
+        
+        const errorMessage = err instanceof Error 
+          ? err.message 
+          : 'Failed to load reviews';
+        
         console.error('Error fetching reviews:', err);
-        setError(err.message);
+        setError(errorMessage);
+        
         // Use fallback reviews on error, sorted by length, limit to 3
         const sortedFallbacks = [...FALLBACK_REVIEWS]
           .sort((a, b) => {
             return b.text.length - a.text.length;
           })
           .slice(0, 3); // Only show first 3 reviews
-        setReviews(sortedFallbacks);
+        
+        if (isMounted) {
+          setReviews(sortedFallbacks);
+        }
       } finally {
         if (isMounted) {
           setLoading(false);
@@ -156,6 +180,7 @@ export const GoogleReviews = memo(function GoogleReviews() {
 
     return () => {
       isMounted = false;
+      controller.abort();
     };
   }, []);
 
