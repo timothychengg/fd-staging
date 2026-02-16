@@ -99,8 +99,8 @@ export default function AboutPage() {
                     src='/fiona.png'
                     alt='Fiona Lu'
                     fill
-                    className='object-cover object-center rounded-full'
-                    style={{ transform: 'scale(1.1)' }}
+                    className='object-cover rounded-full'
+                    style={{ objectPosition: 'center 35%' }}
                     sizes='80px'
                   />
                 </div>
