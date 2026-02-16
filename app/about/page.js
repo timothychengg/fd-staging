@@ -94,14 +94,14 @@ export default function AboutPage() {
           <div className='grid gap-6 text-sm md:grid-cols-2 lg:grid-cols-4'>
             <article className='space-y-3 rounded-2xl border border-luxmuted/15 bg-white p-6 transition-shadow hover:shadow-lg'>
               <div className='flex items-center gap-3'>
-                <div className='relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#e9e2d7]'>
+                <div className='relative h-20 w-20 shrink-0 overflow-hidden rounded-full bg-[#e9e2d7]'>
                   <Image
                     src='/fiona.png'
                     alt='Fiona Lu'
                     fill
                     className='object-cover object-center rounded-full'
                     style={{ transform: 'scale(1.1)' }}
-                    sizes='48px'
+                    sizes='80px'
                   />
                 </div>
                 <div>
@@ -124,14 +124,14 @@ export default function AboutPage() {
             </article>
             <article className='space-y-3 rounded-2xl border border-luxmuted/15 bg-white p-6 transition-shadow hover:shadow-lg'>
               <div className='flex items-center gap-3'>
-                <div className='relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#e9e2d7]'>
+                <div className='relative h-20 w-20 shrink-0 overflow-hidden rounded-full bg-[#e9e2d7]'>
                   <Image
                     src='/daniel1.png'
                     alt='Daniel Hwang'
                     fill
                     className='object-cover object-center rounded-full'
                     style={{ transform: 'scale(1.1)' }}
-                    sizes='96px'
+                    sizes='80px'
                     quality={100}
                     priority
                   />
@@ -155,14 +155,14 @@ export default function AboutPage() {
             </article>
             <article className='space-y-3 rounded-2xl border border-luxmuted/15 bg-white p-6 transition-shadow hover:shadow-lg'>
               <div className='flex items-center gap-3'>
-                <div className='relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#e9e2d7]'>
+                <div className='relative h-20 w-20 shrink-0 overflow-hidden rounded-full bg-[#e9e2d7]'>
                   <Image
                     src='/teresa.PNG'
                     alt='Teresa Lu'
                     fill
                     className='object-cover object-center rounded-full'
                     style={{ transform: 'scale(1.1)' }}
-                    sizes='48px'
+                    sizes='80px'
                   />
                 </div>
                 <div>
@@ -183,14 +183,14 @@ export default function AboutPage() {
             </article>
             <article className='space-y-3 rounded-2xl border border-luxmuted/15 bg-white p-6 transition-shadow hover:shadow-lg'>
               <div className='flex items-center gap-3'>
-                <div className='relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#e9e2d7]'>
+                <div className='relative h-20 w-20 shrink-0 overflow-hidden rounded-full bg-[#e9e2d7]'>
                   <Image
                     src='/timothy.png'
                     alt='Timothy Cheng'
                     fill
                     className='object-cover object-center rounded-full'
                     style={{ transform: 'scale(1.1)' }}
-                    sizes='48px'
+                    sizes='80px'
                   />
                 </div>
                 <div>
