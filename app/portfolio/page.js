@@ -6,6 +6,48 @@ import Link from 'next/link';
 
 const PROJECTS = [
   {
+    name: '10910 Glen Artney St, Oakland, CA 94605',
+    meta: 'Oakland · 3 bd · 2 ba · 1,334 sq ft',
+    location: 'Oakland',
+    propertyType: 'Single Family Home',
+    result: 'Listed for $925,000.',
+    description:
+      'Remodeled mid-century in the Oakland Hills staged to highlight an open floor plan, dual-pane daylight, and a quartz waterfall kitchen with indoor–outdoor flow via accordion French doors to the deck—minutes from Chabot and regional parks.',
+    photos: [
+      '/glenartney1.png',
+      '/glenartney2.png',
+      '/glenartney3.png',
+      '/glenartney4.png',
+      '/glenartney5.png',
+      '/glenartney6.png',
+      '/glenartney7.png',
+      '/glenartney8.png',
+      '/glenartney9.png',
+      '/glenartney10.png',
+    ],
+  },
+  {
+    name: '2479 31st Ave, San Francisco, CA 94116',
+    meta: 'San Francisco · 5 bd · 4 ba · 2,658 sq ft',
+    location: 'San Francisco',
+    propertyType: 'Single Family Home',
+    result: 'Listed for $2,590,000.',
+    description:
+      'Fully permitted studs-up renovation of a ~1926 Parkside home—staging emphasizes generous room count, designer finishes, and a cohesive flow through formal and family spaces so the scale of the rebuild reads instantly on tour and in photos.',
+    photos: [
+      '/sf31st1.png',
+      '/sf31st2.png',
+      '/sf31st3.png',
+      '/sf31st4.png',
+      '/sf31st5.png',
+      '/sf31st6.png',
+      '/sf31st7.png',
+      '/sf31st8.png',
+      '/sf31st9.png',
+      '/sf31st10.png',
+    ],
+  },
+  {
     name: '5519 Holly Bay Ave, Dublin, CA 94568',
     meta: 'Dublin · 4 bd · 4 ba · 2,450 sq ft',
     location: 'Dublin',
